@@ -81,6 +81,9 @@
   <ItemGroup>
     <Compile Include="3LAWMN12VW.vb" />
     <Compile Include="3LAWMN12VWInfo.vb" />
+    <Compile Include="Data\Applicant\Address.vb" />
+    <Compile Include="Data\Applicant\Applicant.vb" />
+    <Compile Include="Data\Applicant\ApplicantID.vb" />
     <Compile Include="Layout\3LAWMN12VW_Layout.Designer.vb">
       <DependentUpon>3LAWMN12VW_Layout.vb</DependentUpon>
     </Compile>
@@ -102,6 +105,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Data\Utility.vb" />
+    <Compile Include="Data\VWCreditProcess.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Layout\3LAWMN12VW_Layout.resx">
