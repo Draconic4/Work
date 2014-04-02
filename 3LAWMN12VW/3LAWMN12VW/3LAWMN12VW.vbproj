@@ -59,8 +59,7 @@
     <Reference Include="Include7">
       <HintPath>..\..\..\..\DvtAristo2\proj_VWCreditValidation\Aristo.Deal\App.Deals.BootStrap\Include7.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Deals.FormsIntegration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="PBS.Deals.FormsIntegration">
       <HintPath>..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Deals.FormsIntegration.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />

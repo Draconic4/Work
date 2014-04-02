@@ -58,6 +58,10 @@
     <Reference Include="Caliburn.Micro">
       <HintPath>..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\Caliburn.Micro.dll</HintPath>
     </Reference>
+    <Reference Include="PBS.Deals.FormsIntegration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Deals.FormsIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="PBS.Framework.ControlLibrary">
       <HintPath>..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.ControlLibrary.dll</HintPath>
     </Reference>
