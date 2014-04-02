@@ -3,10 +3,19 @@
 Public Class VWCreditProcess
     Inherits Csla.BusinessBase(Of VWCreditProcess)
 
+    Public Shared ReadOnly ApplicationTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicationType), "APPLICATION_TYPE", "INDIVIDUAL")
     Public Shared ReadOnly DealTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DealType), "DEAL_STATUS", "0")
     Public Shared ReadOnly CountryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Country), "DLR_COUNTRY", "US")
 
 #Region "  Properties "
+    Public Property ApplicationType As String
+        Get
+            Return GetProperty(ApplicationTypeProperty)
+        End Get
+        Set(value As String)
+            SetProperty(ApplicationTypeProperty, value)
+        End Set
+    End Property
     Public ReadOnly Property DealType As String
         Get
             Return GetProperty(DealTypeProperty)

@@ -44,6 +44,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Micro, Version=1.3.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\Caliburn.Micro.dll</HintPath>
+    </Reference>
     <Reference Include="Csla">
       <HintPath>..\..\..\..\DvtAristo2\9.0.1\_Environment\Csla.dll</HintPath>
     </Reference>
@@ -59,13 +63,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Deals.FormsIntegration.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -107,6 +115,14 @@
     </Compile>
     <Compile Include="Data\Utility.vb" />
     <Compile Include="Data\VWCreditProcess.vb" />
+    <Compile Include="UI\PromptContentView.xaml.vb">
+      <DependentUpon>PromptContentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\PromptContentViewModel.vb" />
+    <Compile Include="UI\VWContractRequiredView.xaml.vb">
+      <DependentUpon>VWContractRequiredView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\VWContractRequiredViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Layout\3LAWMN12VW_Layout.resx">
@@ -133,6 +149,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Layout\Image\US_MN_LAW 553_10-2012_N_Pg1.gif" />
+    <Resource Include="Resources\VWLogo.jpg" />
+    <Resource Include="Resources\forbidden.png" />
+    <Resource Include="Resources\check.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UI\PromptContentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\VWContractRequiredView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

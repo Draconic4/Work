@@ -39,7 +39,7 @@ Namespace My.Resources
         Friend ReadOnly Property ResourceManager() As Global.System.Resources.ResourceManager
             Get
                 If Object.ReferenceEquals(resourceMan, Nothing) Then
-                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("_3LAWMN12VW.Resources", GetType(Resources).Assembly)
+                    Dim temp As Global.System.Resources.ResourceManager = New Global.System.Resources.ResourceManager("_3LAWMN12VW_View.Resources", GetType(Resources).Assembly)
                     resourceMan = temp
                 End If
                 Return resourceMan
@@ -73,20 +73,27 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property forbidden() As System.Drawing.Bitmap
+        Friend ReadOnly Property delete() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("forbidden", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("delete", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         
         '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''  Looks up a localized string similar to &lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+        '''    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;&gt;
+        '''    &lt;ResourceDictionary.MergedDictionaries&gt;
+        '''        &lt;ResourceDictionary Source=&quot;/PBS.Framework.ControlLibrary;component/Wpf/AristoThemeDefault.xaml&quot;/&gt;
+        '''    &lt;/ResourceDictionary.MergedDictionaries&gt;
+        '''    &lt;Color x:Key=&quot;ControlNormalColor&quot;&gt;#FFFFFFD5&lt;/Color&gt;
+        '''    &lt;Color x:Key=&quot;ControlMouseOverColor&quot;&gt;#FFFFFF99&lt;/Color&gt;
+        '''    &lt;!--#FFF9F9AE--&gt;
+        '''    &lt;Color x:Key=&quot;ControlP [rest of string was truncated]&quot;;.
         '''</summary>
-        Friend ReadOnly Property VWLogo() As System.Drawing.Bitmap
+        Friend ReadOnly Property FormPromptViewerDictionary() As String
             Get
-                Dim obj As Object = ResourceManager.GetObject("VWLogo", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
+                Return ResourceManager.GetString("FormPromptViewerDictionary", resourceCulture)
             End Get
         End Property
     End Module
