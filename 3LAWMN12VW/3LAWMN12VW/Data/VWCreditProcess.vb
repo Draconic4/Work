@@ -6,6 +6,7 @@ Public Class VWCreditProcess
     Public Shared ReadOnly ApplicationTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicationType), "APPLICATION_TYPE", "INDIVIDUAL")
     Public Shared ReadOnly DealTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DealType), "DEAL_STATUS", "0")
     Public Shared ReadOnly CountryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Country), "DLR_COUNTRY", "US")
+    Public Shared ReadOnly AddressProperty As PropertyInfo(Of Address) = RegisterProperty(Of Address)(Function(c) (c.Buy), "BUY")
 
 #Region "  Properties "
     Public Property ApplicationType As String
@@ -26,6 +27,11 @@ Public Class VWCreditProcess
             Return GetProperty(CountryProperty)
         End Get
     End Property
+    Public ReadOnly Property Buy As Address
+        Get
+            Return GetProperty(AddressProperty)
+        End Get
+    End Property
 #End Region
 
     Public Sub New()
@@ -33,8 +39,11 @@ Public Class VWCreditProcess
 
     Public Shared Function FetchExisting(ByVal formDC As Dictionary(Of String, Object), ByVal aristoDC As Dictionary(Of String, Object)) As VWCreditProcess
         Dim dp As New VWCreditProcess
+        dp.LoadProperty(AddressProperty, New Address("BUY"))
         dp.LoadFormDataContext(formDC)
+        dp.Buy.Populate(formDC)
         dp.LoadFormDataContext(aristoDC)
+        dp.Buy.Populate(aristoDC)
         Return dp
     End Function
 

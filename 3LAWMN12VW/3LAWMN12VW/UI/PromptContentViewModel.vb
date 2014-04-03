@@ -53,6 +53,8 @@ Public Class PromptContentViewModel
 
     Public Sub Handle(message As PBS.Deals.FormsIntegration.BeginValidationMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage).Handle
         Yahtzee = "Hello Nurse"
+        _detailView.Validate()
+        _detailView.NotifyOfPropertyChange("")
     End Sub
 
     Public Sub Handle1(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle

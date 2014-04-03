@@ -13,6 +13,26 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/PBS.Framework.ControlLibrary;component/Wpf/AristoThemeDefault.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="0,2,24,0"></Setter>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel LastChildFill="True">
+                                <Border Background="Orange" DockPanel.Dock="Right" Margin="5,0,0,0" Width="20" Height="20" CornerRadius="5" 
+                                        ToolTip="{Binding ElementName=customAdorner, 
+                                          Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                    <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" 
+                                   FontWeight="Bold" Foreground="white" />
+                                </Border>
+                                <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                                    <Border BorderBrush="red" BorderThickness="1" />
+                                </AdornedElementPlaceholder>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="{StaticResource ResourceKey=Grid2Color}">
@@ -24,12 +44,19 @@
             <Label FontWeight="Bold" FontSize="14">Required Information</Label>
         </Border>
         <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0">Application Type</Label>
             <ComboBox Grid.Column="1" SelectedItem="{Binding ApplicationType}" ItemsSource="{Binding ApplicationTypes}"></ComboBox>
+            <Label Grid.Row="1" Grid.Column="0">Error Test</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DataContext.City, Mode=TwoWay,ValidatesOnDataErrors=True}">
+            </TextBox>
         </Grid>
     </Grid>
     

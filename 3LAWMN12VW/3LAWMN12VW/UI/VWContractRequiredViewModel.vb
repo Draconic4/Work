@@ -1,4 +1,6 @@
 ﻿Imports Caliburn.Micro
+Imports System.ComponentModel
+
 Public Class VWContractRequiredViewModel
     Inherits Screen
 
@@ -12,6 +14,11 @@ Public Class VWContractRequiredViewModel
         Set(value As String)
             _masterView.DataContext.ApplicationType = value
         End Set
+    End Property
+    Public ReadOnly Property DataContext As Address
+        Get
+            Return _masterView.DataContext.Buy
+        End Get
     End Property
     Public ReadOnly Property ApplicationTypes As List(Of String)
         Get
@@ -34,4 +41,7 @@ Public Class VWContractRequiredViewModel
         _masterView = mv
     End Sub
 
+    Public Sub Validate()
+        DataContext.CheckRules()
+    End Sub
 End Class

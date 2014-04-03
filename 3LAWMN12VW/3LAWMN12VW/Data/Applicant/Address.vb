@@ -143,7 +143,8 @@ Public Class Address
 
 #Region "  Business Rules "
     Protected Overrides Sub AddBusinessRules()
-        Me.BusinessRules.AddRule(New HasRequiredValue)
+        Me.BusinessRules.AddRule(New HasRequiredValue(Line1Property))
+        Me.BusinessRules.AddRule(New HasRequiredValue(CityProperty))
         Me.BusinessRules.AddRule(New IsValidZip)
         Me.BusinessRules.AddRule(New IsValidPostalCode)
     End Sub
@@ -152,13 +153,15 @@ Public Class Address
     End Sub
     Public Class HasRequiredValue
         Inherits Csla.Rules.BusinessRule
-        Public Sub New()
+        Public Sub New(ByVal pi As PropertyInfo(Of String))
+            Me.PrimaryProperty = pi
             Me.InputProperties = New List(Of Core.IPropertyInfo) From {CountryProperty, ApplicationTypeProperty, Line1Property, Line2Property, CityProperty, StateProperty, PostalCodeProperty}
         End Sub
         Protected Overrides Sub Execute(context As Rules.RuleContext)
             Dim t As Address = context.Target
-            If IsInValidValue(t.Line1) Then context.AddErrorResult("Validation Error - Street Address is required.")
-            If IsInValidValue(t.City) Then context.AddErrorResult("Validation Error - City is required.")
+            Dim x As String = t.ReadProperty(Me.PrimaryProperty)
+            If PrimaryProperty.Name = "Line1" AndAlso IsInValidValue(x) Then context.AddErrorResult("Validation Error - Street Address is required.")
+            If PrimaryProperty.Name = "City" AndAlso IsInValidValue(x) Then context.AddErrorResult("Validation Error - City is required.")
         End Sub
         Private Function IsInValidValue(ByVal val As String) As Boolean
             Return String.IsNullOrWhiteSpace(val)
