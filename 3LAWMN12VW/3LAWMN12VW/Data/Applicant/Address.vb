@@ -163,6 +163,7 @@ Public Class Address
             If PrimaryProperty.Name = "Line1" AndAlso IsInValidValue(x) Then context.AddErrorResult("Validation Error - Street Address is required.")
             If PrimaryProperty.Name = "City" AndAlso IsInValidValue(x) Then context.AddErrorResult("Validation Error - City is required.")
         End Sub
+        'Adding a comment...
         Private Function IsInValidValue(ByVal val As String) As Boolean
             Return String.IsNullOrWhiteSpace(val)
         End Function
