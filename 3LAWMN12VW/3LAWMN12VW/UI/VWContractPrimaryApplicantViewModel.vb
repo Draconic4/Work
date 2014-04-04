@@ -76,4 +76,8 @@ Public Class VWContractPrimaryApplicantViewModel
         '_Address2 = New VWContractAddressViewModel(_Person.BillingAddress)
         '_Address3 = New VWContractAddressViewModel(_Person.GarageAddress)
     End Sub
+    Public Sub Validate()
+        _Id.Validate()
+        NotifyOfPropertyChange("")
+    End Sub
 End Class

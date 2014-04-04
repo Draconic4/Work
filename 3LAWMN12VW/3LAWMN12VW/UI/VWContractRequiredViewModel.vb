@@ -36,6 +36,7 @@ Public Class VWContractRequiredViewModel
     End Sub
 
     Public Sub Validate()
+        NotifyOfPropertyChange("")
         '_dataContext.CheckRules()
     End Sub
 End Class

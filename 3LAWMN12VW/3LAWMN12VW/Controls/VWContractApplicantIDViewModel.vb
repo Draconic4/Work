@@ -1,4 +1,8 @@
-﻿Public Class VWContractApplicantIDViewModel
+﻿Imports Caliburn.Micro
+
+Public Class VWContractApplicantIDViewModel
+    Inherits Screen
+
     Private _Applicant As ApplicantID
     Private _globalProperties As ProcessInfo
 
@@ -42,5 +46,9 @@
     Public Sub New(ByVal appId As ApplicantID, globalProperties As ProcessInfo)
         _Applicant = appId
         _globalProperties = globalProperties
+    End Sub
+    Public Sub Validate()
+        _Applicant.CheckRules()
+        NotifyOfPropertyChange("")
     End Sub
 End Class

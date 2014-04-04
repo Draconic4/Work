@@ -178,6 +178,7 @@ Public Class ApplicantID
     Public Class HasRequiredValue
         Inherits Csla.Rules.BusinessRule
         Public Sub New()
+            Me.PrimaryProperty = GivenProperty
             Me.InputProperties = New List(Of Core.IPropertyInfo) From {CountryProperty, ApplicationTypeProperty, FamilyProperty, GivenProperty, DriverLicenseProperty}
         End Sub
         Protected Overrides Sub Execute(context As Rules.RuleContext)

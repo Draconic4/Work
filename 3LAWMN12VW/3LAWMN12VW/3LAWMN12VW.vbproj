@@ -132,7 +132,6 @@
     <Compile Include="UI\VWContractPrimaryApplicantView.xaml.vb">
       <DependentUpon>VWContractPrimaryApplicantView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\VWContractPrimaryViewModel.vb" />
     <Compile Include="UI\VWContractPrimaryApplicantViewModel.vb" />
     <Compile Include="UI\VWContractRequiredView.xaml.vb">
       <DependentUpon>VWContractRequiredView.xaml</DependentUpon>

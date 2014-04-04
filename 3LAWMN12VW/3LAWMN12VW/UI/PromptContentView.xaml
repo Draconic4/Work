@@ -126,14 +126,14 @@
         <Grid Grid.Row="1" Background="{StaticResource ResourceKey=Grid2Color}" Margin="0,5,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <ToggleButton Content="Required" Grid.Column="0" IsChecked="{Binding RequiredChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action RequiredClicked]"/>
-            <ToggleButton Content="Applicant" Grid.Column="1"  IsChecked="{Binding ApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action ApplicantClicked]" />
+            <ToggleButton Content="Primary Applicant" Grid.Column="1"  IsChecked="{Binding ApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action ApplicantClicked]" />
             <!--<ToggleButton Content="Applicant" Grid.Column="2"  IsChecked="{Binding ApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action ApplicantClicked]"/>
             <ToggleButton Content="Finance" Grid.Column="3" IsChecked="{Binding FinanceChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action FinanceClicked]" />
             <ToggleButton Content="Vehicle" Grid.Column="4" IsChecked="{Binding FinanceChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action VehicleClicked]" />-->
