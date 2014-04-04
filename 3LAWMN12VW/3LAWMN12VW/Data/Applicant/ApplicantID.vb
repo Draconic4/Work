@@ -7,14 +7,22 @@ Public Class ApplicantID
     Public Shared ReadOnly CountryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Country), "COUNTRY", "US")
     Public Shared ReadOnly ApplicationTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicationType), "_APPLICANTTYPE", "INDIV")
     Public Shared ReadOnly FamilyProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Family), "_LASTNAME", String.Empty)
+    Public Shared ReadOnly MiddleProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Middle), "_INITNAME", String.Empty)
     Public Shared ReadOnly GivenProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Given), "_FIRSTNAME", String.Empty)
-    Public Shared ReadOnly SSNProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.SSN), "_SIN", String.Empty)
-    Public Shared ReadOnly SINProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.SIN), "_SIN", String.Empty)
+    Public Shared ReadOnly SuffixProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Suffix), "_SUFFIX", String.Empty)
+    Public Shared ReadOnly BirthDateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.BirthDate), "_BIRTHDATE", String.Empty)
+    Public Shared ReadOnly AgeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Age), "_AGE", String.Empty)
+    Public Shared ReadOnly NationalIDProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.NationalId), "_SIN", String.Empty)
     Public Shared ReadOnly IssuingStateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.IssuingState), "_DLIC_STATE", String.Empty)
     Public Shared ReadOnly DriverLicenseProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DriverLicense), "_DLIC_NO", String.Empty)
     Public Shared ReadOnly DriverLicenseExpiryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DriverLicenseExpiry), "_DLIC_EXP", String.Empty)
 
 #Region "  Properties "
+    Public ReadOnly Property FullName As String
+        Get
+            Return Given & " " & Family
+        End Get
+    End Property
     Public ReadOnly Property Country As String
         Get
             Return GetProperty(CountryProperty)
@@ -41,6 +49,14 @@ Public Class ApplicantID
             SetProperty(FamilyProperty, value)
         End Set
     End Property
+    Public Property Middle As String
+        Get
+            Return GetProperty(MiddleProperty)
+        End Get
+        Set(value As String)
+            SetProperty(MiddleProperty, value)
+        End Set
+    End Property
     Public Property Given As String
         Get
             Return GetProperty(GivenProperty)
@@ -49,20 +65,36 @@ Public Class ApplicantID
             SetProperty(GivenProperty, value)
         End Set
     End Property
-    Public Property SSN As String
+    Public Property Suffix As String
         Get
-            Return GetProperty(SSNProperty)
+            Return GetProperty(SuffixProperty)
         End Get
         Set(value As String)
-            SetProperty(SSNProperty, value)
+            SetProperty(SuffixProperty, value)
         End Set
     End Property
-    Public Property SIN As String
+    Public Property BirthDate As String
         Get
-            Return GetProperty(SINProperty)
+            Return GetProperty(BirthDateProperty)
         End Get
         Set(value As String)
-            SetProperty(SINProperty, value)
+            SetProperty(BirthDateProperty, value)
+        End Set
+    End Property
+    Public Property Age As String
+        Get
+            Return GetProperty(AgeProperty)
+        End Get
+        Set(value As String)
+            SetProperty(AgeProperty, value)
+        End Set
+    End Property
+    Public Property NationalID As String
+        Get
+            Return GetProperty(NationalIDProperty)
+        End Get
+        Set(value As String)
+            SetProperty(NationalIDProperty, value)
         End Set
     End Property
     Public Property DriverLicense As String
@@ -103,9 +135,12 @@ Public Class ApplicantID
         If d.ContainsKey("DLR_COUNTRY") Then LoadProperty(CountryProperty, d("DLR_COUNTRY"))
         If String.IsNullOrWhiteSpace(Country) Then Exit Sub
         PopulateField(FamilyProperty, d)
+        PopulateField(MiddleProperty, d)
         PopulateField(GivenProperty, d)
-        If Country.StartsWith("U") Then PopulateField(SSNProperty, d)
-        PopulateField(SINProperty, d)
+        PopulateField(SuffixProperty, d)
+        PopulateField(BirthDateProperty, d)
+        PopulateField(AgeProperty, d)
+        PopulateField(NationalIDProperty, d)
         PopulateField(IssuingStateProperty, d)
         PopulateField(DriverLicenseProperty, d)
         PopulateField(DriverLicenseExpiryProperty, d)
@@ -118,9 +153,12 @@ Public Class ApplicantID
         Dim d As New Dictionary(Of String, Object)
 
         d.Add(ApplicantType & FamilyProperty.FriendlyName, Family)
+        d.Add(ApplicantType & MiddleProperty.FriendlyName, Middle)
         d.Add(ApplicantType & GivenProperty.FriendlyName, Given)
-        If Country.StartsWith("U") Then d.Add(ApplicantType & SSNProperty.FriendlyName, SSN)
-        d.Add(ApplicantType & SINProperty.FriendlyName, SIN)
+        d.Add(ApplicantType & SuffixProperty.FriendlyName, Suffix)
+        d.Add(ApplicantType & BirthDateProperty.FriendlyName, BirthDate)
+        d.Add(ApplicantType & AgeProperty.FriendlyName, Age)
+        d.Add(ApplicantType & NationalIDProperty.FriendlyName, NationalID)
         d.Add(ApplicantType & IssuingStateProperty.FriendlyName, IssuingState)
         d.Add(ApplicantType & DriverLicenseProperty.FriendlyName, DriverLicense)
         d.Add(ApplicantType & DriverLicenseExpiryProperty.FriendlyName, DriverLicenseExpiry)
@@ -140,7 +178,7 @@ Public Class ApplicantID
     Public Class HasRequiredValue
         Inherits Csla.Rules.BusinessRule
         Public Sub New()
-            Me.InputProperties = New List(Of Core.IPropertyInfo) From {CountryProperty, ApplicationTypeProperty, FamilyProperty, GivenProperty, DriverLicenseProperty, SSNProperty}
+            Me.InputProperties = New List(Of Core.IPropertyInfo) From {CountryProperty, ApplicationTypeProperty, FamilyProperty, GivenProperty, DriverLicenseProperty}
         End Sub
         Protected Overrides Sub Execute(context As Rules.RuleContext)
             Dim t As ApplicantID = context.Target
@@ -156,14 +194,14 @@ Public Class ApplicantID
         Inherits Csla.Rules.BusinessRule
 
         Public Sub New()
-            Me.PrimaryProperty = SSNProperty
+            Me.PrimaryProperty = NationalIDProperty
             Me.InputProperties = New List(Of Csla.Core.IPropertyInfo) From {CountryProperty}
         End Sub
 
         Protected Overrides Sub Execute(context As Rules.RuleContext)
             Dim t As ApplicantID = context.Target
             If t.Country.StartsWith("U") Then
-                If t.SSN.Length >= 9 Then context.AddErrorResult("Validation Error - Applicant must have a valid Social Insurance Number.")
+                If t.NationalID.Length >= 9 Then context.AddErrorResult("Validation Error - Applicant must have a valid Social Insurance Number.")
             End If
         End Sub
     End Class

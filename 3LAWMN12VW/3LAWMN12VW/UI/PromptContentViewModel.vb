@@ -7,9 +7,10 @@ Public Class PromptContentViewModel
 
     Private ReadOnly _eventAggregator As IEventAggregator
 
-    Private _yahtz As String = "Go Home"
     Private _dataContext As VWCreditProcess
     Private _detailView As VWContractRequiredViewModel
+    Private _primaryApplicant As VWContractPrimaryApplicantViewModel
+
     Public Property DataContext As VWCreditProcess
         Get
             Return _dataContext
@@ -18,18 +19,12 @@ Public Class PromptContentViewModel
             _dataContext = value
         End Set
     End Property
-    Public Property Yahtzee As String
-        Get
-            Return _yahtz
-        End Get
-        Set(value As String)
-            _yahtz = value
-            Me.NotifyOfPropertyChange("Yahtzee")
-        End Set
-    End Property
 
     Public Sub RequiredClicked()
         ChangeView(_detailView)
+    End Sub
+    Public Sub ApplicantClicked()
+        ChangeView(_primaryApplicant)
     End Sub
     Private Sub ChangeView(ByVal newView As Screen)
         'If Me.ActiveItem Is VWContractRequiredViewModel Then
@@ -37,27 +32,32 @@ Public Class PromptContentViewModel
         'End If
         Me.ActiveItem = newView
         Me.NotifyOfPropertyChange("RequiredChecked")
+        Me.NotifyOfPropertyChange("ApplicantChecked")
     End Sub
     Public ReadOnly Property RequiredChecked()
         Get
             Return Me.ActiveItem.GetType() Is GetType(VWContractRequiredViewModel)
         End Get
     End Property
+    Public ReadOnly Property ApplicantChecked()
+        Get
+            Return Me.ActiveItem.GetType() Is GetType(VWContractPrimaryApplicantViewModel)
+        End Get
+    End Property
     Public Sub New(ByVal previousDC As Dictionary(Of String, Object), ByVal arDC As Dictionary(Of String, Object), eventAggregator As IEventAggregator)
         _dataContext = VWCreditProcess.FetchExisting(previousDC, arDC)
-        _detailView = New VWContractRequiredViewModel(Me) 'Me.Items.Add(New VWContractRequiredViewModel(Me))
+        _detailView = New VWContractRequiredViewModel(Me)
+        _primaryApplicant = New VWContractPrimaryApplicantViewModel(Me)
         _eventAggregator = eventAggregator
         _eventAggregator.Subscribe(Me)
-        Me.ActiveItem = _detailView
+        Me.ActiveItem = _primaryApplicant
     End Sub
 
     Public Sub Handle(message As PBS.Deals.FormsIntegration.BeginValidationMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage).Handle
-        Yahtzee = "Hello Nurse"
         _detailView.Validate()
         _detailView.NotifyOfPropertyChange("")
     End Sub
 
     Public Sub Handle1(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle
-        Yahtzee = "HAHAHA I AM ALL POWERFUL"
     End Sub
 End Class

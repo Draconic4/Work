@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="VWContractApplicantIDView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="600" Height="75" Width="600">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style TargetType="{x:Type TextBox}">
+                <Setter Property="Margin" Value="2,2,24,2"></Setter>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <DockPanel LastChildFill="True">
+                                <Border Background="Orange" DockPanel.Dock="Right" Margin="5,0,0,0" Width="20" Height="20" CornerRadius="5" 
+                                        ToolTip="{Binding ElementName=customAdorner, 
+                                          Path=AdornedElement.(Validation.Errors)[0].ErrorContent}">
+                                    <TextBlock Text="!" VerticalAlignment="center" HorizontalAlignment="center" 
+                                   FontWeight="Bold" Foreground="white" />
+                                </Border>
+                                <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" >
+                                    <Border BorderBrush="red" BorderThickness="1" />
+                                </AdornedElementPlaceholder>
+                            </DockPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="124*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="124*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="124*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="124*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Label Content="Given" Grid.Column="0" />
+        <TextBox Grid.Column="1" MaxLength="20" Text="{Binding Applicant.Given, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+        <Label Content="Middle" Grid.Column="2" />
+        <TextBox Grid.Column="3" MaxLength="20" Text="{Binding Applicant.Middle, Mode=TwoWay, ValidatesOnDataErrors=True}" />
+        <Label Content="Family" Grid.Column="4" />
+        <TextBox Grid.Column="5" MaxLength="30" Text="{Binding Applicant.Family, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
+        <Label Content="Suffix" Grid.Column="6" />
+        <ComboBox Grid.Column="7" SelectedItem="{Binding Applicant.Suffix}" ItemsSource="{Binding SuffixList}" />
+        
+        <Label Content="{Binding NationalIdText}" Grid.Column="0" Grid.Row="1" />
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Applicant.NationalID}"/>
+        <Label Content="Birthdate" Grid.Column="2" Grid.Row="1" />
+        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Applicant.BirthDate}"/>
+        <Label Content="Age" Grid.Column="4" Grid.Row="1" />
+        <TextBox Grid.Column="5" Grid.Row="2" IsReadOnly="True" Text="{Binding Applicant.Age,Mode=OneWay}"/>
+
+        <Label Content="Drivers License" Grid.Column="0" Grid.Row="3" />
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Applicant.DriverLicense}"/>
+        <Label Content="{Binding DriversIssuingProvinceText}" Grid.Column="2" Grid.Row="3" />
+        <ComboBox  Grid.Column="3" Grid.Row="3" SelectedItem="{Binding Applicant.DriverIssuingProvince}" ItemsSource="{Binding ProvinceOrStateList}"/>
+        <Label Content="Expiry" Grid.Column="4" Grid.Row="3" />
+        <TextBox Grid.Column="5" Grid.Row="3" Text="{Binding Applicant.DriverLicenseExpiry}"/>
+    </Grid>
+</UserControl>

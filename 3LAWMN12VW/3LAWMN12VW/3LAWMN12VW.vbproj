@@ -88,9 +88,20 @@
   <ItemGroup>
     <Compile Include="3LAWMN12VW.vb" />
     <Compile Include="3LAWMN12VWInfo.vb" />
+    <Compile Include="Controls\VWContractAddressViewModel.vb" />
+    <Compile Include="Controls\VWContractApplicantIDView.xaml.vb">
+      <DependentUpon>VWContractApplicantIDView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VWContractApplicantIDViewModel.vb" />
+    <Compile Include="Controls\VWContractApplicantView.xaml.vb">
+      <DependentUpon>VWContractApplicantView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\VWContractApplicantViewModel.vb" />
     <Compile Include="Data\Applicant\Address.vb" />
     <Compile Include="Data\Applicant\Applicant.vb" />
     <Compile Include="Data\Applicant\ApplicantID.vb" />
+    <Compile Include="Data\Applicant\ApplicantCollection.vb" />
+    <Compile Include="Data\ProcessInfo.vb" />
     <Compile Include="Layout\3LAWMN12VW_Layout.Designer.vb">
       <DependentUpon>3LAWMN12VW_Layout.vb</DependentUpon>
     </Compile>
@@ -118,6 +129,11 @@
       <DependentUpon>PromptContentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PromptContentViewModel.vb" />
+    <Compile Include="UI\VWContractPrimaryApplicantView.xaml.vb">
+      <DependentUpon>VWContractPrimaryApplicantView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\VWContractPrimaryViewModel.vb" />
+    <Compile Include="UI\VWContractPrimaryApplicantViewModel.vb" />
     <Compile Include="UI\VWContractRequiredView.xaml.vb">
       <DependentUpon>VWContractRequiredView.xaml</DependentUpon>
     </Compile>
@@ -153,7 +169,23 @@
     <Resource Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\VWContractAddressView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\VWContractApplicantIDView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\VWContractApplicantView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\PromptContentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\VWContractPrimaryApplicantView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

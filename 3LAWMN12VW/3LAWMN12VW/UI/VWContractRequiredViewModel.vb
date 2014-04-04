@@ -5,19 +5,12 @@ Public Class VWContractRequiredViewModel
     Inherits Screen
 
     Private _masterView As PromptContentViewModel
+    Private _dataContext As ProcessInfo
 
 #Region "  Properties "
-    Public Property ApplicationType As String
+    Public ReadOnly Property DataContext As ProcessInfo
         Get
-            Return _masterView.DataContext.ApplicationType
-        End Get
-        Set(value As String)
-            _masterView.DataContext.ApplicationType = value
-        End Set
-    End Property
-    Public ReadOnly Property DataContext As Address
-        Get
-            Return _masterView.DataContext.Buy
+            Return _dataContext
         End Get
     End Property
     Public ReadOnly Property ApplicationTypes As List(Of String)
@@ -39,9 +32,10 @@ Public Class VWContractRequiredViewModel
 
     Public Sub New(ByVal mv As PromptContentViewModel)
         _masterView = mv
+        _dataContext = mv.DataContext.GlobalProperty
     End Sub
 
     Public Sub Validate()
-        DataContext.CheckRules()
+        '_dataContext.CheckRules()
     End Sub
 End Class
