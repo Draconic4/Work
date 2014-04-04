@@ -165,32 +165,23 @@ Public Class ApplicantID
 
         Return d
     End Function
+    Public Function GetPropertyValue(ByVal pi As PropertyInfo(Of String)) As String
+        Return Me.ReadProperty(pi)
+    End Function
 #End Region
 
 #Region "  Business Rules "
     Protected Overrides Sub AddBusinessRules()
-        Me.BusinessRules.AddRule(New HasRequiredValue)
+        Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(FamilyProperty, ""))
+        Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(GivenProperty, ""))
+        Me.BusinessRules.AddRule(New Utility.HasRequiredValueDate(BirthDateProperty, ""))
+        Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(DriverLicenseProperty, ""))
+        Me.BusinessRules.AddRule(New Utility.HasRequiredValueDate(DriverLicenseExpiryProperty, ""))
         Me.BusinessRules.AddRule(New IsUSHasValidSSN)
     End Sub
     Public Sub CheckRules()
         Me.BusinessRules.CheckRules()
     End Sub
-    Public Class HasRequiredValue
-        Inherits Csla.Rules.BusinessRule
-        Public Sub New()
-            Me.PrimaryProperty = GivenProperty
-            Me.InputProperties = New List(Of Core.IPropertyInfo) From {CountryProperty, ApplicationTypeProperty, FamilyProperty, GivenProperty, DriverLicenseProperty}
-        End Sub
-        Protected Overrides Sub Execute(context As Rules.RuleContext)
-            Dim t As ApplicantID = context.Target
-            If HasValidValue(t.Family) Then context.AddErrorResult("Validation Error - Last Name is required.")
-            If HasValidValue(t.Given) Then context.AddErrorResult("Validation Error - First Name is required.")
-            'If HasValidValue(t.DriverLicense) Then context.AddErrorResult("Validation Error - Driver License is required.")
-        End Sub
-        Private Function HasValidValue(ByVal val As String) As Boolean
-            Return String.IsNullOrWhiteSpace(val)
-        End Function
-    End Class
     Public Class IsUSHasValidSSN
         Inherits Csla.Rules.BusinessRule
 
