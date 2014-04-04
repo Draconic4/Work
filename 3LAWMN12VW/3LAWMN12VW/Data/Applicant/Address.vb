@@ -98,12 +98,11 @@ Public Class Address
 #End Region
 
 #Region " Data Access "
-    Public Sub New(ByVal prefix As String, pInfo As ProcessInfo)
+    Public Sub New(ByVal prefix As String)
         LoadProperty(ApplicantTypeProperty, prefix)
-        _globalProperties = pInfo
     End Sub
     Public Shared Function FetchExisting(ByVal prefix As String, pInfo As ProcessInfo) As Address
-        Return New Address(prefix, pInfo)
+        Return New Address(prefix)
     End Function
     Public Sub Populate(ByVal d As Dictionary(Of String, Object))
         If d Is Nothing Then Exit Sub

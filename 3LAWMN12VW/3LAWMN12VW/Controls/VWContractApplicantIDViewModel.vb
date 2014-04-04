@@ -11,6 +11,11 @@ Public Class VWContractApplicantIDViewModel
             Return _Applicant
         End Get
     End Property
+    Public ReadOnly Property GlobalProperty As ProcessInfo
+        Get
+            Return _globalProperties
+        End Get
+    End Property
     Public ReadOnly Property SuffixList As List(Of String)
         Get
             Dim result As New List(Of String)
@@ -27,18 +32,19 @@ Public Class VWContractApplicantIDViewModel
     End Property
     Public ReadOnly Property NationalIdText As String
         Get
-            If _globalProperties.IsCanadian Then Return "SIN"
+            If _globalProperties IsNot Nothing AndAlso _globalProperties.IsCanadian Then Return "SIN"
             Return "SSN"
         End Get
     End Property
     Public ReadOnly Property DriversIssuingProvinceText As String
         Get
-            If _globalProperties.IsCanadian Then Return "Issuing Province"
+            If _globalProperties IsNot Nothing AndAlso _globalProperties.IsCanadian Then Return "Issuing Province"
             Return "Issuing State"
         End Get
     End Property
     Public ReadOnly Property ProvinceOrStateList() As List(Of String)
         Get
+            If _globalProperties Is Nothing Then Return New List(Of String) From {"INVALID"}
             Return Utility.GetLocaleList(_globalProperties.IsCanadian)
         End Get
     End Property

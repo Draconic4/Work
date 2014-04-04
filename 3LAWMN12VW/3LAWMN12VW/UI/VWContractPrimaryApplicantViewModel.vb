@@ -3,7 +3,7 @@ Imports System.Windows
 
 Public Class VWContractPrimaryApplicantViewModel
     Inherits Screen
-    
+
     Private _View As PromptContentViewModel
     Private _Person As Applicant
     Private _UseAddress1For2 As Boolean = True
@@ -23,7 +23,7 @@ Public Class VWContractPrimaryApplicantViewModel
             Return _Id
         End Get
     End Property
-    Public ReadOnly Property Address1 As VWContractAddressViewModel
+    Public ReadOnly Property HomeAddress As VWContractAddressViewModel
         Get
             Return _Address1
         End Get
@@ -72,9 +72,9 @@ Public Class VWContractPrimaryApplicantViewModel
         _View = view
         _Person = _View.DataContext.PrimaryApplicant
         _Id = New VWContractApplicantIDViewModel(_Person.ApplicantName, _View.DataContext.GlobalProperty)
-        '_Address1 = New VWContractAddressViewModel(_Person.HomeAddress)
-        '_Address2 = New VWContractAddressViewModel(_Person.BillingAddress)
-        '_Address3 = New VWContractAddressViewModel(_Person.GarageAddress)
+        _Address1 = New VWContractAddressViewModel(_Person.HomeAddress, _View.DataContext.GlobalProperty)
+        _Address2 = New VWContractAddressViewModel(_Person.BillingAddress, _View.DataContext.GlobalProperty)
+        _Address3 = New VWContractAddressViewModel(_Person.GarageAddress, _View.DataContext.GlobalProperty)
     End Sub
     Public Sub Validate()
         _Id.Validate()

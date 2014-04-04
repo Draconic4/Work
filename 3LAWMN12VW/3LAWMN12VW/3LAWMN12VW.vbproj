@@ -89,13 +89,7 @@
     <Compile Include="3LAWMN12VW.vb" />
     <Compile Include="3LAWMN12VWInfo.vb" />
     <Compile Include="Controls\VWContractAddressViewModel.vb" />
-    <Compile Include="Controls\VWContractApplicantIDView.xaml.vb">
-      <DependentUpon>VWContractApplicantIDView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\VWContractApplicantIDViewModel.vb" />
-    <Compile Include="Controls\VWContractApplicantView.xaml.vb">
-      <DependentUpon>VWContractApplicantView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Controls\VWContractApplicantViewModel.vb" />
     <Compile Include="Data\Applicant\Address.vb" />
     <Compile Include="Data\Applicant\Applicant.vb" />
@@ -129,6 +123,10 @@
       <DependentUpon>PromptContentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PromptContentViewModel.vb" />
+    <Compile Include="UI\TestTabView.xaml.vb">
+      <DependentUpon>TestTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TestTabViewModel.vb" />
     <Compile Include="UI\VWContractPrimaryApplicantView.xaml.vb">
       <DependentUpon>VWContractPrimaryApplicantView.xaml</DependentUpon>
     </Compile>
@@ -181,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\PromptContentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\TestTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

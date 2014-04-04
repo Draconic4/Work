@@ -28,10 +28,6 @@
             <Label Content="{Binding MyCaption}" FontWeight="Bold" FontSize="14"/>
         </Border>
         <ContentControl x:Name="ApplicantName" Grid.Row="1" Grid.Column="0"></ContentControl>
-        <!--<pbsForms:VWContractAddressView cal:View.Model="{Binding Address1}" Grid.Row="2" Grid.Column="0"></pbsForms:VWContractAddressView>
-        <CheckBox Grid.Row="3" Content="Use Home Address for Mailing"></CheckBox>
-        <pbsForms:VWContractAddressView cal:View.Model="{Binding Address2}" Visibility="{Binding DisplayAddress2}"  Grid.Row="4" Grid.Column="0"></pbsForms:VWContractAddressView>
-        <CheckBox Grid.Row="5" Content="Use Home Address for Garage"></CheckBox>
-        <pbsForms:VWContractAddressView cal:View.Model="{Binding Address3}" Visibility="{Binding DisplayAddress3}"  Grid.Row="6" Grid.Column="0"></pbsForms:VWContractAddressView>-->
+        <ContentControl x:Name="HomeAddress" Grid.Row="2" Grid.Column="0"></ContentControl>
     </Grid>
 </UserControl>

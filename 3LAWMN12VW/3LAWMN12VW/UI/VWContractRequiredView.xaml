@@ -35,7 +35,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Background="{StaticResource ResourceKey=Grid2Color}" Width="Auto" Height="Auto">
+    <Grid Background="AliceBlue" Width="Auto" Height="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
