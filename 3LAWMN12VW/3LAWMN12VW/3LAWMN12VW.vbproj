@@ -67,6 +67,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -98,6 +99,7 @@
     <Compile Include="Data\Applicant\ApplicantManager.vb" />
     <Compile Include="Data\Applicant\BusinessApplicant.vb" />
     <Compile Include="Data\ProcessInfo.vb" />
+    <Compile Include="Events\ApplicationTypeChanged.vb" />
     <Compile Include="Layout\3LAWMN12VW_Layout.Designer.vb">
       <DependentUpon>3LAWMN12VW_Layout.vb</DependentUpon>
     </Compile>

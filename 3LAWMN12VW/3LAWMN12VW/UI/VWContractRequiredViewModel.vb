@@ -6,6 +6,7 @@ Public Class VWContractRequiredViewModel
     Inherits Screen
 
     Private _masterView As PromptContentViewModel
+    Private _eventAggregator As IEventAggregator
     Private _dataContext As ProcessInfo
 
 #Region "  Properties "
@@ -46,13 +47,17 @@ Public Class VWContractRequiredViewModel
     End Property
 #End Region
 
-    Public Sub New(ByVal mv As PromptContentViewModel)
+    Public Sub New(ByVal mv As PromptContentViewModel, evA As IEventAggregator)
         _masterView = mv
         _dataContext = mv.DataContext.GlobalProperty
+        _eventAggregator = evA
+    End Sub
+
+    Public Sub ApplicationTypeChange()
+        _eventAggregator.Publish(New ApplicationTypeChanged)
     End Sub
 
     Public Sub Validate()
         NotifyOfPropertyChange("")
-        '_dataContext.CheckRules()
     End Sub
 End Class

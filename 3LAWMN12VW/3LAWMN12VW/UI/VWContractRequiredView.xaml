@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Aristo="clr-namespace:PBS.Framework.ControlLibrary.Wpf;assembly=PBS.Framework.ControlLibrary"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:pbsForms="clr-namespace:_3LAWMN12VW"
              mc:Ignorable="d" 
              Width="600" Height="300">
@@ -59,7 +60,15 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0">Application Type</Label>
-            <ComboBox Grid.Column="1" SelectedItem="{Binding DataContext.ApplicationType}" ItemsSource="{Binding ApplicationTypes}"></ComboBox>
+            <ComboBox x:Name="cboApplicationType" Grid.Column="1" SelectedItem="{Binding DataContext.ApplicationType}" ItemsSource="{Binding ApplicationTypes}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <cal:ActionMessage MethodName="ApplicationTypeChange">
+                            <!--<cal:Parameter Value="{Binding ElementName=cboApplicationType,Path=SelectedItem}"></cal:Parameter>-->
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
             <Grid Grid.Row="1" Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>

@@ -155,8 +155,9 @@ Public Class Utility
         Return pi.Country.StartsWith("CA")
     End Function
 
-    Shared Function IsBusiness(processInfo As ProcessInfo) As Boolean
-        Throw New NotImplementedException
+    Shared Function IsBusiness(pi As ProcessInfo) As Boolean
+        If pi Is Nothing Then Return False
+        Return pi.ApplicationType.Contains("BUSINESS")
     End Function
 
 End Class

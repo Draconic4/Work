@@ -1,9 +1,10 @@
 ﻿Imports Caliburn.Micro
 Imports System.ComponentModel
+Imports System.Windows
 
 Public Class PromptContentViewModel
     Inherits Conductor(Of Screen).Collection.OneActive
-    Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage), IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage)
+    Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage), IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage), IHandle(Of ApplicationTypeChanged)
 
     Private ReadOnly _eventAggregator As IEventAggregator
 
@@ -20,10 +21,16 @@ Public Class PromptContentViewModel
             _dataContext = value
         End Set
     End Property
-
     Public Sub RequiredClicked()
         ChangeView(_detailView)
     End Sub
+    Public ReadOnly Property PrimaryApplicantVisibility As Visibility
+        Get
+            If Utility.IsBusiness(_dataContext.GlobalProperty) Then Return Visibility.Collapsed
+            Return Visibility.Visible
+        End Get
+    End Property
+
     Public Sub ApplicantClicked()
         ChangeView(_primaryApplicant)
     End Sub
@@ -55,11 +62,11 @@ Public Class PromptContentViewModel
         End Get
     End Property
     Public Sub New(ByVal previousDC As Dictionary(Of String, Object), ByVal arDC As Dictionary(Of String, Object), eventAggregator As IEventAggregator)
+        _eventAggregator = eventAggregator
         _dataContext = VWCreditProcess.FetchExisting(previousDC, arDC)
-        _detailView = New VWContractRequiredViewModel(Me)
+        _detailView = New VWContractRequiredViewModel(Me, _eventAggregator)
         _primaryApplicant = New VWContractPrimaryApplicantViewModel(Me)
         _testTab = New TestTabViewModel(Me)
-        _eventAggregator = eventAggregator
         _eventAggregator.Subscribe(Me)
         Me.ActiveItem = _detailView
     End Sub
@@ -69,5 +76,9 @@ Public Class PromptContentViewModel
     End Sub
 
     Public Sub Handle1(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle
+    End Sub
+
+    Public Sub ApplicationTypeChanged_Handler(message As ApplicationTypeChanged) Implements IHandle(Of ApplicationTypeChanged).Handle
+        NotifyOfPropertyChange("")
     End Sub
 End Class
