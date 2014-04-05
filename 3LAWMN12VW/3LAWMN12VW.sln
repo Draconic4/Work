@@ -5,6 +5,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "3LAWMN12VW", "3LAWMN12VW\3L
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "3LAWMN12VW_View", "3LAWMN12VW_View\3LAWMN12VW_View.vbproj", "{AAE4E7CA-264C-440A-A333-1C49CC18F0EB}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Test3LAWMN12VW", "Test3LAWMN12VW\Test3LAWMN12VW.vbproj", "{2D15FE4A-2719-469C-831C-C0EF1E3EDCCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{AAE4E7CA-264C-440A-A333-1C49CC18F0EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAE4E7CA-264C-440A-A333-1C49CC18F0EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AAE4E7CA-264C-440A-A333-1C49CC18F0EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D15FE4A-2719-469C-831C-C0EF1E3EDCCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D15FE4A-2719-469C-831C-C0EF1E3EDCCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D15FE4A-2719-469C-831C-C0EF1E3EDCCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D15FE4A-2719-469C-831C-C0EF1E3EDCCB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

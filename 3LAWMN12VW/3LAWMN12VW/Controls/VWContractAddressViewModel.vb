@@ -1,4 +1,5 @@
 ﻿Imports Caliburn.Micro
+Imports System.Windows
 
 Public Class VWContractAddressViewModel
     Inherits Screen
@@ -14,6 +15,21 @@ Public Class VWContractAddressViewModel
             _address = value
         End Set
     End Property
+    Public ReadOnly Property HomeAddressVisibility As Visibility
+        Get
+            If _address Is Nothing Then Return Visibility.Hidden
+            If _address.AddressType = "HomeAddress" Then Return Visibility.Hidden
+            Return Visibility.Visible
+        End Get
+    End Property
+    Public ReadOnly Property AddressFieldVisibility As Visibility
+        Get
+            If _address Is Nothing Then Return Visibility.Collapsed
+            If IsHomeAddress Then Return Visibility.Visible
+            If _address.SameAsHomeAddress Then Return Visibility.Collapsed
+            Return Visibility.Visible
+        End Get
+    End Property
     Public ReadOnly Property GlobalProperty As ProcessInfo
         Get
             Return _gInfo
@@ -22,27 +38,35 @@ Public Class VWContractAddressViewModel
     Public ReadOnly Property ProvinceOrStateText As String
         Get
             If GlobalProperty Is Nothing Then Return "INVALID"
-            If GlobalProperty.IsCanadian Then Return "Province"
+            If Utility.IsCanadian(GlobalProperty) Then Return "Province"
             Return "State"
         End Get
     End Property
     Public ReadOnly Property PostalCodeOrZipText As String
         Get
             If GlobalProperty Is Nothing Then Return "INVALID"
-            If GlobalProperty.IsCanadian Then Return "Postal Code"
+            If Utility.IsCanadian(GlobalProperty) Then Return "Postal Code"
             Return "Zip Code"
         End Get
     End Property
     Public ReadOnly Property ProvinceOrStateList As List(Of String)
         Get
             If GlobalProperty Is Nothing Then Return New List(Of String) From {"INVALID"}
-            Return Utility.GetLocaleList(GlobalProperty.IsCanadian)
+            Return Utility.GetLocaleList(GlobalProperty)
         End Get
     End Property
     Public ReadOnly Property CountryList As List(Of String)
         Get
             If GlobalProperty Is Nothing Then Return New List(Of String) From {"INVALID"}
             Return Utility.GetCountryLocationList()
+        End Get
+    End Property
+
+    Public ReadOnly Property IsHomeAddress As Boolean
+        Get
+            If _address Is Nothing Then Return False
+            If _address.AddressType = "HomeAddress" Then Return True
+            Return False
         End Get
     End Property
     Public Sub New(ByVal address As Address, ByVal gProp As ProcessInfo)

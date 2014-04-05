@@ -61,12 +61,11 @@ Public Class PromptContentViewModel
         _testTab = New TestTabViewModel(Me)
         _eventAggregator = eventAggregator
         _eventAggregator.Subscribe(Me)
-        Me.ActiveItem = _primaryApplicant
+        Me.ActiveItem = _detailView
     End Sub
 
     Public Sub Handle(message As PBS.Deals.FormsIntegration.BeginValidationMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage).Handle
-        _detailView.Validate()
-        _primaryApplicant.Validate()
+        _dataContext.CheckRules()
     End Sub
 
     Public Sub Handle1(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle

@@ -11,8 +11,9 @@ Public Class Utility
     Public Shared Function ProvinceConverter(ByVal prov As String)
         Return "BC"
     End Function
-    Public Shared Function GetLocaleList(ByVal isCanadian As Boolean) As List(Of String)
-        If isCanadian Then Return GetProvinceList()
+    Public Shared Function GetLocaleList(ByVal pi As ProcessInfo) As List(Of String)
+        If pi Is Nothing Then Return New List(Of String)
+        If IsCanadian(pi) Then Return GetProvinceList()
         Return GetStateList()
     End Function
     Public Shared Function GetProvinceList() As List(Of String)
@@ -144,4 +145,18 @@ Public Class Utility
             Return Not IsDate(val)
         End Function
     End Class
+
+    Public Shared Function IsLease(pi As ProcessInfo) As Boolean
+        Return pi.DealType <> "0" And Not String.IsNullOrWhiteSpace(pi.DealType)
+    End Function
+
+    Public Shared Function IsCanadian(pi As ProcessInfo) As Boolean
+        If pi Is Nothing Then Return False
+        Return pi.Country.StartsWith("CA")
+    End Function
+
+    Shared Function IsBusiness(processInfo As ProcessInfo) As Boolean
+        Throw New NotImplementedException
+    End Function
+
 End Class

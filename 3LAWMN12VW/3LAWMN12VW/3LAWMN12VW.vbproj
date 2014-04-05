@@ -95,6 +95,8 @@
     <Compile Include="Data\Applicant\Applicant.vb" />
     <Compile Include="Data\Applicant\ApplicantID.vb" />
     <Compile Include="Data\Applicant\ApplicantCollection.vb" />
+    <Compile Include="Data\Applicant\ApplicantManager.vb" />
+    <Compile Include="Data\Applicant\BusinessApplicant.vb" />
     <Compile Include="Data\ProcessInfo.vb" />
     <Compile Include="Layout\3LAWMN12VW_Layout.Designer.vb">
       <DependentUpon>3LAWMN12VW_Layout.vb</DependentUpon>
@@ -127,6 +129,10 @@
       <DependentUpon>TestTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TestTabViewModel.vb" />
+    <Compile Include="UI\VWContractCoApplicantView.xaml.vb">
+      <DependentUpon>VWContractCoApplicantView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\VWContractCoApplicantViewModel.vb" />
     <Compile Include="UI\VWContractPrimaryApplicantView.xaml.vb">
       <DependentUpon>VWContractPrimaryApplicantView.xaml</DependentUpon>
     </Compile>
@@ -183,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\TestTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\VWContractCoApplicantView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

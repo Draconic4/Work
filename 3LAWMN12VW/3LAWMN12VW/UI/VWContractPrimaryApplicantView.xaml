@@ -7,27 +7,9 @@
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:pbsForms ="clr-namespace:_3LAWMN12VW"
              mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
              Height="Auto" Width="Auto">
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/PBS.Framework.ControlLibrary;component/Wpf/AristoThemeDefault.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
     <Grid Height="Auto">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0">
-            <Label Content="{Binding MyCaption}" FontWeight="Bold" FontSize="14"/>
-        </Border>
-        <ContentControl x:Name="ApplicantName" Grid.Row="1" Grid.Column="0"></ContentControl>
-        <ContentControl x:Name="HomeAddress" Grid.Row="2" Grid.Column="0"></ContentControl>
+        <ContentControl x:Name="PrimaryApplicant" Grid.Row="0" Grid.Column="0"></ContentControl>
     </Grid>
 </UserControl>

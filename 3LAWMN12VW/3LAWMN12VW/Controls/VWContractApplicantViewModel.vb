@@ -76,4 +76,7 @@ Public Class VWContractApplicantViewModel
         _BillingAddress = New VWContractAddressViewModel(_Person.BillingAddress, gProp)
         _GarageAddress = New VWContractAddressViewModel(_Person.GarageAddress, gProp)
     End Sub
+
+    Public Sub Validate()
+    End Sub
 End Class
