@@ -13,8 +13,11 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/PBS.Framework.ControlLibrary;component/Wpf/AristoThemeDefault.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type ComboBox}">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
             <Style TargetType="{x:Type TextBox}">
-                <Setter Property="Margin" Value="0,2,24,0"></Setter>
+                <Setter Property="Margin" Value="2"/>
                 <Setter Property="Validation.ErrorTemplate">
                     <Setter.Value>
                         <ControlTemplate>
@@ -35,6 +38,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
+
     <Grid Background="AliceBlue" Width="Auto" Height="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -51,14 +55,27 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="400"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="300"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0">Application Type</Label>
-            <ComboBox Grid.Column="1" SelectedItem="{Binding DataContext.ApplicationType}" ItemsSource="{Binding ApplicationTypes}" Margin="0,0,24,0"></ComboBox>
-            <Label Grid.Row="1" Grid.Column="0">Error Test</Label>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="Something is wrong">
-            </TextBox>
+            <ComboBox Grid.Column="1" SelectedItem="{Binding DataContext.ApplicationType}" ItemsSource="{Binding ApplicationTypes}"></ComboBox>
+            <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0">Country</Label>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.Country, Mode=OneTime}" IsReadOnly="True"></TextBox>
+                <Label Grid.Row="0" Grid.Column="2">Finance Type</Label>
+                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding DataContext.FinanceType, Mode=OneTime}" IsReadOnly="True"></TextBox>
+                <Label Grid.Row="0" Grid.Column="4" Visibility="{Binding LeaseTypeVisibility}">Lease Type</Label>
+                <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding ProductTypeText, Mode=OneTime}" Visibility="{Binding LeaseTypeVisibility}" IsReadOnly="True"></TextBox>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

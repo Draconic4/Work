@@ -23,7 +23,10 @@ Public Class FormPromptViewModel
         _eventAggregator = eventAggregator
         Dim lastData As New Dictionary(Of String, Object)
         Dim dat As New Dictionary(Of String, Object)
-        dat.Add("DLR_COUNTRY", "CANADA")
+        dat.Add("DLR_COUNTRY", "US")
+        dat.Add("DEAL_FCALC", "0")
+        dat.Add("DEAL_TERM", 60)
+        dat.Add("DEAL_AMORTTERM", 1)
         AssemblySource.Instance.Add(Assembly.LoadFile("C:\Projects\GitHubProjects\Work\3LAWMN12VW\3LAWMN12VW\bin\Debug\3LAWMN12VW.dll"))
         TheHammer = New _3LAWMN12VW.PromptContentViewModel(lastData, dat, _eventAggregator) 'New _3LAWMN12VW.VWContractRequiredViewModel(x)
     End Sub
