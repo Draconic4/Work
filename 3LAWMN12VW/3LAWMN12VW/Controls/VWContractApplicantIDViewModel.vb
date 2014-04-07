@@ -3,15 +3,15 @@
 Public Class VWContractApplicantIDViewModel
     Inherits Screen
 
-    Private _Applicant As ApplicantID
-    Private _globalProperties As ProcessInfo
+    Private _Applicant As ValidationRuleData.ApplicantID
+    Private _globalProperties As ValidationRuleData.ProcessInfo
 
-    Public ReadOnly Property Applicant As ApplicantID
+    Public ReadOnly Property Applicant As ValidationRuleData.ApplicantID
         Get
             Return _Applicant
         End Get
     End Property
-    Public ReadOnly Property GlobalProperty As ProcessInfo
+    Public ReadOnly Property GlobalProperty As ValidationRuleData.ProcessInfo
         Get
             Return _globalProperties
         End Get
@@ -48,7 +48,7 @@ Public Class VWContractApplicantIDViewModel
         End Get
     End Property
 
-    Public Sub New(ByVal appId As ApplicantID, globalProperties As ProcessInfo)
+    Public Sub New(ByVal appId As ValidationRuleData.ApplicantID, globalProperties As ValidationRuleData.ProcessInfo)
         _Applicant = appId
         _globalProperties = globalProperties
     End Sub

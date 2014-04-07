@@ -8,16 +8,16 @@ Public Class PromptContentViewModel
 
     Private ReadOnly _eventAggregator As IEventAggregator
 
-    Private _dataContext As VWCreditProcess
+    Private _dataContext As ValidationRuleData.VWCreditProcess
     Private _detailView As VWContractRequiredViewModel
     Private _primaryApplicant As VWContractPrimaryApplicantViewModel
     Private _testTab As TestTabViewModel
 
-    Public Property DataContext As VWCreditProcess
+    Public Property DataContext As ValidationRuleData.VWCreditProcess
         Get
             Return _dataContext
         End Get
-        Set(value As VWCreditProcess)
+        Set(value As ValidationRuleData.VWCreditProcess)
             _dataContext = value
         End Set
     End Property
@@ -74,7 +74,7 @@ Public Class PromptContentViewModel
     End Property
     Public Sub New(ByVal previousDC As Dictionary(Of String, Object), ByVal arDC As Dictionary(Of String, Object), eventAggregator As IEventAggregator)
         _eventAggregator = eventAggregator
-        _dataContext = VWCreditProcess.FetchExisting(previousDC, arDC)
+        _dataContext = ValidationRuleData.VWCreditProcess.FetchExisting(previousDC, arDC)
         _detailView = New VWContractRequiredViewModel(Me, _eventAggregator)
         _primaryApplicant = New VWContractPrimaryApplicantViewModel(Me)
         _testTab = New TestTabViewModel(Me)

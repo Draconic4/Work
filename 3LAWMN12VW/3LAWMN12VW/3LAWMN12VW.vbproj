@@ -98,7 +98,21 @@
     <Compile Include="Data\Applicant\ApplicantCollection.vb" />
     <Compile Include="Data\Applicant\ApplicantManager.vb" />
     <Compile Include="Data\Applicant\BusinessApplicant.vb" />
+    <Compile Include="Data\Deal\AutomatedPayment.vb" />
+    <Compile Include="Data\Deal\Deal.vb" />
+    <Compile Include="Data\Deal\DealerProduct.vb" />
+    <Compile Include="Data\Deal\Fee.vb" />
+    <Compile Include="Data\Deal\NonVehicleInsurance.vb" />
+    <Compile Include="Data\Deal\OtherCharges.vb" />
+    <Compile Include="Data\Deal\PaymentSchedule.vb" />
+    <Compile Include="Data\Deal\ProgramsRebates.vb" />
+    <Compile Include="Data\Deal\ServiceContract.vb" />
+    <Compile Include="Data\Deal\TaxValue.vb" />
+    <Compile Include="Data\Deal\TradeIn.vb" />
+    <Compile Include="Data\Deal\VehicleInsurance.vb" />
     <Compile Include="Data\ProcessInfo.vb" />
+    <Compile Include="Data\Vehicle\OptionList.vb" />
+    <Compile Include="Data\Vehicle\Vehicle.vb" />
     <Compile Include="Events\ApplicationTypeChanged.vb" />
     <Compile Include="Layout\3LAWMN12VW_Layout.Designer.vb">
       <DependentUpon>3LAWMN12VW_Layout.vb</DependentUpon>

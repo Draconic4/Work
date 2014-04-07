@@ -6,9 +6,9 @@ Public Class VWContractPrimaryApplicantViewModel
 
     Private _View As PromptContentViewModel
     Private _Primary As VWContractApplicantViewModel
-    Private Property _globalProperty As ProcessInfo
+    Private Property _globalProperty As ValidationRuleData.ProcessInfo
 
-    Private ReadOnly Property GlobalProperty() As ProcessInfo
+    Private ReadOnly Property GlobalProperty() As ValidationRuleData.ProcessInfo
         Get
             Return _globalProperty
         End Get

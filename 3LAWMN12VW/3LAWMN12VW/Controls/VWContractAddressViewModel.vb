@@ -4,14 +4,14 @@ Imports System.Windows
 Public Class VWContractAddressViewModel
     Inherits Screen
 
-    Private _address As Address
-    Private _gInfo As ProcessInfo
+    Private _address As ValidationRuleData.Address
+    Private _gInfo As ValidationRuleData.ProcessInfo
 
-    Public Property Address As Address
+    Public Property Address As ValidationRuleData.Address
         Get
             Return _address
         End Get
-        Set(value As Address)
+        Set(value As ValidationRuleData.Address)
             _address = value
         End Set
     End Property
@@ -30,7 +30,7 @@ Public Class VWContractAddressViewModel
             Return Visibility.Visible
         End Get
     End Property
-    Public ReadOnly Property GlobalProperty As ProcessInfo
+    Public ReadOnly Property GlobalProperty As ValidationRuleData.ProcessInfo
         Get
             Return _gInfo
         End Get
@@ -69,7 +69,7 @@ Public Class VWContractAddressViewModel
             Return False
         End Get
     End Property
-    Public Sub New(ByVal address As Address, ByVal gProp As ProcessInfo)
+    Public Sub New(ByVal address As ValidationRuleData.Address, ByVal gProp As ValidationRuleData.ProcessInfo)
         _address = address
         _gInfo = gProp
     End Sub

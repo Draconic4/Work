@@ -1,5 +1,4 @@
 ﻿Imports Csla
-
 Public Class Utility
     Public Shared Function ProvinceOrStateConverter(ByVal prov As String, ByVal isCanadian As Boolean) As String
         If isCanadian Then Return ProvinceConverter(prov)
@@ -11,7 +10,7 @@ Public Class Utility
     Public Shared Function ProvinceConverter(ByVal prov As String)
         Return "BC"
     End Function
-    Public Shared Function GetLocaleList(ByVal pi As ProcessInfo) As List(Of String)
+    Public Shared Function GetLocaleList(ByVal pi As ValidationRuleData.ProcessInfo) As List(Of String)
         If pi Is Nothing Then Return New List(Of String)
         If IsCanadian(pi) Then Return GetProvinceList()
         Return GetStateList()
@@ -146,21 +145,21 @@ Public Class Utility
         End Function
     End Class
 
-    Public Shared Function IsLease(pi As ProcessInfo) As Boolean
+    Public Shared Function IsLease(pi As ValidationRuleData.ProcessInfo) As Boolean
         Return pi.DealType <> "0" And Not String.IsNullOrWhiteSpace(pi.DealType)
     End Function
 
-    Public Shared Function IsCanadian(pi As ProcessInfo) As Boolean
+    Public Shared Function IsCanadian(pi As ValidationRuleData.ProcessInfo) As Boolean
         If pi Is Nothing Then Return False
         Return pi.Country.StartsWith("CA")
     End Function
 
-    Shared Function IsBusiness(pi As ProcessInfo) As Boolean
+    Shared Function IsBusiness(pi As ValidationRuleData.ProcessInfo) As Boolean
         If pi Is Nothing Then Return False
         Return pi.ApplicationType.Contains("BUSINESS")
     End Function
 
-    Shared Function HasCoApplicant(processInfo As ProcessInfo) As Boolean
+    Shared Function HasCoApplicant(processInfo As ValidationRuleData.ProcessInfo) As Boolean
         Return True
     End Function
 

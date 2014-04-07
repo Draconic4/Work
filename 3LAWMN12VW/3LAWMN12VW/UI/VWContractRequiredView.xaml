@@ -7,6 +7,7 @@
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:pbsForms="clr-namespace:_3LAWMN12VW"
+             xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
              mc:Ignorable="d" 
              Width="Auto" Height="Auto">
     <UserControl.Resources>

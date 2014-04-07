@@ -1,5 +1,7 @@
-﻿Public Class ApplicantCollection
-    Inherits Csla.BusinessBindingListBase(Of ApplicantCollection, Applicant)
+﻿
+Namespace ValidationRuleData
+    Public Class ApplicantCollection
+        Inherits Csla.BusinessBindingListBase(Of ApplicantCollection, Applicant)
 
 #Region "  Properties "
 
@@ -12,4 +14,5 @@
 #Region "  Business Rules "
 
 #End Region
-End Class
+    End Class
+End Namespace

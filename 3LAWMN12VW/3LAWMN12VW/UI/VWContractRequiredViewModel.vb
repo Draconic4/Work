@@ -7,10 +7,10 @@ Public Class VWContractRequiredViewModel
 
     Private _masterView As PromptContentViewModel
     Private _eventAggregator As IEventAggregator
-    Private _dataContext As ProcessInfo
+    Private _dataContext As ValidationRuleData.ProcessInfo
 
 #Region "  Properties "
-    Public ReadOnly Property DataContext As ProcessInfo
+    Public ReadOnly Property DataContext As ValidationRuleData.ProcessInfo
         Get
             Return _dataContext
         End Get

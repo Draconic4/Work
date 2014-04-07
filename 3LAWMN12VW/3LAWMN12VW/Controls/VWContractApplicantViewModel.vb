@@ -4,7 +4,7 @@ Imports System.Windows
 Public Class VWContractApplicantViewModel
     Inherits Screen
 
-    Private _Person As Applicant
+    Private _Person As ValidationRuleData.Applicant
     Private _UseHomeAddressForBilling As Boolean = True
     Private _UseHomeAddressForGarage As Boolean = True
     Private _Id As VWContractApplicantIDViewModel
@@ -69,7 +69,7 @@ Public Class VWContractApplicantViewModel
         End Get
     End Property
 
-    Public Sub New(ByVal app As Applicant, gProp As ProcessInfo)
+    Public Sub New(ByVal app As ValidationRuleData.Applicant, gProp As ValidationRuleData.ProcessInfo)
         If app Is Nothing Then Exit Sub
         _Person = app
         _Id = New VWContractApplicantIDViewModel(_Person.ApplicantName, gProp)
@@ -77,7 +77,6 @@ Public Class VWContractApplicantViewModel
         _BillingAddress = New VWContractAddressViewModel(_Person.BillingAddress, gProp)
         _GarageAddress = New VWContractAddressViewModel(_Person.GarageAddress, gProp)
     End Sub
-
     Public Sub Validate()
     End Sub
 End Class

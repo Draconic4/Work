@@ -6,6 +6,7 @@
              xmlns:Aristo="clr-namespace:PBS.Framework.ControlLibrary.Wpf;assembly=PBS.Framework.ControlLibrary"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
              xmlns:pbsForms ="clr-namespace:_3LAWMN12VW"
+             xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Height="Auto" Width="Auto">
