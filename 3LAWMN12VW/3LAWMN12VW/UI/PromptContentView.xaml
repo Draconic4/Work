@@ -123,7 +123,16 @@
                 <TextBlock Text="{Binding ApplicationStatus}" FontWeight="Bold" />
             </Viewbox>-->
         </Grid>
-        <Grid Grid.Row="1" Background="{StaticResource ResourceKey=Grid2Color}" Margin="0,5,0,0">
+        <ScrollViewer Grid.Row="1" Background="{StaticResource ResourceKey=Grid2Color}" Margin="4,5,4,0" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Disabled">
+            <StackPanel Orientation="Horizontal">
+                <ToggleButton Content="Required" IsChecked="{Binding RequiredChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action RequiredClicked]" Width="100"/>
+                <ToggleButton Content="Primary Applicant" Visibility="{Binding PrimaryApplicantVisibility}" IsChecked="{Binding ApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action ApplicantClicked]" Width="120" />
+                <ToggleButton Content="Business Applicant" Visibility="{Binding BusinessApplicantVisibility}" IsChecked="{Binding BusinessApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action BusinessApplicantClicked]" Width="120"/> 
+                <ToggleButton Content="CoApplicants" Visibility="{Binding CoApplicantVisibility}" IsChecked="{Binding CoApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action CoAppicantClicked]" Width="100"/>
+                <ToggleButton Content="TestTab" IsChecked="{Binding TestChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action TestClicked]" Width="100"/>
+            </StackPanel>
+        </ScrollViewer>
+        <!--<Grid Grid.Row="1" Background="{StaticResource ResourceKey=Grid2Color}" Margin="0,5,0,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="120"/>
@@ -131,14 +140,13 @@
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
-            </Grid.ColumnDefinitions>
-            <ToggleButton Content="Required" Grid.Column="0" IsChecked="{Binding RequiredChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action RequiredClicked]"/>
+            </Grid.ColumnDefinitions>-->
+            <!--<ToggleButton Content="Required" Grid.Column="0" IsChecked="{Binding RequiredChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action RequiredClicked]"/>
             <ToggleButton Content="Primary Applicant" Grid.Column="1"  Visibility="{Binding PrimaryApplicantVisibility}" IsChecked="{Binding ApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action ApplicantClicked]" />
             <ToggleButton Content="TestTab" Grid.Column="2"  IsChecked="{Binding TestChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action TestClicked]"/>
-            <!--<ToggleButton Content="Finance" Grid.Column="3" IsChecked="{Binding FinanceChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action FinanceClicked]" />
-            <ToggleButton Content="Vehicle" Grid.Column="4" IsChecked="{Binding FinanceChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action VehicleClicked]" />-->
-        </Grid>
-        <ScrollViewer Grid.Row="2" x:Name="ActiveItem">
-        </ScrollViewer>
+            <ToggleButton Content="Finance" Grid.Column="3" IsChecked="{Binding FinanceChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action FinanceClicked]" />
+            <ToggleButton Content="Vehicle" Grid.Column="4" IsChecked="{Binding FinanceChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action VehicleClicked]" />
+        </Grid>-->
+        <ContentControl x:Name="ActiveItem" Grid.Row="2"  Margin="4,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ContentControl>
     </Grid>
 </UserControl>

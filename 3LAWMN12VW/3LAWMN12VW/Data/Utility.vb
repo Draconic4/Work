@@ -160,4 +160,8 @@ Public Class Utility
         Return pi.ApplicationType.Contains("BUSINESS")
     End Function
 
+    Shared Function HasCoApplicant(processInfo As ProcessInfo) As Boolean
+        Return True
+    End Function
+
 End Class

@@ -50,11 +50,9 @@
     End Property
     Public ReadOnly Property HasCoApplicant As Boolean
         Get
-            If GlobalProperty Is Nothing Then Return False
-            If GlobalProperty.ApplicationType.Contains("COBUYER") Then
-                If GlobalProperty.ApplicationType.Contains("GUARANTOR") AndAlso _applicantList(1) IsNot Nothing Then Return True
-                If _applicantList(0) IsNot Nothing Then Return True
-            End If
+            Dim coAppIdx As Integer = 0
+            If GlobalProperty.ApplicationType.Contains("GUARANTOR") Then coAppIdx = 1
+            If _applicantList.Count >= coAppIdx + 1 AndAlso _applicantList(coAppIdx) IsNot Nothing Then Return True
             Return False
         End Get
     End Property
@@ -120,4 +118,9 @@
         End If
     End Sub
 #End Region
+
+    Shared Function Fetch(formDC As Dictionary(Of String, Object), aristoDC As Dictionary(Of String, Object), globalProperty As ProcessInfo) As ApplicantManager
+        Return New ApplicantManager(globalProperty)
+    End Function
+
 End Class

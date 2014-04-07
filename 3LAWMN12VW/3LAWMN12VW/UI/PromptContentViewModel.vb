@@ -30,7 +30,18 @@ Public Class PromptContentViewModel
             Return Visibility.Visible
         End Get
     End Property
-
+    Public ReadOnly Property BusinessApplicantVisibility As Visibility
+        Get
+            If Not Utility.IsBusiness(_dataContext.GlobalProperty) Then Return Visibility.Collapsed
+            Return Visibility.Visible
+        End Get
+    End Property
+    Public ReadOnly Property CoApplicantVisibility As Visibility
+        Get
+            If Utility.HasCoApplicant(_dataContext.GlobalProperty) AndAlso _dataContext.ApplicantMgr IsNot Nothing AndAlso _dataContext.ApplicantMgr.HasCoApplicant Then Return Visibility.Visible
+            Return Visibility.Collapsed
+        End Get
+    End Property
     Public Sub ApplicantClicked()
         ChangeView(_primaryApplicant)
     End Sub

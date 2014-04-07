@@ -70,6 +70,7 @@ Public Class VWContractApplicantViewModel
     End Property
 
     Public Sub New(ByVal app As Applicant, gProp As ProcessInfo)
+        If app Is Nothing Then Exit Sub
         _Person = app
         _Id = New VWContractApplicantIDViewModel(_Person.ApplicantName, gProp)
         _HomeAddress = New VWContractAddressViewModel(_Person.HomeAddress, gProp)

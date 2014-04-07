@@ -8,7 +8,7 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:pbsForms="clr-namespace:_3LAWMN12VW"
              mc:Ignorable="d" 
-             Width="600" Height="300">
+             Width="Auto" Height="Auto">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

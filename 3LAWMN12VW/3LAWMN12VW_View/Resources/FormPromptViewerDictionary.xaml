@@ -16,7 +16,7 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Border>
-                        <Rectangle Margin="2" StrokeThickness="1" Stroke="#60000000" StrokeDashArray="1 2" />
+                        <Rectangle Margin="2,2,2,0" StrokeThickness="1" Stroke="#60000000" StrokeDashArray="1 2" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -26,7 +26,7 @@
     <Style TargetType="Border">
         <!--<Setter Property="BorderThickness" Value="2" />
                 <Setter Property="BorderBrush" Value="#E2E295" />-->
-        <Setter Property="Margin" Value="0,0,0,5" />
+        <Setter Property="Margin" Value="0,0,0,0" />
         <Setter Property="Background" Value="#E2E295" />
     </Style>
     <!-- Button -->
