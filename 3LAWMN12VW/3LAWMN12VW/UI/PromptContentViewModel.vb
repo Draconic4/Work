@@ -9,10 +9,6 @@ Public Class PromptContentViewModel
     Private ReadOnly _eventAggregator As IEventAggregator
 
     Private _dataContext As ValidationRuleData.VWCreditProcess
-    Private _detailView As VWContractRequiredViewModel
-    Private _primaryApplicant As VWContractPrimaryApplicantViewModel
-    Private _testTab As TestTabViewModel
-
     Public Property DataContext As ValidationRuleData.VWCreditProcess
         Get
             Return _dataContext
@@ -21,75 +17,82 @@ Public Class PromptContentViewModel
             _dataContext = value
         End Set
     End Property
-    Public Sub RequiredClicked()
+
+    Private _detailView As VWContractRequiredViewModel
+    Public Sub RequirementClicked()
         ChangeView(_detailView)
     End Sub
+    Public ReadOnly Property RequirementChecked()
+        Get
+            Return Me.ActiveItem.GetType() Is GetType(VWContractRequiredViewModel)
+        End Get
+    End Property
+
+    Private _primaryApplicant As VWContractPrimaryApplicantViewModel
     Public ReadOnly Property PrimaryApplicantVisibility As Visibility
         Get
             If Utility.IsBusiness(_dataContext.GlobalProperty) Then Return Visibility.Collapsed
             Return Visibility.Visible
         End Get
     End Property
-    Public ReadOnly Property BusinessApplicantVisibility As Visibility
-        Get
-            If Not Utility.IsBusiness(_dataContext.GlobalProperty) Then Return Visibility.Collapsed
-            Return Visibility.Visible
-        End Get
-    End Property
-    Public ReadOnly Property CoApplicantVisibility As Visibility
-        Get
-            If Utility.HasCoApplicant(_dataContext.GlobalProperty) AndAlso _dataContext.ApplicantMgr IsNot Nothing AndAlso _dataContext.ApplicantMgr.HasCoApplicant Then Return Visibility.Visible
-            Return Visibility.Collapsed
-        End Get
-    End Property
-    Public Sub ApplicantClicked()
+    Public Sub PrimaryApplicantClicked()
         ChangeView(_primaryApplicant)
     End Sub
-    Public Sub TestClicked()
-        ChangeView(_testTab)
-    End Sub
+    Public ReadOnly Property PrimaryApplicantChecked()
+        Get
+            Return Me.ActiveItem.GetType() Is GetType(VWContractPrimaryApplicantViewModel)
+        End Get
+    End Property
     Private Sub ChangeView(ByVal newView As Screen)
         'If Me.ActiveItem Is VWContractRequiredViewModel Then
         '    'Warn and require user to select these options.
         'End If
         Me.ActiveItem = newView
-        Me.NotifyOfPropertyChange("RequiredChecked")
-        Me.NotifyOfPropertyChange("ApplicantChecked")
-        Me.NotifyOfPropertyChange("TestChecked")
+        Me.NotifyOfPropertyChange("RequirementChecked")
+        Me.NotifyOfPropertyChange("PrimaryApplicantChecked")
+        'Me.NotifyOfPropertyChange("TestChecked")
     End Sub
-    Public ReadOnly Property RequiredChecked()
-        Get
-            Return Me.ActiveItem.GetType() Is GetType(VWContractRequiredViewModel)
-        End Get
-    End Property
-    Public ReadOnly Property ApplicantChecked()
-        Get
-            Return Me.ActiveItem.GetType() Is GetType(VWContractPrimaryApplicantViewModel)
-        End Get
-    End Property
-    Public ReadOnly Property TestChecked()
-        Get
-            Return Me.ActiveItem.GetType() Is GetType(TestTabViewModel)
-        End Get
-    End Property
     Public Sub New(ByVal previousDC As Dictionary(Of String, Object), ByVal arDC As Dictionary(Of String, Object), eventAggregator As IEventAggregator)
         _eventAggregator = eventAggregator
         _dataContext = ValidationRuleData.VWCreditProcess.FetchExisting(previousDC, arDC)
         _detailView = New VWContractRequiredViewModel(Me, _eventAggregator)
         _primaryApplicant = New VWContractPrimaryApplicantViewModel(Me)
-        _testTab = New TestTabViewModel(Me)
+        '_testTab = New TestTabViewModel(Me)
         _eventAggregator.Subscribe(Me)
         Me.ActiveItem = _detailView
     End Sub
 
-    Public Sub Handle(message As PBS.Deals.FormsIntegration.BeginValidationMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage).Handle
+    Public Sub Handle_BeginValidationMessage(message As PBS.Deals.FormsIntegration.BeginValidationMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage).Handle
         _dataContext.CheckRules()
     End Sub
 
-    Public Sub Handle1(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle
+    Public Sub Handle_BeginDataCollectMessage(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle
     End Sub
 
-    Public Sub ApplicationTypeChanged_Handler(message As ApplicationTypeChanged) Implements IHandle(Of ApplicationTypeChanged).Handle
+    Public Sub Handle_ApplicationTypeChanged(message As ApplicationTypeChanged) Implements IHandle(Of ApplicationTypeChanged).Handle
         NotifyOfPropertyChange("")
     End Sub
+
+    'Private _testTab As TestTabViewModel
+
+    'Public ReadOnly Property BusinessApplicantVisibility As Visibility
+    '    Get
+    '        If Not Utility.IsBusiness(_dataContext.GlobalProperty) Then Return Visibility.Collapsed
+    '        Return Visibility.Visible
+    '    End Get
+    'End Property
+    'Public ReadOnly Property CoApplicantVisibility As Visibility
+    '    Get
+    '        If Utility.HasCoApplicant(_dataContext.GlobalProperty) AndAlso _dataContext.ApplicantMgr IsNot Nothing AndAlso _dataContext.ApplicantMgr.HasCoApplicant Then Return Visibility.Visible
+    '        Return Visibility.Collapsed
+    '    End Get
+    'End Property
+    'Public Sub TestClicked()
+    '    ChangeView(_testTab)
+    'End Sub
+    'Public ReadOnly Property TestChecked()
+    '    Get
+    '        Return Me.ActiveItem.GetType() Is GetType(TestTabViewModel)
+    '    End Get
+    'End Property
 End Class

@@ -16,8 +16,8 @@ Public Class VWContractPrimaryApplicantViewModel
 
     Public ReadOnly Property PrimaryApplicantToggleButton As Visibility
         Get
-            If _View.DataContext Is Nothing OrElse _View.DataContext.GlobalProperty Is Nothing Then Return Visibility.Collapsed
-            If Utility.IsBusiness(GlobalProperty) Then Return Visibility.Collapsed
+            'If _View.DataContext Is Nothing OrElse _View.DataContext.GlobalProperty Is Nothing Then Return Visibility.Collapsed
+            'If Utility.IsBusiness(GlobalProperty) Then Return Visibility.Collapsed
             Return Visibility.Visible
         End Get
     End Property
@@ -28,7 +28,7 @@ Public Class VWContractPrimaryApplicantViewModel
     End Property
     Public Sub New(ByVal view As PromptContentViewModel)
         _View = view
-        _Primary = New VWContractApplicantViewModel(view.DataContext.PrimaryApplicant, view.DataContext.GlobalProperty)
+        '_Primary = New VWContractApplicantViewModel(view.DataContext.PrimaryApplicant, view.DataContext.GlobalProperty)
     End Sub
 
     Public Sub Validate()

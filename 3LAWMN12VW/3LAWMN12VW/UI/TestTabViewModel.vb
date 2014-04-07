@@ -11,6 +11,6 @@ Public Class TestTabViewModel
         End Get
     End Property
     Public Sub New(ByVal view As PromptContentViewModel)
-        _testContainerVM = New VWContractApplicantViewModel(view.DataContext.PrimaryApplicant, view.DataContext.GlobalProperty)
+        '_testContainerVM = New VWContractApplicantViewModel(view.DataContext.PrimaryApplicant, view.DataContext.GlobalProperty)
     End Sub
 End Class
