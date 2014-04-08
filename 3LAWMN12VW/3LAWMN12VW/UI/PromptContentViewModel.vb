@@ -43,6 +43,16 @@ Public Class PromptContentViewModel
             Return Me.ActiveItem.GetType() Is GetType(VWContractPrimaryApplicantViewModel)
         End Get
     End Property
+
+    Private _vehicleView As VWContractVehicleViewModel
+    Public Sub VehicleClicked()
+        ChangeView(_vehicleView)
+    End Sub
+    Public ReadOnly Property VehicleChecked()
+        Get
+            Return Me.ActiveItem.GetType() Is GetType(VWContractVehicleViewModel)
+        End Get
+    End Property
     Private Sub ChangeView(ByVal newView As Screen)
         'If Me.ActiveItem Is VWContractRequiredViewModel Then
         '    'Warn and require user to select these options.
@@ -50,6 +60,7 @@ Public Class PromptContentViewModel
         Me.ActiveItem = newView
         Me.NotifyOfPropertyChange("RequirementChecked")
         Me.NotifyOfPropertyChange("PrimaryApplicantChecked")
+        Me.NotifyOfPropertyChange("VehicleChecked")
         'Me.NotifyOfPropertyChange("TestChecked")
     End Sub
     Public Sub New(ByVal previousDC As Dictionary(Of String, Object), ByVal arDC As Dictionary(Of String, Object), eventAggregator As IEventAggregator)
@@ -57,6 +68,7 @@ Public Class PromptContentViewModel
         _dataContext = ValidationRuleData.VWCreditProcess.FetchExisting(previousDC, arDC)
         _detailView = New VWContractRequiredViewModel(Me, _eventAggregator)
         _primaryApplicant = New VWContractPrimaryApplicantViewModel(Me)
+        _vehicleView = New VWContractVehicleViewModel(Me, _eventAggregator)
         '_testTab = New TestTabViewModel(Me)
         _eventAggregator.Subscribe(Me)
         Me.ActiveItem = _detailView

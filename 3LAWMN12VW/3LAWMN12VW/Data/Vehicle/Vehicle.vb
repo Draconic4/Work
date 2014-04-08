@@ -93,10 +93,13 @@ Namespace ValidationRuleData
                 Return GetProperty(ExteriorColorProperty)
             End Get
         End Property
-        Public ReadOnly Property TransmissionType As String
+        Public Property TransmissionType As String
             Get
                 Return GetProperty(TransmissionTypeProperty)
             End Get
+            Set(value As String)
+                SetProperty(TransmissionTypeProperty, value)
+            End Set
         End Property
         Public ReadOnly Property LicenseNumber As String
             Get
@@ -180,78 +183,17 @@ Namespace ValidationRuleData
 #End Region
 
 #Region " Data Access "
-        'Public Sub New(ByVal prefix As String)
-        '    LoadProperty(ApplicantTypeProperty, prefix)
-        '    _AristoReplace = False
-        'End Sub
-        'Public Shared Function FetchExisting(ByVal prefix As String, pInfo As ProcessInfo) As Address
-        '    Return New Address(prefix)
-        'End Function
-        'Public Sub Populate(ByVal d As Dictionary(Of String, Object))
-        '    _AristoReplace = True 'Second run is Aristo trying to replace any Aristo information that needs to change.
-        '    If d Is Nothing Then Exit Sub
+        Public Sub New(ByVal gProp As ProcessInfo)
+            _globalProperties = gProp
+        End Sub
+        Public Shared Function FetchExisting(formDC As Dictionary(Of String, Object), aristoDC As Dictionary(Of String, Object), globalProperty As ProcessInfo) As Vehicle
+            Dim veh As Vehicle = New Vehicle(globalProperty)
+            veh.Populate(formDC, aristoDC)
+            Return veh
+        End Function
+        Public Sub Populate(ByVal p As Dictionary(Of String, Object), ByVal d As Dictionary(Of String, Object))
 
-        '    'SameAsHome Flag Is Set by First Dictionary Run
-        '    Dim sameAsHomeKey As String = PopulateKey(SameAsHomeAddressProperty)
-        '    If d.ContainsKey(sameAsHomeKey) Then LoadProperty(SameAsHomeAddressProperty, d(sameAsHomeKey))
-
-        '    'Address Split into two lines if need be.
-        '    Dim addrKey As String = PopulateKey(Line1Property)
-        '    If d.ContainsKey(addrKey) Then
-        '        Dim addrValue As String = d(addrKey)
-        '        If addrValue.Length >= 40 Then
-        '            'Do something clever to split string properly.
-        '            LoadProperty(Line1Property, String.Empty)
-        '            LoadProperty(Line2Property, String.Empty)
-        '        Else
-        '            LoadProperty(Line1Property, addrValue)
-        '        End If
-        '    End If
-
-        '    PopulateField(CityProperty, d)
-        '    Dim stateKey As String = ApplicantType & StateProperty.FriendlyName
-        '    If d.ContainsKey(stateKey) Then
-        '        LoadProperty(StateProperty, Utility.ProvinceOrStateConverter(d(stateKey), Utility.IsCanadian(GlobalProperty)))
-        '    End If
-        '    PopulateField(CountyProperty, d)
-        '    PopulateField(ZipProperty, d)
-        '    _AristoReplace = True
-        'End Sub
-        ''Reset required from Aristo Has no concept of Address Types...
-        'Public Function PopulateKey(ByVal pi As PropertyInfo(Of Boolean)) As String
-        '    If AddressType = "HomeAddress" OrElse SameAsHomeAddress Then Return ApplicantType & pi.FriendlyName
-        '    Return ApplicantType & AddressType & pi.FriendlyName
-        'End Function
-        'Public Function PopulateKey(ByVal pi As PropertyInfo(Of String)) As String
-        '    If AddressType = "HomeAddress" OrElse SameAsHomeAddress Then Return ApplicantType & pi.FriendlyName
-        '    Return ApplicantType & AddressType & pi.FriendlyName
-        'End Function
-        ''Aristo
-        'Public Sub PopulateField(ByVal pi As PropertyInfo(Of String), ByVal d As Dictionary(Of String, Object))
-        '    Dim key As String = PopulateKey(pi)
-        '    If d.ContainsKey(key) Then
-        '        If SameAsHomeAddress Then LoadProperty(pi, d(key))
-        '        If _AristoReplace AndAlso SameAsHomeAddress Then
-        '        End If
-        '        If _AristoReplace AndAlso SameAsHomeAddress Then
-        '            Dim x As String = ReadProperty(pi)
-        '            If d.ContainsKey(key) Then LoadProperty(pi, d(key))
-        '        Else
-        '            If d.ContainsKey(key) Then LoadProperty(pi, d(key))
-        '        End If
-        '    End If
-        'End Sub
-        'Public Function SerializeField(ByVal pi As PropertyInfo(Of String)) As Dictionary(Of String, Object)
-        '    Dim d As New Dictionary(Of String, Object)
-
-        '    d.Add(PopulateKey(Line1Property), Line1)
-        '    d.Add(PopulateKey(Line2Property), Line2)
-        '    d.Add(PopulateKey(CityProperty), City)
-        '    d.Add(PopulateKey(StateProperty), State)
-        '    d.Add(PopulateKey(ZipProperty), Zip)
-
-        '    Return d
-        'End Function
+        End Sub
 #End Region
     End Class
 End Namespace

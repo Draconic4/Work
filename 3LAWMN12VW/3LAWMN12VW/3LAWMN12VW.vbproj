@@ -93,9 +93,13 @@
   <ItemGroup>
     <Compile Include="3LAWMN12VW.vb" />
     <Compile Include="3LAWMN12VWInfo.vb" />
-    <Compile Include="Controls\VWContractAddressViewModel.vb" />
-    <Compile Include="Controls\VWContractApplicantIDViewModel.vb" />
-    <Compile Include="Controls\VWContractApplicantViewModel.vb" />
+    <Compile Include="Controls\Applicant\VWContractAddressViewModel.vb" />
+    <Compile Include="Controls\Applicant\VWContractApplicantIDViewModel.vb" />
+    <Compile Include="Controls\Applicant\VWContractApplicantViewModel.vb" />
+    <Compile Include="Controls\Vehicle\VWContractCreditVehicleView.xaml.vb">
+      <DependentUpon>VWContractCreditVehicleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Vehicle\VWContractCreditVehicleViewModel.vb" />
     <Compile Include="Data\Applicant\Address.vb" />
     <Compile Include="Data\Applicant\Applicant.vb" />
     <Compile Include="Data\Applicant\ApplicantID.vb" />
@@ -162,6 +166,10 @@
       <DependentUpon>VWContractRequiredView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\VWContractRequiredViewModel.vb" />
+    <Compile Include="UI\VWContractVehicleView.xaml.vb">
+      <DependentUpon>VWContractVehicleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\VWContractVehicleViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Layout\3LAWMN12VW_Layout.resx">
@@ -193,17 +201,21 @@
     <Resource Include="Resources\check.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\VWContractAddressView.xaml">
+    <Page Include="Controls\Applicant\VWContractAddressView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Controls\VWContractApplicantIDView.xaml">
+    <Page Include="Controls\Applicant\VWContractApplicantIDView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\VWContractApplicantView.xaml">
+    <Page Include="Controls\Applicant\VWContractApplicantView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Vehicle\VWContractCreditVehicleView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\PromptContentView.xaml">
       <SubType>Designer</SubType>
@@ -222,6 +234,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\VWContractRequiredView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\VWContractVehicleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

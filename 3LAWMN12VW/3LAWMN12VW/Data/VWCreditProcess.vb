@@ -5,6 +5,7 @@ Namespace ValidationRuleData
 
         Private _globalProperties As ProcessInfo
         Private _applicantMgr As ApplicantManager
+        Private _vehicle As Vehicle
 
 #Region "  Properties "
         Public ReadOnly Property GlobalProperty As ProcessInfo
@@ -15,6 +16,11 @@ Namespace ValidationRuleData
         Public ReadOnly Property ApplicantMgr As ApplicantManager
             Get
                 Return _applicantMgr
+            End Get
+        End Property
+        Public ReadOnly Property Vehicle As Vehicle
+            Get
+                Return _vehicle
             End Get
         End Property
 #End Region
@@ -28,6 +34,7 @@ Namespace ValidationRuleData
             dp._globalProperties.Populate(formDC)
             dp._globalProperties.Populate(aristoDC)
             dp._applicantMgr = ApplicantManager.Fetch(formDC, aristoDC, dp.GlobalProperty)
+            dp._vehicle = Vehicle.FetchExisting(formDC, aristoDC, dp.GlobalProperty)
             Return dp
         End Function
 
