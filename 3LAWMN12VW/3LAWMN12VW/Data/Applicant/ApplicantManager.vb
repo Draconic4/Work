@@ -96,24 +96,24 @@ Namespace ValidationRuleData
                 _businessApplicant.Populate(p)
                 _businessApplicant.Populate(d)
             Else
-                _primaryApplicant = Applicant.FetchExisting("BUY", _globalProperty)
+                _primaryApplicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "BUY", .HumanReadable = "Purchaser"}, _globalProperty)
                 _primaryApplicant.Populate(p)
                 _primaryApplicant.Populate(d)
             End If
             If d.ContainsKey("COBUYER3_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER3_CODE")) Then
-                Dim cob3 As Applicant = Applicant.FetchExisting("COBUYER3", _globalProperty)
+                Dim cob3 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER3", .HumanReadable = "CoApplicant 2"}, _globalProperty)
                 If p.ContainsKey("COBUYER3_CODE") Then cob3.Populate(p)
                 cob3.Populate(d)
                 _applicantList.Add(cob3)
             End If
             If d.ContainsKey("COBUYER2_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER2_CODE")) Then
-                Dim cob2 As Applicant = Applicant.FetchExisting("COBUYER2", _globalProperty)
-                If p.ContainsKey("COBUYER3_CODE") Then cob2.Populate(p)
+                Dim cob2 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER2", .HumanReadable = "CoApplicant 1 or CoApplicant 2"}, _globalProperty)
+                If p.ContainsKey("COBUYER2_CODE") Then cob2.Populate(p)
                 cob2.Populate(d)
                 _applicantList.Insert(0, cob2)
             End If
-            If d.ContainsKey("COBUYER1_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER2_CODE")) Then
-                Dim cob1 As Applicant = Applicant.FetchExisting("COBUYER1", _globalProperty)
+            If d.ContainsKey("COBUYER1_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER1_CODE")) Then
+                Dim cob1 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER1", .HumanReadable = "CoApplicant 1 or Guarantor"}, _globalProperty)
                 If p.ContainsKey("COBUYER1_CODE") Then cob1.Populate(p)
                 cob1.Populate(d)
                 _applicantList.Insert(0, cob1)

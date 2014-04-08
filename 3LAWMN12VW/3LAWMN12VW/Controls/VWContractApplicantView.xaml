@@ -5,21 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-        </Grid.RowDefinitions>
-        <Border Grid.Row="0">
-            <Label Content="{Binding MyCaption}" FontWeight="Bold" FontSize="14"/>
-        </Border>
-        <ContentControl x:Name="ApplicantName" Grid.Row="1" Grid.Column="0"></ContentControl>
-        <ContentControl x:Name="HomeAddress" Grid.Row="2" Grid.Column="0"></ContentControl>
-        <ContentControl x:Name="BillingAddress" Grid.Row="3" Grid.Column="0"></ContentControl>
-        <ContentControl x:Name="GarageAddress" Grid.Row="4" Grid.Column="0"></ContentControl>
-    </Grid>
+             Width="Auto" Height="Auto">
+    <StackPanel Height="Auto" Width="Auto" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid Height="600" Width="507">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0">
+                <Label Content="{Binding MyCaption}" FontWeight="Bold" FontSize="14"/>
+            </Border>
+            <ContentControl x:Name="ApplicantName" Grid.Row="1" Grid.Column="0"></ContentControl>
+            <ContentControl x:Name="HomeAddress" Grid.Row="2" Grid.Column="0"></ContentControl>
+            <ContentControl x:Name="BillingAddress" Grid.Row="3" Grid.Column="0"></ContentControl>
+            <ContentControl x:Name="GarageAddress" Grid.Row="4" Grid.Column="0"></ContentControl>
+        </Grid>
+    </StackPanel>
 </UserControl>

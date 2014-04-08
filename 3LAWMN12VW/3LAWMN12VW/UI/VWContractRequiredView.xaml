@@ -46,7 +46,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0" Background="White">
+        <Border Grid.Row="0">
             <Label FontWeight="Bold" FontSize="14">Required Information</Label>
         </Border>
         <Grid Grid.Row="1" Margin="4,0,4,0" Background="White">

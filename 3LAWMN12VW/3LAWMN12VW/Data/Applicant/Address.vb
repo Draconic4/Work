@@ -9,8 +9,8 @@ Namespace ValidationRuleData
         'Global Business Rule Dependency
         Public Shared ReadOnly GlobalRuleProperty As PropertyInfo(Of ProcessInfo) = RegisterProperty(Of ProcessInfo)(Function(c) (c.GlobalProperty), RelationshipTypes.PrivateField)
         'Local Business Rule Dependencies
-        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicantType))
-        Public Shared ReadOnly AddressTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.AddressType), "ADDRESSTYPE", "HomeAddress")
+        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.ApplicantType))
+        Public Shared ReadOnly AddressTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.AddressType))
         Public Shared ReadOnly SameAsHomeAddressProperty As PropertyInfo(Of Boolean) = RegisterProperty(Of Boolean)(Function(c) (c.SameAsHomeAddress), "_SAMEASHOME", True)
         'Data 
         Public Shared ReadOnly Line1Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line1), "_ADDRESS", String.Empty)
@@ -27,16 +27,16 @@ Namespace ValidationRuleData
             End Get
         End Property
 
-        Public ReadOnly Property ApplicantType As String
+        Public ReadOnly Property ApplicantType As KeyBindInfo
             Get
                 Return GetProperty(ApplicantTypeProperty)
             End Get
         End Property
-        Public Property AddressType As String
+        Public Property AddressType As KeyBindInfo
             Get
                 Return GetProperty(AddressTypeProperty)
             End Get
-            Set(value As String)
+            Set(value As KeyBindInfo)
                 SetProperty(AddressTypeProperty, AddressType)
             End Set
         End Property
@@ -99,17 +99,17 @@ Namespace ValidationRuleData
 #End Region
 
 #Region " Data Access "
-        Public Sub New(ByVal prefix As String)
-            LoadProperty(ApplicantTypeProperty, prefix)
+        Public Sub New(ByVal parent As KeyBindInfo)
+            LoadProperty(ApplicantTypeProperty, parent)
             _AristoReplace = False
         End Sub
-        Public Shared Function FetchExisting(ByVal prefix As String, pInfo As ProcessInfo) As Address
-            Return New Address(prefix)
+        Public Shared Function FetchExisting(ByVal keyParent As KeyBindInfo, pInfo As ProcessInfo) As Address
+            Return New Address(keyParent)
         End Function
-        Public Sub Populate(ByVal d As Dictionary(Of String, Object))
+        Public Sub Populate(ByVal addressType As KeyBindInfo, ByVal d As Dictionary(Of String, Object))
             _AristoReplace = True 'Second run is Aristo trying to replace any Aristo information that needs to change.
             If d Is Nothing Then Exit Sub
-
+            LoadProperty(AddressTypeProperty, addressType)
             'SameAsHome Flag Is Set by First Dictionary Run
             Dim sameAsHomeKey As String = PopulateKey(SameAsHomeAddressProperty)
             If d.ContainsKey(sameAsHomeKey) Then LoadProperty(SameAsHomeAddressProperty, d(sameAsHomeKey))
@@ -128,7 +128,7 @@ Namespace ValidationRuleData
             End If
 
             PopulateField(CityProperty, d)
-            Dim stateKey As String = ApplicantType & StateProperty.FriendlyName
+            Dim stateKey As String = PopulateKey(StateProperty)
             If d.ContainsKey(stateKey) Then
                 LoadProperty(StateProperty, Utility.ProvinceOrStateConverter(d(stateKey), Utility.IsCanadian(GlobalProperty)))
             End If
@@ -136,16 +136,14 @@ Namespace ValidationRuleData
             PopulateField(ZipProperty, d)
             _AristoReplace = True
         End Sub
-        'Reset required from Aristo Has no concept of Address Types...
         Public Function PopulateKey(ByVal pi As PropertyInfo(Of Boolean)) As String
-            If AddressType = "HomeAddress" OrElse SameAsHomeAddress Then Return ApplicantType & pi.FriendlyName
-            Return ApplicantType & AddressType & pi.FriendlyName
+            If AddressType.KeyValue = "HomeAddress" OrElse SameAsHomeAddress Then Return ApplicantType.KeyValue & pi.FriendlyName
+            Return ApplicantType.KeyValue & AddressType.KeyValue & pi.FriendlyName
         End Function
         Public Function PopulateKey(ByVal pi As PropertyInfo(Of String)) As String
-            If AddressType = "HomeAddress" OrElse SameAsHomeAddress Then Return ApplicantType & pi.FriendlyName
-            Return ApplicantType & AddressType & pi.FriendlyName
+            If AddressType.KeyValue = "HomeAddress" OrElse SameAsHomeAddress Then Return ApplicantType.KeyValue & pi.FriendlyName
+            Return ApplicantType.KeyValue & AddressType.KeyValue & pi.FriendlyName
         End Function
-        'Aristo
         Public Sub PopulateField(ByVal pi As PropertyInfo(Of String), ByVal d As Dictionary(Of String, Object))
             Dim key As String = PopulateKey(pi)
             If d.ContainsKey(key) Then
@@ -237,7 +235,7 @@ Namespace ValidationRuleData
             Protected Overrides Sub Execute(context As Rules.RuleContext)
                 Dim t As Address = context.Target
                 If Utility.IsCanadian(t.GlobalProperty) Then Exit Sub
-                If t.ApplicantType <> "BUSINESS" Then Exit Sub
+                If t.ApplicantType.HumanReadable.StartsWith("BUSINESS", StringComparison.InvariantCultureIgnoreCase) Then Exit Sub
                 If Not Utility.IsLease(t.GlobalProperty) Then Exit Sub
                 If String.IsNullOrWhiteSpace(t.County) Then context.AddErrorResult("Validation Error - US Lease Require County.")
             End Sub

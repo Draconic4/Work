@@ -6,14 +6,14 @@ Namespace ValidationRuleData
 
         Private _globalProperties As ProcessInfo
 
-        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicantType))
+        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.ApplicantType))
         Public Shared ReadOnly ApplicantNameProperty As PropertyInfo(Of ApplicantID) = RegisterProperty(Of ApplicantID)(Function(c) c.ApplicantName)
         Public Shared ReadOnly HomeAddressProperty As PropertyInfo(Of Address) = RegisterProperty(Of Address)(Function(c) c.HomeAddress)
         Public Shared ReadOnly BillingAddressProperty As PropertyInfo(Of Address) = RegisterProperty(Of Address)(Function(c) c.BillingAddress)
         Public Shared ReadOnly GarageAddressProperty As PropertyInfo(Of Address) = RegisterProperty(Of Address)(Function(c) c.GarageAddress)
 
 #Region "  Properties "
-        Public ReadOnly Property ApplicantType As String
+        Public ReadOnly Property ApplicantType As KeyBindInfo
             Get
                 Return GetProperty(ApplicantTypeProperty)
             End Get
@@ -53,12 +53,12 @@ Namespace ValidationRuleData
 #End Region
 
 #Region "  Data Access "
-        Public Sub New(ByVal prefix As String, pInfo As ProcessInfo)
-            LoadProperty(ApplicantTypeProperty, prefix)
+        Public Sub New(ByVal parent As KeyBindInfo, pInfo As ProcessInfo)
+            LoadProperty(ApplicantTypeProperty, parent)
             _globalProperties = pInfo
         End Sub
-        Public Shared Function FetchExisting(ByVal prefix As String, pInfo As ProcessInfo) As Applicant
-            Return New Applicant(prefix, pInfo)
+        Public Shared Function FetchExisting(ByVal keyParent As KeyBindInfo, pInfo As ProcessInfo) As Applicant
+            Return New Applicant(keyParent, pInfo)
         End Function
         Public Sub Populate(ByVal d As Dictionary(Of String, Object))
             PopulateId(d)
@@ -72,9 +72,9 @@ Namespace ValidationRuleData
             If HomeAddress Is Nothing Then LoadProperty(HomeAddressProperty, Address.FetchExisting(ApplicantType, _globalProperties))
             If BillingAddress Is Nothing Then LoadProperty(BillingAddressProperty, Address.FetchExisting(ApplicantType, _globalProperties))
             If GarageAddress Is Nothing Then LoadProperty(GarageAddressProperty, Address.FetchExisting(ApplicantType, _globalProperties))
-            HomeAddress.Populate(d)
-            BillingAddress.Populate(d)
-            GarageAddress.Populate(d)
+            HomeAddress.Populate(New KeyBindInfo With {.HumanReadable = "Home Address", .KeyValue = ""}, d)
+            BillingAddress.Populate(New KeyBindInfo With {.HumanReadable = "Billing Address", .KeyValue = "_BILLING"}, d)
+            GarageAddress.Populate(New KeyBindInfo With {.HumanReadable = "Garage Address", .KeyValue = "_GARAGE"}, d)
         End Sub
 #End Region
 

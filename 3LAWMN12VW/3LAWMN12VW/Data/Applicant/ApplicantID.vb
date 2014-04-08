@@ -4,9 +4,9 @@ Namespace ValidationRuleData
     Public Class ApplicantID
         Inherits BusinessBase(Of ApplicantID)
 
-        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicantType))
-        Public Shared ReadOnly CountryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Country), "COUNTRY", "US")
         Public Shared ReadOnly ApplicationTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicationType), "_APPLICANTTYPE", "INDIV")
+        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.ApplicantType))
+        Public Shared ReadOnly CountryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Country), "COUNTRY", "US")
         Public Shared ReadOnly FamilyProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Family), "_LASTNAME", String.Empty)
         Public Shared ReadOnly MiddleProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Middle), "_INITNAME", String.Empty)
         Public Shared ReadOnly GivenProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Given), "_FIRSTNAME", String.Empty)
@@ -29,7 +29,7 @@ Namespace ValidationRuleData
                 Return GetProperty(CountryProperty)
             End Get
         End Property
-        Public ReadOnly Property ApplicantType As String
+        Public ReadOnly Property ApplicantType As KeyBindInfo
             Get
                 Return GetProperty(ApplicantTypeProperty)
             End Get
@@ -125,11 +125,11 @@ Namespace ValidationRuleData
 #End Region
 
 #Region "  Data Access "
-        Public Sub New(ByVal prefix As String)
-            LoadProperty(ApplicantTypeProperty, prefix)
+        Public Sub New(ByVal parent As KeyBindInfo)
+            LoadProperty(ApplicantTypeProperty, parent)
         End Sub
-        Public Shared Function FetchExisting(ByVal prefix As String) As ApplicantID
-            Return New ApplicantID(prefix)
+        Public Shared Function FetchExisting(ByVal keyParent As KeyBindInfo) As ApplicantID
+            Return New ApplicantID(keyParent)
         End Function
         Public Sub Populate(ByVal d As Dictionary(Of String, Object))
             If d Is Nothing Then Exit Sub
@@ -147,22 +147,22 @@ Namespace ValidationRuleData
             PopulateField(DriverLicenseExpiryProperty, d)
         End Sub
         Public Sub PopulateField(ByVal pi As PropertyInfo(Of String), ByVal d As Dictionary(Of String, Object))
-            Dim key As String = ApplicantType & pi.FriendlyName
+            Dim key As String = ApplicantType.KeyValue & pi.FriendlyName
             If d.ContainsKey(key) Then LoadProperty(pi, d(key))
         End Sub
         Public Function SerializeField(ByVal pi As PropertyInfo(Of String)) As Dictionary(Of String, Object)
             Dim d As New Dictionary(Of String, Object)
 
-            d.Add(ApplicantType & FamilyProperty.FriendlyName, Family)
-            d.Add(ApplicantType & MiddleProperty.FriendlyName, Middle)
-            d.Add(ApplicantType & GivenProperty.FriendlyName, Given)
-            d.Add(ApplicantType & SuffixProperty.FriendlyName, Suffix)
-            d.Add(ApplicantType & BirthDateProperty.FriendlyName, BirthDate)
-            d.Add(ApplicantType & AgeProperty.FriendlyName, Age)
-            d.Add(ApplicantType & NationalIDProperty.FriendlyName, NationalID)
-            d.Add(ApplicantType & IssuingStateProperty.FriendlyName, IssuingState)
-            d.Add(ApplicantType & DriverLicenseProperty.FriendlyName, DriverLicense)
-            d.Add(ApplicantType & DriverLicenseExpiryProperty.FriendlyName, DriverLicenseExpiry)
+            d.Add(ApplicantType.KeyValue & FamilyProperty.FriendlyName, Family)
+            d.Add(ApplicantType.KeyValue & MiddleProperty.FriendlyName, Middle)
+            d.Add(ApplicantType.KeyValue & GivenProperty.FriendlyName, Given)
+            d.Add(ApplicantType.KeyValue & SuffixProperty.FriendlyName, Suffix)
+            d.Add(ApplicantType.KeyValue & BirthDateProperty.FriendlyName, BirthDate)
+            d.Add(ApplicantType.KeyValue & AgeProperty.FriendlyName, Age)
+            d.Add(ApplicantType.KeyValue & NationalIDProperty.FriendlyName, NationalID)
+            d.Add(ApplicantType.KeyValue & IssuingStateProperty.FriendlyName, IssuingState)
+            d.Add(ApplicantType.KeyValue & DriverLicenseProperty.FriendlyName, DriverLicense)
+            d.Add(ApplicantType.KeyValue & DriverLicenseExpiryProperty.FriendlyName, DriverLicenseExpiry)
 
             Return d
         End Function
