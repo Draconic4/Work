@@ -19,10 +19,7 @@
             <Color x:Key="ControlPressedColor">#FFFFFF5C</Color>
             <Color x:Key="ControlCheckedColor">#FFE2E295</Color>
 
-                
-
             <!-- FocusVisual -->
-
             <Style x:Key="ButtonFocusVisual">
                 <Setter Property="Control.Template">
                     <Setter.Value>
@@ -103,7 +100,6 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
         <Grid Grid.Row="0" Background="White" Margin="0,0,0,5">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50" />
@@ -125,7 +121,7 @@
                 <TextBlock Text="{Binding ApplicationStatus}" FontWeight="Bold" />
             </Viewbox>-->
         </Grid>
-        <ScrollViewer Grid.Row="1" Background="{StaticResource ResourceKey=Grid2Color}" Margin="4,5,4,0" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Disabled">
+        <ScrollViewer Grid.Row="1" Margin="4,0,4,0" Background="{StaticResource ResourceKey=Grid2Color}" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Disabled">
             <StackPanel Orientation="Horizontal">
                 <ToggleButton Content="Requirement" IsChecked="{Binding RequirementChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action RequirementClicked]" Width="100"/>
                 <ToggleButton Content="Primary Applicant" Visibility="{Binding PrimaryApplicantVisibility}" IsChecked="{Binding PrimaryApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action PrimaryApplicantClicked]" Width="120" />
@@ -134,6 +130,6 @@
                 <ToggleButton Content="TestTab" IsChecked="{Binding TestChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action TestClicked]" Width="100"/>-->
             </StackPanel>
         </ScrollViewer>
-        <ContentControl x:Name="ActiveItem" Grid.Row="2" Margin="4,0,4,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ContentControl>
+        <ContentControl x:Name="ActiveItem" Grid.Row="2" Margin="4,0,4,0" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ContentControl>
     </Grid>
 </UserControl>

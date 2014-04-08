@@ -8,9 +8,7 @@
              xmlns:pbsForms ="clr-namespace:_3LAWMN12VW"
              xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
-             Height="Auto" Width="Auto">
-    <Grid Height="Auto">
-        <ContentControl x:Name="PrimaryApplicant" Grid.Row="0" Grid.Column="0"></ContentControl>
-    </Grid>
+             d:DesignHeight="200" d:DesignWidth="507"
+             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+    <ContentControl x:Name="PrimaryApplicant"></ContentControl>
 </UserControl>
