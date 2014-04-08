@@ -122,7 +122,9 @@ Namespace ValidationRuleData
 #End Region
 
         Shared Function Fetch(formDC As Dictionary(Of String, Object), aristoDC As Dictionary(Of String, Object), globalProperty As ProcessInfo) As ApplicantManager
-            Return New ApplicantManager(globalProperty)
+            Dim aMgr As ApplicantManager = New ApplicantManager(globalProperty)
+            aMgr.Populate(formDC, aristoDC)
+            Return aMgr
         End Function
 
     End Class

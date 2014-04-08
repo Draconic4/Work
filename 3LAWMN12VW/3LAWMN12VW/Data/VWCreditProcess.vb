@@ -12,11 +12,6 @@ Namespace ValidationRuleData
                 Return _globalProperties
             End Get
         End Property
-        Public ReadOnly Property PrimaryApplicant As Applicant
-            Get
-                Return _applicantMgr.Primary
-            End Get
-        End Property
         Public ReadOnly Property ApplicantMgr As ApplicantManager
             Get
                 Return _applicantMgr
@@ -38,7 +33,7 @@ Namespace ValidationRuleData
 
 #Region "  Business Rules "
         Public Sub CheckRules()
-            '.CheckRules()
+
         End Sub
 #End Region
     End Class
