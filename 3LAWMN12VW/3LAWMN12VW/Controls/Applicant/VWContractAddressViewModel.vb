@@ -69,6 +69,10 @@ Public Class VWContractAddressViewModel
             Return False
         End Get
     End Property
+    Public Sub New()
+        _address = New ValidationRuleData.Address(New KeyBindInfo With {.HumanReadable = "Home Address", .KeyValue = "NOTHING"})
+        _gInfo = New ValidationRuleData.ProcessInfo()
+    End Sub
     Public Sub New(ByVal address As ValidationRuleData.Address, ByVal gProp As ValidationRuleData.ProcessInfo)
         _address = address
         _gInfo = gProp

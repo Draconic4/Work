@@ -18,7 +18,6 @@
             <!--#FFF9F9AE-->
             <Color x:Key="ControlPressedColor">#FFFFFF5C</Color>
             <Color x:Key="ControlCheckedColor">#FFE2E295</Color>
-
             <!-- FocusVisual -->
             <Style x:Key="ButtonFocusVisual">
                 <Setter Property="Control.Template">
@@ -121,14 +120,22 @@
                 <TextBlock Text="{Binding ApplicationStatus}" FontWeight="Bold" />
             </Viewbox>-->
         </Grid>
+        <!--<ListBox Grid.Row="1" Margin="4,0,4,0" Background="{StaticResource Grid2Color}" ItemsSource="{Binding MenuOptions}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ToggleButton Content="{Binding ButtonText}" IsChecked="{Binding Checked, Mode=OneWay}" cal:Message.Attach="{Binding ActionText}" Width="100"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
+        
         <ScrollViewer Grid.Row="1" Margin="4,0,4,0" Background="{StaticResource ResourceKey=Grid2Color}" HorizontalAlignment="Stretch" VerticalScrollBarVisibility="Disabled">
             <StackPanel Orientation="Horizontal">
                 <ToggleButton Content="Requirement" IsChecked="{Binding RequirementChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action RequirementClicked]" Width="100"/>
                 <ToggleButton Content="Primary Applicant" Visibility="{Binding PrimaryApplicantVisibility}" IsChecked="{Binding PrimaryApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action PrimaryApplicantClicked]" Width="120" />
                 <ToggleButton Content="Vehicle" IsChecked="{Binding VehicleChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action VehicleClicked]" Width="100" />
-                <!--<ToggleButton Content="Business Applicant" Visibility="{Binding BusinessApplicantVisibility}" IsChecked="{Binding BusinessApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action BusinessApplicantClicked]" Width="120"/> 
+                <ToggleButton Content="Business Applicant" Visibility="{Binding BusinessApplicantVisibility}" IsChecked="{Binding BusinessApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action BusinessApplicantClicked]" Width="120"/> 
                 <ToggleButton Content="CoApplicants" Visibility="{Binding CoApplicantVisibility}" IsChecked="{Binding CoApplicantChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action CoAppicantClicked]" Width="100"/>
-                <ToggleButton Content="TestTab" IsChecked="{Binding TestChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action TestClicked]" Width="100"/>-->
+                <ToggleButton Content="TestTab" IsChecked="{Binding TestChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action TestClicked]" Width="100"/>
             </StackPanel>
         </ScrollViewer>
         <ContentControl x:Name="ActiveItem" Grid.Row="2" Margin="4,0,4,0" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ContentControl>

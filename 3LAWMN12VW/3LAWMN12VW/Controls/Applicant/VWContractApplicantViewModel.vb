@@ -68,7 +68,12 @@ Public Class VWContractApplicantViewModel
             Return _GarageAddress
         End Get
     End Property
-
+    Public Sub New()
+        _Id = New VWContractApplicantIDViewModel(Nothing, Nothing)
+        _HomeAddress = New VWContractAddressViewModel(Nothing, Nothing)
+        _BillingAddress = New VWContractAddressViewModel(Nothing, Nothing)
+        _GarageAddress = New VWContractAddressViewModel(Nothing, Nothing)
+    End Sub
     Public Sub New(ByVal app As ValidationRuleData.Applicant, gProp As ValidationRuleData.ProcessInfo)
         If app Is Nothing Then Exit Sub
         _Person = app

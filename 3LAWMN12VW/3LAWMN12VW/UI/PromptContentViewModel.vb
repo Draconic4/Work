@@ -1,12 +1,14 @@
 ﻿Imports Caliburn.Micro
 Imports System.ComponentModel
 Imports System.Windows
+Imports System.Windows.Controls
 
 Public Class PromptContentViewModel
     Inherits Conductor(Of Screen).Collection.OneActive
     Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage), IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage), IHandle(Of ApplicationTypeChanged)
 
     Private ReadOnly _eventAggregator As IEventAggregator
+    Private _menuOptions As List(Of ToggleButtonViewModel)
 
     Private _dataContext As ValidationRuleData.VWCreditProcess
     Public Property DataContext As ValidationRuleData.VWCreditProcess
@@ -63,9 +65,12 @@ Public Class PromptContentViewModel
         Me.NotifyOfPropertyChange("VehicleChecked")
         'Me.NotifyOfPropertyChange("TestChecked")
     End Sub
+    Public Sub New()
+    End Sub
     Public Sub New(ByVal previousDC As Dictionary(Of String, Object), ByVal arDC As Dictionary(Of String, Object), eventAggregator As IEventAggregator)
         _eventAggregator = eventAggregator
         _dataContext = ValidationRuleData.VWCreditProcess.FetchExisting(previousDC, arDC)
+        '_menuOptions = GenerateButtonMenu()
         _detailView = New VWContractRequiredViewModel(Me, _eventAggregator)
         _primaryApplicant = New VWContractPrimaryApplicantViewModel(Me)
         _vehicleView = New VWContractVehicleViewModel(Me, _eventAggregator)
@@ -84,6 +89,12 @@ Public Class PromptContentViewModel
     Public Sub Handle_ApplicationTypeChanged(message As ApplicationTypeChanged) Implements IHandle(Of ApplicationTypeChanged).Handle
         NotifyOfPropertyChange("")
     End Sub
+
+    'Public Function GenerateButtonMenu() As List(Of ToggleButtonViewModel)
+    '    Dim l As New List(Of ToggleButtonViewModel)
+    '    l.Add(New ToggleButtonViewModel With {.ButtonText = "Applicant", .EventFunc = AddressOf RequirementChecked, .ActionFunc = ""}
+
+    'End Function
 
     'Private _testTab As TestTabViewModel
 
@@ -107,4 +118,10 @@ Public Class PromptContentViewModel
     '        Return Me.ActiveItem.GetType() Is GetType(TestTabViewModel)
     '    End Get
     'End Property
+End Class
+
+Public Class ToggleButtonViewModel
+    Public Property ButtonText As String
+    Public Property EventFunc As Action(Of Object)
+    Public Property ActionFunc As String
 End Class

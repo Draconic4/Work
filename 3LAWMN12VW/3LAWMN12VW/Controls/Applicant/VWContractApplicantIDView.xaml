@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:pbsForms="clr-namespace:_3LAWMN12VW"
              xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
              mc:Ignorable="d" 
-             d:DesignHeight="75" d:DesignWidth="600" Height="75" Width="600">
+             d:DesignHeight="75" d:DesignWidth="600" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="STretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch">
     <UserControl.Resources>
         <ResourceDictionary>
             <Style TargetType="{x:Type TextBox}">

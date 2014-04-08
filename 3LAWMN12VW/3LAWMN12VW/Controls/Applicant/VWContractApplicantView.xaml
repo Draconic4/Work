@@ -3,25 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:pbsForms="clr-namespace:_3LAWMN12VW"
              xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
-             mc:Ignorable="d" 
-             HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-    <StackPanel Height="Auto" Width="Auto" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid Height="600" Width="507" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-            </Grid.RowDefinitions>
-            <Border Grid.Row="0">
-                <Label Content="{Binding MyCaption}" FontWeight="Bold" FontSize="14"/>
-            </Border>
-            <ContentControl x:Name="ApplicantName" Grid.Row="1" Grid.Column="0"></ContentControl>
-            <ContentControl x:Name="HomeAddress" Grid.Row="2" Grid.Column="0"></ContentControl>
-            <ContentControl x:Name="BillingAddress" Grid.Row="3" Grid.Column="0"></ContentControl>
-            <ContentControl x:Name="GarageAddress" Grid.Row="4" Grid.Column="0"></ContentControl>
-        </Grid>
-    </StackPanel>
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             mc:Ignorable="d" Height="Auto" Width="Auto">
+    <Grid Height="Auto" Width="Auto">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0">
+            <Label Content="{Binding MyCaption}" FontWeight="Bold" FontSize="14"/>
+        </Border>
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ContentControl x:Name="ApplicantName" Grid.Row="0" Grid.Column="0"></ContentControl>
+                <ContentControl x:Name="HomeAddress" Grid.Row="1" Grid.Column="0"></ContentControl>
+                <ContentControl x:Name="BillingAddress" Grid.Row="2" Grid.Column="0"></ContentControl>
+                <ContentControl x:Name="GarageAddress" Grid.Row="3" Grid.Column="0"></ContentControl>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

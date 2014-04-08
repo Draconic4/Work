@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:pbsForms="clr-namespace:_3LAWMN12VW"
              xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
-             mc:Ignorable="d" 
-             Width="600" HorizontalAlignment="Stretch">
+             mc:Ignorable="d"
+             Width="Auto" Height="Auto" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch">
     <UserControl.Resources>
         <ResourceDictionary>
             <Style TargetType="{x:Type TextBox}">
@@ -39,7 +40,7 @@
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid Width="600" Background="White">
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -49,8 +50,8 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label Content="{Binding Address.AddressType.HumanReadable}" Grid.Row="0" Grid.Column="0" FontWeight="Bold" FontSize="14" />
-        <CheckBox Margin="2" Grid.Row="0" Grid.Column="1" IsChecked="{Binding Address.SameAsHomeAddress}" Visibility="{Binding HomeAddressVisibility}">Use Home Address</CheckBox>
-        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+        <CheckBox Margin="2" Grid.Row="0" Grid.Column="1" IsChecked="{Binding Address.SameAsHomeAddress}">Use Home Address</CheckBox>
+        <Grid Grid.Row="1" Grid.ColumnSpan="2" Visibility="{Binding HomeAddressVisibility}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />
                 <RowDefinition Height="25" />
