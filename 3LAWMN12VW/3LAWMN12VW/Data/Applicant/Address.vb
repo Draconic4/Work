@@ -10,10 +10,10 @@ Namespace ValidationRuleData
         Public Shared ReadOnly AddressTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.AddressType))
         Public Shared ReadOnly SameAsHomeAddressProperty As PropertyInfo(Of Boolean) = RegisterProperty(Of Boolean)(Function(c) (c.SameAsHomeAddress), "_SAMEASHOME", True)
         Public Shared ReadOnly Line1Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line1), "_ADDRESS", String.Empty)
-        Public Shared ReadOnly Line2Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line2), "_ADDRESS", String.Empty)
+        Public Shared ReadOnly Line2Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line2), "_ADDRESS2", String.Empty)
         Public Shared ReadOnly CityProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.City), "_CITY", String.Empty)
         Public Shared ReadOnly StateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.State), "_PROV", String.Empty)
-        Public Shared ReadOnly ZipProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Zip), "_CITY", String.Empty)
+        Public Shared ReadOnly ZipProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Zip), "_PCODE", String.Empty)
         Public Shared ReadOnly CountyProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.County), "_COUNTY", String.Empty)
 
 #Region "  Properties "
@@ -113,19 +113,21 @@ Namespace ValidationRuleData
                 PopulateField(Line1Property, addressKey, pRun)
                 PopulateField(Line2Property, addressKey, pRun)
                 PopulateField(CityProperty, addressKey, pRun)
-                PopulateField(StateProperty, addressKey, pRun)
+                Dim sAbbr As String = String.Empty
+                If pRun.TryGetValue(addressKey & StateProperty.FriendlyName, sAbbr) Then LoadProperty(StateProperty, GetProvinceAbbreviation.Fetch(sAbbr))
                 PopulateField(ZipProperty, addressKey, pRun)
                 PopulateField(CountyProperty, addressKey, pRun)
             End If
         End Sub
         Public Sub PopulateOverride(ByVal cRun As Dictionary(Of String, Object))
             If cRun Is Nothing Then Exit Sub
-            Dim addressKey As String = ApplicantType & AsKey(AddressType)
+            Dim addressKey As String = ApplicantType ' No Garage/Billing Address in Aristo One Address only.
             If SameAsHomeAddress Then
                 PopulateField(Line1Property, addressKey, cRun)
                 PopulateField(Line2Property, addressKey, cRun)
                 PopulateField(CityProperty, addressKey, cRun)
-                PopulateField(StateProperty, addressKey, cRun)
+                Dim sAbbr As String = String.Empty
+                If cRun.TryGetValue(addressKey & StateProperty.FriendlyName, sAbbr) Then LoadProperty(StateProperty, GetProvinceAbbreviation.Fetch(sAbbr))
                 PopulateField(ZipProperty, addressKey, cRun)
                 PopulateField(CountyProperty, addressKey, cRun)
             End If

@@ -6,13 +6,13 @@ Namespace ValidationRuleData
 
         Private _globalProperties As ProcessInfo
 
-        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.ApplicantType))
+        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicantType))
         Public Shared ReadOnly FamilyProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Family), "_LASTNAME", String.Empty)
         Public Shared ReadOnly MiddleProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Middle), "_INITNAME", String.Empty)
         Public Shared ReadOnly GivenProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Given), "_FIRSTNAME", String.Empty)
         Public Shared ReadOnly SuffixProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Suffix), "_SUFFIX", String.Empty)
         Public Shared ReadOnly BirthDateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.BirthDate), "_BIRTHDATE", String.Empty)
-        Public Shared ReadOnly AgeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Age), "_AGE", String.Empty)
+        Public Shared ReadOnly AgeProperty As PropertyInfo(Of Integer) = RegisterProperty(Of Integer)(Function(c) (c.Age), "_AGE", -1)
         Public Shared ReadOnly NationalIDProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.NationalID), "_SIN", String.Empty)
         Public Shared ReadOnly IssuingStateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.IssuingState), "_DLIC_STATE", String.Empty)
         Public Shared ReadOnly DriverLicenseProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DriverLicense), "_DLIC_NO", String.Empty)
@@ -29,7 +29,7 @@ Namespace ValidationRuleData
                 Return Given & " " & Family
             End Get
         End Property
-        Public ReadOnly Property ApplicantType As KeyBindInfo
+        Public ReadOnly Property ApplicantType As String
             Get
                 Return GetProperty(ApplicantTypeProperty)
             End Get
@@ -62,7 +62,7 @@ Namespace ValidationRuleData
                 Return GetProperty(BirthDateProperty)
             End Get
         End Property
-        Public ReadOnly Property Age As String
+        Public ReadOnly Property Age As Integer
             Get
                 Return GetProperty(AgeProperty)
             End Get
@@ -121,23 +121,28 @@ Namespace ValidationRuleData
             'Do Nothing.... Nothing to Calculate
         End Sub
         Public Sub PopulateField(ByVal pi As PropertyInfo(Of String), ByVal d As Dictionary(Of String, Object))
-            Dim key As String = ApplicantType.KeyValue & pi.FriendlyName
+            Dim key As String = ApplicantType & pi.FriendlyName
             Dim xVal As String = String.Empty
+            If d.TryGetValue(key, xVal) Then LoadProperty(pi, xVal)
+        End Sub
+        Public Sub PopulateField(ByVal pi As PropertyInfo(Of Integer), ByVal d As Dictionary(Of String, Object))
+            Dim key As String = ApplicantType & pi.FriendlyName
+            Dim xVal As Integer = 0
             If d.TryGetValue(key, xVal) Then LoadProperty(pi, xVal)
         End Sub
         Function SaveData() As Dictionary(Of String, Object)
             Dim d As New Dictionary(Of String, Object)
 
-            d.Add(ApplicantType.KeyValue & FamilyProperty.FriendlyName, Family)
-            d.Add(ApplicantType.KeyValue & MiddleProperty.FriendlyName, Middle)
-            d.Add(ApplicantType.KeyValue & GivenProperty.FriendlyName, Given)
-            d.Add(ApplicantType.KeyValue & SuffixProperty.FriendlyName, Suffix)
-            d.Add(ApplicantType.KeyValue & BirthDateProperty.FriendlyName, BirthDate)
-            d.Add(ApplicantType.KeyValue & AgeProperty.FriendlyName, Age)
-            d.Add(ApplicantType.KeyValue & NationalIDProperty.FriendlyName, NationalID)
-            d.Add(ApplicantType.KeyValue & IssuingStateProperty.FriendlyName, IssuingState)
-            d.Add(ApplicantType.KeyValue & DriverLicenseProperty.FriendlyName, DriverLicense)
-            d.Add(ApplicantType.KeyValue & DriverLicenseExpiryProperty.FriendlyName, DriverLicenseExpiry)
+            d.Add(ApplicantType & FamilyProperty.FriendlyName, Family)
+            d.Add(ApplicantType & MiddleProperty.FriendlyName, Middle)
+            d.Add(ApplicantType & GivenProperty.FriendlyName, Given)
+            d.Add(ApplicantType & SuffixProperty.FriendlyName, Suffix)
+            d.Add(ApplicantType & BirthDateProperty.FriendlyName, BirthDate)
+            d.Add(ApplicantType & AgeProperty.FriendlyName, Age)
+            d.Add(ApplicantType & NationalIDProperty.FriendlyName, NationalID)
+            d.Add(ApplicantType & IssuingStateProperty.FriendlyName, IssuingState)
+            d.Add(ApplicantType & DriverLicenseProperty.FriendlyName, DriverLicense)
+            d.Add(ApplicantType & DriverLicenseExpiryProperty.FriendlyName, DriverLicenseExpiry)
 
             Return d
         End Function

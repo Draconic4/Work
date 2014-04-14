@@ -119,7 +119,6 @@
     <Compile Include="Data\Deal\TradeIn.vb" />
     <Compile Include="Data\Deal\VehicleInsurance.vb" />
     <Compile Include="Data\GetProvinceAbbreviation.vb" />
-    <Compile Include="Data\KeyBindInfo.vb" />
     <Compile Include="Data\ProcessInfo.vb" />
     <Compile Include="Data\Vehicle\OptionList.vb" />
     <Compile Include="Data\Vehicle\Vehicle.vb" />
