@@ -138,6 +138,6 @@
                 <ToggleButton Content="TestTab" IsChecked="{Binding TestChecked, Mode=OneWay}" cal:Message.Attach="[Event Click] = [Action TestClicked]" Width="100"/>
             </StackPanel>
         </ScrollViewer>
-        <ContentControl x:Name="ActiveItem" Grid.Row="2" Margin="4,0,4,0" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ContentControl>
+        <ContentControl x:Name="CurrentDisplay" Grid.Row="2" Margin="4,0,4,0" Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ContentControl>
     </Grid>
 </UserControl>

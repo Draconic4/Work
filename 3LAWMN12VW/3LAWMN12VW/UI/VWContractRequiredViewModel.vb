@@ -24,9 +24,9 @@ Public Class VWContractRequiredViewModel
     End Property
     Public ReadOnly Property ProductTypeText As String
         Get
-            If _dataContext Is Nothing Then Return ""
-            If Not Utility.IsLease(_dataContext) Or _dataContext.ProductType.StartsWith("M") Then Return _dataContext.ProductType 'Won't be visible
-            If Utility.IsCanadian(_dataContext) Then Return "Single Pay"
+            'If _dataContext Is Nothing Then Return ""
+            'If Not Utility.IsLease(_dataContext) Or _dataContext.ProductType.StartsWith("M") Then Return _dataContext.ProductType 'Won't be visible
+            'If Utility.IsCanadian(_dataContext) Then Return "Single Pay"
             Return "Pre-Pay"
         End Get
     End Property

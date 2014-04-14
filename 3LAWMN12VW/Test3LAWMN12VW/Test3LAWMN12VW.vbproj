@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="DataTests\TestAddress.vb" />
     <Compile Include="DataTests\TestProcessInfo.vb" />
+    <Compile Include="TestUtility.vb" />
     <Compile Include="ViewModelTests\TestVWContractAddressViewModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

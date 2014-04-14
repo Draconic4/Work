@@ -4,7 +4,6 @@ Namespace ValidationRuleData
         Inherits BusinessBase(Of Address)
 
         Private _globalProperties As ProcessInfo
-        Private _AristoReplace As Boolean 'Address Types are initially populated by Aristo
 
         'Global Business Rule Dependency
         Public Shared ReadOnly GlobalRuleProperty As PropertyInfo(Of ProcessInfo) = RegisterProperty(Of ProcessInfo)(Function(c) (c.GlobalProperty), RelationshipTypes.PrivateField)
@@ -130,7 +129,7 @@ Namespace ValidationRuleData
             PopulateField(CityProperty, d)
             Dim stateKey As String = PopulateKey(StateProperty)
             If d.ContainsKey(stateKey) Then
-                LoadProperty(StateProperty, Utility.ProvinceOrStateConverter(d(stateKey), Utility.IsCanadian(GlobalProperty)))
+                'LoadProperty(StateProperty, Utility.ProvinceOrStateConverter(d(stateKey), Utility.IsCanadian(GlobalProperty)))
             End If
             PopulateField(CountyProperty, d)
             PopulateField(ZipProperty, d)

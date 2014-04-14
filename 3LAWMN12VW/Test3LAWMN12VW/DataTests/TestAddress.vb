@@ -1,6 +1,7 @@
 ﻿Imports System.Text
 Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports _3LAWMN12VW
+Imports _3LAWMN12VW.ValidationRuleData
 
 <TestClass()> Public Class TestAddress
 
@@ -22,8 +23,8 @@ Imports _3LAWMN12VW
     End Function
 
     <TestMethod()> Public Sub TestConstruction_GoodAristoData()
-        Dim pi As ProcessInfo = ProcessInfo.FetchExisting()
-        pi.Populate(GenerateAristoTestData)
+        Dim pi As ProcessInfo = ProcessInfo.Fetch(Nothing, Nothing)
+        'pi.Populate(GenerateAristoTestData)
         'Dim a As Address = Address.FetchExisting("", 
     End Sub
     <TestMethod()> Public Sub TestConstructor_MissingData()
