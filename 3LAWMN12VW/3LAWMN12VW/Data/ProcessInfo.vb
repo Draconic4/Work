@@ -95,22 +95,24 @@ Namespace ValidationRuleData
             PopulateField(CountryProperty, cRun) 'Required Aristo Field
             PopulateField(DealTypeProperty, cRun)
         End Sub
-        
         Private Sub Calculate(ByVal pRun As Dictionary(Of String, Object), ByVal cRun As Dictionary(Of String, Object))
             CalculateApplicationType(pRun, cRun)
             CalculateFinanceType(pRun, cRun)
             CalculateProductType(pRun, cRun)
             CalculateStateOrProvinceExecution(cRun)
         End Sub
-
         Private Sub PopulateField(pi As PropertyInfo(Of String), d As Dictionary(Of String, Object))
-            If d.ContainsKey(pi.FriendlyName) Then
-                LoadProperty(pi, d(pi.FriendlyName))
+            Dim key As String = pi.FriendlyName
+            Dim xVal As String = String.Empty
+            If d.TryGetValue(key, xVal) Then
+                LoadProperty(pi, xVal)
             End If
         End Sub
         Private Sub PopulateField(pi As PropertyInfo(Of Integer), d As Dictionary(Of String, Object))
-            If d.ContainsKey(pi.FriendlyName) Then
-                LoadProperty(pi, d(pi.FriendlyName))
+            Dim key As String = pi.FriendlyName
+            Dim xVal As Integer = -1
+            If d.TryGetValue(key, xVal) Then
+                LoadProperty(pi, xVal)
             End If
         End Sub
         Private Sub CalculateApplicationType(ByVal pRun As Dictionary(Of String, Object), ByVal cRun As Dictionary(Of String, Object))
@@ -145,8 +147,9 @@ Namespace ValidationRuleData
             End If
         End Sub
         Private Sub CalculateStateOrProvinceExecution(ByVal cRun As Dictionary(Of String, Object))
-            If StateOrProvinceExecution.StartsWith("MN", StringComparison.InvariantCultureIgnoreCase) AndAlso cRun.ContainsKey("DLR_PROV") Then
-                LoadProperty(StateOrProvinceExecutionProperty, Utility.ConvertToAbbreviatedStateOrProvince(Me, cRun("DLR_PROV")))
+            Dim x As String = String.Empty
+            If StateOrProvinceExecution = "MN" AndAlso cRun.TryGetValue("DLR_PROV", x) Then
+                LoadProperty(StateOrProvinceExecutionProperty, GetProvinceAbbreviation.Fetch(cRun("DLR_PROV")))
             End If
         End Sub
         Public Shared Function GenerateApplicationTypeList(ByVal appArgs As ApplicationTypeArgs) As List(Of String)

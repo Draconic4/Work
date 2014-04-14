@@ -4,16 +4,25 @@ Namespace ValidationRuleData
     Public Class Applicant
         Inherits BusinessBase(Of Applicant)
 
-        Private _globalProperties As ProcessInfo
+        Public Const C_HOMEADDRESS As String = "Home Address"
+        Public Const C_BILLINGADDRESS As String = "Billing Address"
+        Public Const C_GARAGEADDRESS As String = "Garage Address"
 
-        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.ApplicantType))
+        Private _globalProperty As ProcessInfo
+
+        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicantType))
         Public Shared ReadOnly ApplicantNameProperty As PropertyInfo(Of ApplicantID) = RegisterProperty(Of ApplicantID)(Function(c) c.ApplicantName)
         Public Shared ReadOnly HomeAddressProperty As PropertyInfo(Of Address) = RegisterProperty(Of Address)(Function(c) c.HomeAddress)
         Public Shared ReadOnly BillingAddressProperty As PropertyInfo(Of Address) = RegisterProperty(Of Address)(Function(c) c.BillingAddress)
         Public Shared ReadOnly GarageAddressProperty As PropertyInfo(Of Address) = RegisterProperty(Of Address)(Function(c) c.GarageAddress)
 
 #Region "  Properties "
-        Public ReadOnly Property ApplicantType As KeyBindInfo
+        Public ReadOnly Property GlobalProperty As ProcessInfo
+            Get
+                Return _globalProperty
+            End Get
+        End Property
+        Public ReadOnly Property ApplicantType As String
             Get
                 Return GetProperty(ApplicantTypeProperty)
             End Get
@@ -53,33 +62,43 @@ Namespace ValidationRuleData
 #End Region
 
 #Region "  Data Access "
-        Public Sub New(ByVal parent As KeyBindInfo, pInfo As ProcessInfo)
+        Public Sub New(ByVal parent As String, gProp As ProcessInfo)
+            _globalProperty = gProp
             LoadProperty(ApplicantTypeProperty, parent)
-            _globalProperties = pInfo
         End Sub
-        Public Shared Function FetchExisting(ByVal keyParent As KeyBindInfo, pInfo As ProcessInfo) As Applicant
-            Return New Applicant(keyParent, pInfo)
+        Public Shared Function Fetch(ByVal keyParent As String, gProp As ProcessInfo, ByVal previousRun As Dictionary(Of String, Object), ByVal currentRun As Dictionary(Of String, Object)) As Applicant
+            Dim a As New Applicant(keyParent, gProp)
+            If currentRun Is Nothing Then Return a
+            a.ApplicantName = ApplicantID.Fetch(keyParent, gProp, previousRun, currentRun)
+            a.HomeAddress = Address.Fetch(keyParent, C_HOMEADDRESS, gProp, previousRun, currentRun)
+            a.BillingAddress = Address.Fetch(keyParent, C_BILLINGADDRESS, gProp, previousRun, currentRun)
+            a.GarageAddress = Address.Fetch(keyParent, C_GARAGEADDRESS, gProp, previousRun, currentRun)
+            Return a
         End Function
-        Public Sub Populate(ByVal d As Dictionary(Of String, Object))
-            PopulateId(d)
-            PopulateAddress(d)
-        End Sub
-        Public Sub PopulateId(ByVal d As Dictionary(Of String, Object))
-            If ApplicantName Is Nothing Then LoadProperty(ApplicantNameProperty, ApplicantID.FetchExisting(ApplicantType))
-            ApplicantName.Populate(d)
-        End Sub
-        Public Sub PopulateAddress(ByVal d As Dictionary(Of String, Object))
-            If HomeAddress Is Nothing Then LoadProperty(HomeAddressProperty, Address.FetchExisting(ApplicantType, _globalProperties))
-            If BillingAddress Is Nothing Then LoadProperty(BillingAddressProperty, Address.FetchExisting(ApplicantType, _globalProperties))
-            If GarageAddress Is Nothing Then LoadProperty(GarageAddressProperty, Address.FetchExisting(ApplicantType, _globalProperties))
-            HomeAddress.Populate(New KeyBindInfo With {.HumanReadable = "Home Address", .KeyValue = ""}, d)
-            BillingAddress.Populate(New KeyBindInfo With {.HumanReadable = "Billing Address", .KeyValue = "_BILLING"}, d)
-            GarageAddress.Populate(New KeyBindInfo With {.HumanReadable = "Garage Address", .KeyValue = "_GARAGE"}, d)
-        End Sub
+        Public Function SaveData() As Dictionary(Of String, Object)
+            Dim d As New Dictionary(Of String, Object)
+            For Each elem As KeyValuePair(Of String, Object) In ApplicantName.SaveData()
+                d.Add(elem.Key, elem.Value)
+            Next
+            For Each elem As KeyValuePair(Of String, Object) In HomeAddress.SaveData()
+                d.Add(elem.Key, elem.Value)
+            Next
+            For Each elem As KeyValuePair(Of String, Object) In BillingAddress.SaveData()
+                d.Add(elem.Key, elem.Value)
+            Next
+            For Each elem As KeyValuePair(Of String, Object) In GarageAddress.SaveData()
+                d.Add(elem.Key, elem.Value)
+            Next
+            Return d
+        End Function
 #End Region
 
 #Region "  Business Rules "
         Public Sub CheckRules()
+            ApplicantName.CheckRules()
+            HomeAddress.CheckRules()
+            BillingAddress.CheckRules()
+            GarageAddress.CheckRules()
         End Sub
 #End Region
     End Class

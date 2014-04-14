@@ -99,7 +99,7 @@ Public Class PromptContentViewModel
     End Sub
     Public Sub New(ByVal previousDC As Dictionary(Of String, Object), ByVal arDC As Dictionary(Of String, Object), eventAggregator As IEventAggregator)
         _eventAggregator = eventAggregator
-        _dataContext = ValidationRuleData.VWCreditProcess.FetchExisting(previousDC, arDC)
+        _dataContext = ValidationRuleData.VWCreditProcess.Fetch(previousDC, arDC)
         GenerateScreens()
         _eventAggregator.Subscribe(Me)
     End Sub

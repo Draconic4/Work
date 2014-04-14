@@ -5,13 +5,10 @@ Namespace ValidationRuleData
 
         Private _globalProperties As ProcessInfo
 
-        'Global Business Rule Dependency
-        Public Shared ReadOnly GlobalRuleProperty As PropertyInfo(Of ProcessInfo) = RegisterProperty(Of ProcessInfo)(Function(c) (c.GlobalProperty), RelationshipTypes.PrivateField)
         'Local Business Rule Dependencies
-        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.ApplicantType))
-        Public Shared ReadOnly AddressTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.AddressType))
+        Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicantType))
+        Public Shared ReadOnly AddressTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.AddressType))
         Public Shared ReadOnly SameAsHomeAddressProperty As PropertyInfo(Of Boolean) = RegisterProperty(Of Boolean)(Function(c) (c.SameAsHomeAddress), "_SAMEASHOME", True)
-        'Data 
         Public Shared ReadOnly Line1Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line1), "_ADDRESS", String.Empty)
         Public Shared ReadOnly Line2Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line2), "_ADDRESS", String.Empty)
         Public Shared ReadOnly CityProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.City), "_CITY", String.Empty)
@@ -25,19 +22,15 @@ Namespace ValidationRuleData
                 Return _globalProperties
             End Get
         End Property
-
-        Public ReadOnly Property ApplicantType As KeyBindInfo
+        Public ReadOnly Property ApplicantType As String
             Get
                 Return GetProperty(ApplicantTypeProperty)
             End Get
         End Property
-        Public Property AddressType As KeyBindInfo
+        Public ReadOnly Property AddressType As String
             Get
                 Return GetProperty(AddressTypeProperty)
             End Get
-            Set(value As KeyBindInfo)
-                SetProperty(AddressTypeProperty, AddressType)
-            End Set
         End Property
         Public Property SameAsHomeAddress As Boolean
             Get
@@ -98,108 +91,97 @@ Namespace ValidationRuleData
 #End Region
 
 #Region " Data Access "
-        Public Sub New(ByVal parent As KeyBindInfo)
+        Public Sub New(ByVal parent As String, ByVal addrType As String, gProp As ProcessInfo)
+            _globalProperties = gProp
             LoadProperty(ApplicantTypeProperty, parent)
-            _AristoReplace = False
+            LoadProperty(AddressTypeProperty, addrType)
         End Sub
-        Public Shared Function FetchExisting(ByVal keyParent As KeyBindInfo, pInfo As ProcessInfo) As Address
-            Return New Address(keyParent)
+        Public Shared Function Fetch(ByVal keyParent As String, ByVal addrType As String, gProp As ProcessInfo, ByVal previousRun As Dictionary(Of String, Object), ByVal currentRun As Dictionary(Of String, Object)) As Address
+            Dim addr As New Address(keyParent, addrType, gProp)
+            If currentRun Is Nothing Then Return addr
+            addr.Populate(previousRun)
+            addr.PopulateOverride(currentRun)
+            addr.Calculate(previousRun, currentRun)
+            Return addr
         End Function
-        Public Sub Populate(ByVal addressType As KeyBindInfo, ByVal d As Dictionary(Of String, Object))
-            _AristoReplace = True 'Second run is Aristo trying to replace any Aristo information that needs to change.
-            If d Is Nothing Then Exit Sub
-            LoadProperty(AddressTypeProperty, addressType)
-            'SameAsHome Flag Is Set by First Dictionary Run
-            Dim sameAsHomeKey As String = PopulateKey(SameAsHomeAddressProperty)
-            If d.ContainsKey(sameAsHomeKey) Then LoadProperty(SameAsHomeAddressProperty, d(sameAsHomeKey))
-
-            'Address Split into two lines if need be.
-            Dim addrKey As String = PopulateKey(Line1Property)
-            If d.ContainsKey(addrKey) Then
-                Dim addrValue As String = d(addrKey)
-                If addrValue.Length >= 40 Then
-                    'Do something clever to split string properly.
-                    LoadProperty(Line1Property, String.Empty)
-                    LoadProperty(Line2Property, String.Empty)
-                Else
-                    LoadProperty(Line1Property, addrValue)
-                End If
-            End If
-
-            PopulateField(CityProperty, d)
-            Dim stateKey As String = PopulateKey(StateProperty)
-            If d.ContainsKey(stateKey) Then
-                'LoadProperty(StateProperty, Utility.ProvinceOrStateConverter(d(stateKey), Utility.IsCanadian(GlobalProperty)))
-            End If
-            PopulateField(CountyProperty, d)
-            PopulateField(ZipProperty, d)
-            _AristoReplace = True
-        End Sub
-        Public Function PopulateKey(ByVal pi As PropertyInfo(Of Boolean)) As String
-            If AddressType.KeyValue = "HomeAddress" OrElse SameAsHomeAddress Then Return ApplicantType.KeyValue & pi.FriendlyName
-            Return ApplicantType.KeyValue & AddressType.KeyValue & pi.FriendlyName
-        End Function
-        Public Function PopulateKey(ByVal pi As PropertyInfo(Of String)) As String
-            If AddressType.KeyValue = "HomeAddress" OrElse SameAsHomeAddress Then Return ApplicantType.KeyValue & pi.FriendlyName
-            Return ApplicantType.KeyValue & AddressType.KeyValue & pi.FriendlyName
-        End Function
-        Public Sub PopulateField(ByVal pi As PropertyInfo(Of String), ByVal d As Dictionary(Of String, Object))
-            Dim key As String = PopulateKey(pi)
-            If d.ContainsKey(key) Then
-                If SameAsHomeAddress Then LoadProperty(pi, d(key))
-                If _AristoReplace AndAlso SameAsHomeAddress Then
-                End If
-                If _AristoReplace AndAlso SameAsHomeAddress Then
-                    Dim x As String = ReadProperty(pi)
-                    If d.ContainsKey(key) Then LoadProperty(pi, d(key))
-                Else
-                    If d.ContainsKey(key) Then LoadProperty(pi, d(key))
-                End If
+        Public Sub Populate(ByVal pRun As Dictionary(Of String, Object))
+            If pRun Is Nothing Then Exit Sub
+            Dim addressKey As String = ApplicantType & AsKey(AddressType)
+            Dim sameAsHomeKey As String = addressKey & SameAsHomeAddressProperty.FriendlyName 'Same As Home is Always True By Default
+            If pRun.ContainsKey(sameAsHomeKey) Then LoadProperty(SameAsHomeAddressProperty, pRun(sameAsHomeKey))
+            If Not SameAsHomeAddress Then
+                PopulateField(Line1Property, addressKey, pRun)
+                PopulateField(Line2Property, addressKey, pRun)
+                PopulateField(CityProperty, addressKey, pRun)
+                PopulateField(StateProperty, addressKey, pRun)
+                PopulateField(ZipProperty, addressKey, pRun)
+                PopulateField(CountyProperty, addressKey, pRun)
             End If
         End Sub
-        Public Function SerializeField(ByVal pi As PropertyInfo(Of String)) As Dictionary(Of String, Object)
+        Public Sub PopulateOverride(ByVal cRun As Dictionary(Of String, Object))
+            If cRun Is Nothing Then Exit Sub
+            Dim addressKey As String = ApplicantType & AsKey(AddressType)
+            If SameAsHomeAddress Then
+                PopulateField(Line1Property, addressKey, cRun)
+                PopulateField(Line2Property, addressKey, cRun)
+                PopulateField(CityProperty, addressKey, cRun)
+                PopulateField(StateProperty, addressKey, cRun)
+                PopulateField(ZipProperty, addressKey, cRun)
+                PopulateField(CountyProperty, addressKey, cRun)
+            End If
+        End Sub
+        Public Sub Calculate(ByVal pRun As Dictionary(Of String, Object), ByVal cRun As Dictionary(Of String, Object))
+            If cRun Is Nothing Then Exit Sub
+            'Should not be required...
+        End Sub
+        Function SaveData() As Dictionary(Of String, Object)
             Dim d As New Dictionary(Of String, Object)
-
-            d.Add(PopulateKey(Line1Property), Line1)
-            d.Add(PopulateKey(Line2Property), Line2)
-            d.Add(PopulateKey(CityProperty), City)
-            d.Add(PopulateKey(StateProperty), State)
-            d.Add(PopulateKey(ZipProperty), Zip)
-
+            Dim addressKey As String = ApplicantType & AsKey(AddressType)
+            d.Add(addressKey & SameAsHomeAddressProperty.FriendlyName, SameAsHomeAddress)
+            d.Add(addressKey & Line1Property.FriendlyName, Line1)
+            d.Add(addressKey & Line2Property.FriendlyName, Line2)
+            d.Add(addressKey & CityProperty.FriendlyName, City)
+            d.Add(addressKey & StateProperty.FriendlyName, State)
+            d.Add(addressKey & ZipProperty.FriendlyName, Zip)
+            d.Add(addressKey & CountyProperty.FriendlyName, County)
             Return d
         End Function
+        Public Function AsKey(ByVal str As String) As String
+            If str = Applicant.C_HOMEADDRESS Then Return ""
+            If str = Applicant.C_GARAGEADDRESS Then Return "_GARAGE"
+            Return "_BILLING"
+        End Function
+        Public Sub PopulateField(ByVal pi As PropertyInfo(Of String), ByVal prefixKey As String, ByVal d As Dictionary(Of String, Object))
+            Dim key As String = prefixKey & pi.FriendlyName
+            Dim xVal As String = String.Empty
+            If d.TryGetValue(key, xVal) Then LoadProperty(pi, xVal)
+        End Sub
 #End Region
 
 #Region "  Business Rules "
         Protected Overrides Sub AddBusinessRules()
-            Me.BusinessRules.AddRule(New HasRequiredValue(Line1Property))
-            Me.BusinessRules.AddRule(New HasRequiredValue(CityProperty))
-            Me.BusinessRules.AddRule(New HasRequiredValue(StateProperty))
+            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(Line1Property, "Validation Error - Street Address is required."))
+            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(CityProperty, "Validation Error - City is required."))
+            Me.BusinessRules.AddRule(New HasRequiredStateOrProvince(StateProperty))
             Me.BusinessRules.AddRule(New IsValidZip)
             Me.BusinessRules.AddRule(New IsValidPostalCode)
         End Sub
         Public Sub CheckRules()
             Me.BusinessRules.CheckRules()
         End Sub
-        Public Class HasRequiredValue
+        Public Class HasRequiredStateOrProvince
             Inherits Csla.Rules.BusinessRule
             Public Sub New(ByVal pi As PropertyInfo(Of String))
-                Me.PrimaryProperty = pi
-                Me.InputProperties = New List(Of Core.IPropertyInfo) From {GlobalRuleProperty, Line1Property, Line2Property, CityProperty, StateProperty, ZipProperty}
+                Me.PrimaryProperty = StateProperty
             End Sub
             Protected Overrides Sub Execute(context As Rules.RuleContext)
                 Dim t As Address = context.Target
                 Dim x As String = t.ReadProperty(Me.PrimaryProperty)
-                If PrimaryProperty.Name = "Line1" Or PrimaryProperty.Name = "Line2" AndAlso IsInValidValue(x) Then
-                    context.AddErrorResult("Validation Error - Street Address is required.")
-                Else
+                If String.IsNullOrWhiteSpace(x) Then
                     Dim safePropName As String = Address.MakeLocaleSafe(PrimaryProperty.Name, Utility.IsCanadian(t.GlobalProperty))
                     context.AddErrorResult("Validation Error - " & PrimaryProperty.Name & "is required.")
                 End If
             End Sub
-            Private Function IsInValidValue(ByVal val As String) As Boolean
-                Return String.IsNullOrWhiteSpace(val)
-            End Function
         End Class
         Public Class IsValidZip
             Inherits Csla.Rules.BusinessRule
@@ -234,7 +216,7 @@ Namespace ValidationRuleData
             Protected Overrides Sub Execute(context As Rules.RuleContext)
                 Dim t As Address = context.Target
                 If Utility.IsCanadian(t.GlobalProperty) Then Exit Sub
-                If t.ApplicantType.HumanReadable.StartsWith("BUSINESS", StringComparison.InvariantCultureIgnoreCase) Then Exit Sub
+                If t.ApplicantType.StartsWith("BUSINESS", StringComparison.InvariantCultureIgnoreCase) Then Exit Sub
                 If Not Utility.IsLease(t.GlobalProperty) Then Exit Sub
                 If String.IsNullOrWhiteSpace(t.County) Then context.AddErrorResult("Validation Error - US Lease Require County.")
             End Sub

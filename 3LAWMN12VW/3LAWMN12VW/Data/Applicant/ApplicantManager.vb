@@ -1,5 +1,4 @@
-﻿
-Namespace ValidationRuleData
+﻿Namespace ValidationRuleData
     Public Class ApplicantManager
 
         Private _globalProperty As ProcessInfo
@@ -13,21 +12,9 @@ Namespace ValidationRuleData
                 Return _globalProperty
             End Get
         End Property
-        Public ReadOnly Property HasPrimaryApplicant As Boolean
-            Get
-                If _primaryApplicant Is Nothing Then Return False
-                Return True
-            End Get
-        End Property
         Public ReadOnly Property Primary As Applicant
             Get
                 Return _primaryApplicant
-            End Get
-        End Property
-        Public ReadOnly Property IsBusiness As Boolean
-            Get
-                If _businessApplicant Is Nothing Then Return False
-                Return True
             End Get
         End Property
         Public ReadOnly Property Business As BusinessApplicant
@@ -35,51 +22,20 @@ Namespace ValidationRuleData
                 Return _businessApplicant
             End Get
         End Property
-        Public ReadOnly Property HasGuarantor As Boolean
-            Get
-                If GlobalProperty Is Nothing OrElse _applicantList(0) Is Nothing Then Return False
-                If GlobalProperty.ApplicationType.Contains("GUARANTOR") Then Return True
-                Return False
-            End Get
-        End Property
         Public ReadOnly Property Guarantor As Applicant
             Get
-                If HasGuarantor Then
-                    Return _applicantList(0)
-                End If
-                Return Nothing
-            End Get
-        End Property
-        Public ReadOnly Property HasCoApplicant As Boolean
-            Get
-                Dim coAppIdx As Integer = 0
-                If GlobalProperty.ApplicationType.Contains("GUARANTOR") Then coAppIdx = 1
-                If _applicantList.Count >= coAppIdx + 1 AndAlso _applicantList(coAppIdx) IsNot Nothing Then Return True
-                Return False
+                Return _applicantList(0)
             End Get
         End Property
         Public ReadOnly Property CoApplicant As Applicant
             Get
-                If HasCoApplicant Then
-                    If GlobalProperty.ApplicationType.Contains("GUARANTOR") Then Return _applicantList(1)
-                    Return _applicantList(0)
-                End If
-                Return Nothing
-            End Get
-        End Property
-        Public ReadOnly Property HasCoApplicant2 As Boolean
-            Get
-                If GlobalProperty Is Nothing Then Return False
-                If GlobalProperty.ApplicationType.Contains("TWO") Then Return True
-                Return False
+                If Utility.HasGuarantor(GlobalProperty) Then Return _applicantList(1)
+                Return _applicantList(0)
             End Get
         End Property
         Public ReadOnly Property CoApplicant2 As Applicant
             Get
-                If HasCoApplicant2 Then
-                    If GlobalProperty.ApplicationType.Contains("GUARANTOR") Then Return _applicantList(2)
-                    Return _applicantList(1)
-                End If
+                If Utility.HasCoApplicant2(GlobalProperty) Then Return _applicantList(1)
                 Return Nothing
             End Get
         End Property
@@ -90,42 +46,38 @@ Namespace ValidationRuleData
             _globalProperty = gProp
             _applicantList = New List(Of Applicant)
         End Sub
-        Public Sub Populate(ByVal p As Dictionary(Of String, Object), ByVal d As Dictionary(Of String, Object))
-            If d.ContainsKey("BUY_ISBUSINESS") AndAlso d("BUY_ISBUSINESS") Then
-                _businessApplicant = BusinessApplicant.FetchExisting("BUY", _globalProperty)
-                _businessApplicant.Populate(p)
-                _businessApplicant.Populate(d)
+        Public Shared Function Fetch(ByVal gProp As ProcessInfo, ByVal previousRun As Dictionary(Of String, Object), ByVal currentRun As Dictionary(Of String, Object)) As ApplicantManager
+            Dim am As New ApplicantManager(gProp)
+            If currentRun Is Nothing Then Return am
+            am.GenerateApplicants(previousRun, currentRun)
+            Return am
+        End Function
+        Public Sub GenerateApplicants(pRun As Dictionary(Of String, Object), ByVal cRun As Dictionary(Of String, Object))
+            If Utility.IsBusiness(GlobalProperty) Then 'Set up according to Global Properties
+                '_businessApplicant = BusinessApplicant.Fetch("BUY", GlobalProperty)
             Else
-                _primaryApplicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "BUY", .HumanReadable = "Purchaser"}, _globalProperty)
-                _primaryApplicant.Populate(p)
-                _primaryApplicant.Populate(d)
-            End If
-            If d.ContainsKey("COBUYER3_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER3_CODE")) Then
-                Dim cob3 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER3", .HumanReadable = "CoApplicant 2"}, _globalProperty)
-                If p.ContainsKey("COBUYER3_CODE") Then cob3.Populate(p)
-                cob3.Populate(d)
-                _applicantList.Add(cob3)
-            End If
-            If d.ContainsKey("COBUYER2_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER2_CODE")) Then
-                Dim cob2 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER2", .HumanReadable = "CoApplicant 1 or CoApplicant 2"}, _globalProperty)
-                If p.ContainsKey("COBUYER2_CODE") Then cob2.Populate(p)
-                cob2.Populate(d)
-                _applicantList.Insert(0, cob2)
-            End If
-            If d.ContainsKey("COBUYER1_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER1_CODE")) Then
-                Dim cob1 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER1", .HumanReadable = "CoApplicant 1 or Guarantor"}, _globalProperty)
-                If p.ContainsKey("COBUYER1_CODE") Then cob1.Populate(p)
-                cob1.Populate(d)
-                _applicantList.Insert(0, cob1)
+                _primaryApplicant = Applicant.Fetch("BUY", GlobalProperty, pRun, cRun)
             End If
         End Sub
 #End Region
-
-        Shared Function Fetch(formDC As Dictionary(Of String, Object), aristoDC As Dictionary(Of String, Object), globalProperty As ProcessInfo) As ApplicantManager
-            Dim aMgr As ApplicantManager = New ApplicantManager(globalProperty)
-            aMgr.Populate(formDC, aristoDC)
-            Return aMgr
-        End Function
-
     End Class
 End Namespace
+
+'If pRun.ContainsKey("COBUYER2_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER2_CODE")) Then
+'    Dim cob3 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER2", .HumanReadable = "CoApplicant 2"}, _globalProperty)
+'    If p.ContainsKey("COBUYER3_CODE") Then cob3.Populate(p)
+'    cob3.Populate(d)
+'    _applicantList.Add(cob3)
+'End If
+'If d.ContainsKey("COBUYER2_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER2_CODE")) Then
+'    Dim cob2 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER2", .HumanReadable = "CoApplicant 1 or CoApplicant 2"}, _globalProperty)
+'    If p.ContainsKey("COBUYER2_CODE") Then cob2.Populate(p)
+'    cob2.Populate(d)
+'    _applicantList.Insert(0, cob2)
+'End If
+'If d.ContainsKey("COBUYER1_CODE") AndAlso Not String.IsNullOrWhiteSpace(d("COBUYER1_CODE")) Then
+'    Dim cob1 As Applicant = Applicant.FetchExisting(New KeyBindInfo With {.KeyValue = "COBUYER1", .HumanReadable = "CoApplicant 1 or Guarantor"}, _globalProperty)
+'    If p.ContainsKey("COBUYER1_CODE") Then cob1.Populate(p)
+'    cob1.Populate(d)
+'    _applicantList.Insert(0, cob1)
+'End If

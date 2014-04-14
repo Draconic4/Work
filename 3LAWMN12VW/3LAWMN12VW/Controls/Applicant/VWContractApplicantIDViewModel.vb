@@ -47,10 +47,6 @@ Public Class VWContractApplicantIDViewModel
             Return Utility.GetLocaleList(GlobalProperty)
         End Get
     End Property
-    Public Sub New()
-        _Applicant = New ValidationRuleData.ApplicantID(New KeyBindInfo With {.HumanReadable = "HI", .KeyValue = "MEANINGLESS"})
-        _globalProperties = New ValidationRuleData.ProcessInfo()
-    End Sub
     Public Sub New(ByVal appId As ValidationRuleData.ApplicantID, globalProperties As ValidationRuleData.ProcessInfo)
         _Applicant = appId
         _globalProperties = globalProperties

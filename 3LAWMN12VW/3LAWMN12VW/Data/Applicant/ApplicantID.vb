@@ -4,9 +4,9 @@ Namespace ValidationRuleData
     Public Class ApplicantID
         Inherits BusinessBase(Of ApplicantID)
 
-        Public Shared ReadOnly ApplicationTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicationType), "_APPLICANTTYPE", "INDIV")
+        Private _globalProperties As ProcessInfo
+
         Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of KeyBindInfo) = RegisterProperty(Of KeyBindInfo)(Function(c) (c.ApplicantType))
-        Public Shared ReadOnly CountryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Country), "COUNTRY", "US")
         Public Shared ReadOnly FamilyProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Family), "_LASTNAME", String.Empty)
         Public Shared ReadOnly MiddleProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Middle), "_INITNAME", String.Empty)
         Public Shared ReadOnly GivenProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Given), "_FIRSTNAME", String.Empty)
@@ -19,14 +19,14 @@ Namespace ValidationRuleData
         Public Shared ReadOnly DriverLicenseExpiryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DriverLicenseExpiry), "_DLIC_EXP", String.Empty)
 
 #Region "  Properties "
+        Public ReadOnly Property GlobalProperty As ProcessInfo
+            Get
+                Return _globalProperties
+            End Get
+        End Property
         Public ReadOnly Property FullName As String
             Get
                 Return Given & " " & Family
-            End Get
-        End Property
-        Public ReadOnly Property Country As String
-            Get
-                Return GetProperty(CountryProperty)
             End Get
         End Property
         Public ReadOnly Property ApplicantType As KeyBindInfo
@@ -34,37 +34,20 @@ Namespace ValidationRuleData
                 Return GetProperty(ApplicantTypeProperty)
             End Get
         End Property
-        Public Property ApplicationType As String
-            Get
-                Return GetProperty(ApplicationTypeProperty)
-            End Get
-            Set(value As String)
-                SetProperty(ApplicationTypeProperty, value)
-            End Set
-        End Property
-        Public Property Family As String
+        Public ReadOnly Property Family As String
             Get
                 Return GetProperty(FamilyProperty)
             End Get
-            Set(value As String)
-                SetProperty(FamilyProperty, value)
-            End Set
         End Property
-        Public Property Middle As String
+        Public ReadOnly Property Middle As String
             Get
                 Return GetProperty(MiddleProperty)
             End Get
-            Set(value As String)
-                SetProperty(MiddleProperty, value)
-            End Set
         End Property
-        Public Property Given As String
+        Public ReadOnly Property Given As String
             Get
                 Return GetProperty(GivenProperty)
             End Get
-            Set(value As String)
-                SetProperty(GivenProperty, value)
-            End Set
         End Property
         Public Property Suffix As String
             Get
@@ -74,83 +57,75 @@ Namespace ValidationRuleData
                 SetProperty(SuffixProperty, value)
             End Set
         End Property
-        Public Property BirthDate As String
+        Public ReadOnly Property BirthDate As String
             Get
                 Return GetProperty(BirthDateProperty)
             End Get
-            Set(value As String)
-                SetProperty(BirthDateProperty, value)
-            End Set
         End Property
-        Public Property Age As String
+        Public ReadOnly Property Age As String
             Get
                 Return GetProperty(AgeProperty)
             End Get
-            Set(value As String)
-                SetProperty(AgeProperty, value)
-            End Set
         End Property
-        Public Property NationalID As String
+        Public ReadOnly Property NationalID As String
             Get
                 Return GetProperty(NationalIDProperty)
             End Get
-            Set(value As String)
-                SetProperty(NationalIDProperty, value)
-            End Set
         End Property
-        Public Property DriverLicense As String
+        Public ReadOnly Property DriverLicense As String
             Get
                 Return GetProperty(DriverLicenseProperty)
             End Get
-            Set(value As String)
-                SetProperty(DriverLicenseProperty, value)
-            End Set
         End Property
-        Public Property DriverLicenseExpiry As String
+        Public ReadOnly Property DriverLicenseExpiry As String
             Get
                 Return GetProperty(DriverLicenseExpiryProperty)
             End Get
-            Set(value As String)
-                SetProperty(DriverLicenseExpiryProperty, value)
-            End Set
         End Property
-        Public Property IssuingState As String
+        Public ReadOnly Property IssuingState As String
             Get
                 Return GetProperty(IssuingStateProperty)
             End Get
-            Set(value As String)
-                SetProperty(IssuingStateProperty, value)
-            End Set
         End Property
 #End Region
 
 #Region "  Data Access "
-        Public Sub New(ByVal parent As KeyBindInfo)
+        Public Sub New(ByVal parent As String, gProp As ProcessInfo)
             LoadProperty(ApplicantTypeProperty, parent)
         End Sub
-        Public Shared Function FetchExisting(ByVal keyParent As KeyBindInfo) As ApplicantID
-            Return New ApplicantID(keyParent)
+        Public Shared Function Fetch(ByVal keyParent As String, gProp As ProcessInfo, ByVal previousRun As Dictionary(Of String, Object), ByVal currentRun As Dictionary(Of String, Object)) As ApplicantID
+            Dim aid As New ApplicantID(keyParent, gProp)
+            If currentRun Is Nothing Then Return aid
+            aid.Populate(previousRun)
+            aid.PopulateOverride(currentRun)
+            aid.Calculate(previousRun, currentRun)
+            Return aid
         End Function
-        Public Sub Populate(ByVal d As Dictionary(Of String, Object))
-            If d Is Nothing Then Exit Sub
-            If d.ContainsKey("DLR_COUNTRY") Then LoadProperty(CountryProperty, d("DLR_COUNTRY"))
-            If String.IsNullOrWhiteSpace(Country) Then Exit Sub
-            PopulateField(FamilyProperty, d)
-            PopulateField(MiddleProperty, d)
-            PopulateField(GivenProperty, d)
-            PopulateField(SuffixProperty, d)
-            PopulateField(BirthDateProperty, d)
-            PopulateField(AgeProperty, d)
-            PopulateField(NationalIDProperty, d)
-            PopulateField(IssuingStateProperty, d)
-            PopulateField(DriverLicenseProperty, d)
-            PopulateField(DriverLicenseExpiryProperty, d)
+        Public Sub Populate(ByVal pRun As Dictionary(Of String, Object))
+            If pRun Is Nothing Then Exit Sub
+            PopulateField(SuffixProperty, pRun)
+        End Sub
+        Public Sub PopulateOverride(ByVal cRun As Dictionary(Of String, Object))
+            If cRun Is Nothing Then Exit Sub
+            PopulateField(FamilyProperty, cRun)
+            PopulateField(MiddleProperty, cRun)
+            PopulateField(GivenProperty, cRun)
+            PopulateField(BirthDateProperty, cRun)
+            PopulateField(AgeProperty, cRun)
+            PopulateField(NationalIDProperty, cRun)
+            PopulateField(IssuingStateProperty, cRun)
+            PopulateField(DriverLicenseProperty, cRun)
+            PopulateField(DriverLicenseExpiryProperty, cRun)
+        End Sub
+        Public Sub Calculate(ByVal pRun As Dictionary(Of String, Object), ByVal cRun As Dictionary(Of String, Object))
+            'Do Nothing.... Nothing to Calculate
         End Sub
         Public Sub PopulateField(ByVal pi As PropertyInfo(Of String), ByVal d As Dictionary(Of String, Object))
             Dim key As String = ApplicantType.KeyValue & pi.FriendlyName
-            If d.ContainsKey(key) Then LoadProperty(pi, d(key))
+            Dim xVal As String = String.Empty
+            If d.TryGetValue(key, xVal) Then LoadProperty(pi, xVal)
         End Sub
-        Public Function SerializeField(ByVal pi As PropertyInfo(Of String)) As Dictionary(Of String, Object)
+        Function SaveData() As Dictionary(Of String, Object)
             Dim d As New Dictionary(Of String, Object)
 
             d.Add(ApplicantType.KeyValue & FamilyProperty.FriendlyName, Family)
@@ -166,6 +141,7 @@ Namespace ValidationRuleData
 
             Return d
         End Function
+
         Public Function GetPropertyValue(ByVal pi As PropertyInfo(Of String)) As String
             Return Me.ReadProperty(pi)
         End Function
@@ -173,11 +149,11 @@ Namespace ValidationRuleData
 
 #Region "  Business Rules "
         Protected Overrides Sub AddBusinessRules()
-            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(FamilyProperty, ""))
-            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(GivenProperty, ""))
-            Me.BusinessRules.AddRule(New Utility.HasRequiredValueDate(BirthDateProperty, ""))
-            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(DriverLicenseProperty, ""))
-            Me.BusinessRules.AddRule(New Utility.HasRequiredValueDate(DriverLicenseExpiryProperty, ""))
+            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(FamilyProperty, "Validation Error - Applicant must have a Last Name."))
+            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(GivenProperty, "Validation Error - Applicant must have a Given Name."))
+            Me.BusinessRules.AddRule(New Utility.HasRequiredValueDate(BirthDateProperty, "Validation Error - Applicant must have BirthDate."))
+            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(DriverLicenseProperty, "Validation Error - Applicant must have a valid Drivers' License."))
+            Me.BusinessRules.AddRule(New Utility.HasRequiredValueDate(DriverLicenseExpiryProperty, "Validation Error - Applicant must have a valid Drivers' License Expiry."))
             Me.BusinessRules.AddRule(New IsUSHasValidSSN)
         End Sub
         Public Sub CheckRules()
@@ -189,11 +165,10 @@ Namespace ValidationRuleData
 
             Public Sub New()
                 Me.PrimaryProperty = NationalIDProperty
-                Me.InputProperties = New List(Of Csla.Core.IPropertyInfo) From {CountryProperty}
             End Sub
             Protected Overrides Sub Execute(context As Rules.RuleContext)
                 Dim t As ApplicantID = context.Target
-                If t.Country.StartsWith("U") Then
+                If Not Utility.IsCanadian(t.GlobalProperty) Then
                     If t.NationalID.Length >= 9 Then context.AddErrorResult("Validation Error - Applicant must have a valid Social Insurance Number.")
                 End If
             End Sub

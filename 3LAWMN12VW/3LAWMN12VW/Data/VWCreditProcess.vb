@@ -28,10 +28,10 @@ Namespace ValidationRuleData
         Public Sub New()
         End Sub
 
-        Public Shared Function FetchExisting(ByVal formDC As Dictionary(Of String, Object), ByVal aristoDC As Dictionary(Of String, Object)) As VWCreditProcess
+        Public Shared Function Fetch(ByVal formDC As Dictionary(Of String, Object), ByVal aristoDC As Dictionary(Of String, Object)) As VWCreditProcess
             Dim dp As New VWCreditProcess
             dp._globalProperties = ProcessInfo.Fetch(formDC, aristoDC)
-            dp._applicantMgr = ApplicantManager.Fetch(formDC, aristoDC, dp.GlobalProperty)
+            dp._applicantMgr = ApplicantManager.Fetch(dp.GlobalProperty, formDC, aristoDC)
             dp._vehicle = Vehicle.FetchExisting(formDC, aristoDC, dp.GlobalProperty)
             Return dp
         End Function

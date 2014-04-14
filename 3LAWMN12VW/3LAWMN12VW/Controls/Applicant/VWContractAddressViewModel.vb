@@ -18,7 +18,7 @@ Public Class VWContractAddressViewModel
     Public ReadOnly Property HomeAddressVisibility As Visibility
         Get
             If _address Is Nothing Then Return Visibility.Hidden
-            If _address.AddressType.HumanReadable = "Home Address" Then Return Visibility.Hidden
+            If _address.AddressType = ValidationRuleData.Applicant.C_HOMEADDRESS Then Return Visibility.Hidden
             Return Visibility.Visible
         End Get
     End Property
@@ -65,14 +65,10 @@ Public Class VWContractAddressViewModel
     Public ReadOnly Property IsHomeAddress As Boolean
         Get
             If _address Is Nothing Then Return False
-            If _address.AddressType.HumanReadable = "Home Address" Then Return True
+            If _address.AddressType = ValidationRuleData.Applicant.C_HOMEADDRESS Then Return True
             Return False
         End Get
     End Property
-    Public Sub New()
-        _address = New ValidationRuleData.Address(New KeyBindInfo With {.HumanReadable = "Home Address", .KeyValue = "NOTHING"})
-        _gInfo = New ValidationRuleData.ProcessInfo()
-    End Sub
     Public Sub New(ByVal address As ValidationRuleData.Address, ByVal gProp As ValidationRuleData.ProcessInfo)
         _address = address
         _gInfo = gProp
