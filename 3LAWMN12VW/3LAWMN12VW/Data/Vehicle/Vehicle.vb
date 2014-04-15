@@ -195,5 +195,11 @@ Namespace ValidationRuleData
 
         End Sub
 #End Region
+
+#Region "  Business Rules "
+        Public Sub CheckRules()
+
+        End Sub
+#End Region
     End Class
 End Namespace

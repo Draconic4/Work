@@ -162,8 +162,8 @@ Namespace ValidationRuleData
 
 #Region "  Business Rules "
         Protected Overrides Sub AddBusinessRules()
-            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(Line1Property, "Validation Error - Street Address is required."))
-            Me.BusinessRules.AddRule(New Utility.HasRequiredValueString(CityProperty, "Validation Error - City is required."))
+            Me.BusinessRules.AddRule(New HasRequiredValueString(Line1Property, "Validation Error - Street Address is required."))
+            Me.BusinessRules.AddRule(New HasRequiredValueString(CityProperty, "Validation Error - City is required."))
             Me.BusinessRules.AddRule(New HasRequiredStateOrProvince(StateProperty))
             Me.BusinessRules.AddRule(New IsValidZip)
             Me.BusinessRules.AddRule(New IsValidPostalCode)
@@ -171,6 +171,28 @@ Namespace ValidationRuleData
         Public Sub CheckRules()
             Me.BusinessRules.CheckRules()
         End Sub
+        Public Class HasRequiredValueString
+            Inherits Csla.Rules.BusinessRule
+
+            Public _overrideMessage As String
+
+            Public Sub New(ByVal pi As PropertyInfo(Of String), ByVal overrideMessage As String)
+                Me.PrimaryProperty = pi
+                Me._overrideMessage = overrideMessage
+            End Sub
+            Protected Overrides Sub Execute(context As Rules.RuleContext)
+                Dim t As Address = context.Target
+                Dim x As String = t.GetProperty(Me.PrimaryProperty)
+                If IsInvalidValue(x) Then
+                    Dim msg As String = _overrideMessage
+                    If String.IsNullOrWhiteSpace(msg) Then msg = "Validation Error - " & PrimaryProperty.Name & " is required."
+                    context.AddErrorResult(msg)
+                End If
+            End Sub
+            Private Function IsInvalidValue(ByVal val As String) As Boolean
+                Return String.IsNullOrWhiteSpace(val)
+            End Function
+        End Class
         Public Class HasRequiredStateOrProvince
             Inherits Csla.Rules.BusinessRule
             Public Sub New(ByVal pi As PropertyInfo(Of String))

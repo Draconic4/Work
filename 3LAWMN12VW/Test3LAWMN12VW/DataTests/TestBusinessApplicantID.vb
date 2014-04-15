@@ -1,0 +1,55 @@
+﻿Imports System.Text
+Imports Microsoft.VisualStudio.TestTools.UnitTesting
+Imports _3LAWMN12VW.ValidationRuleData
+
+<TestClass()> Public Class TestBusinessApplicantID
+
+    <TestMethod()> Public Sub TestConstruction_Default()
+        Dim tstPIObj As ProcessInfo = ProcessInfo.Fetch(Nothing, Nothing)
+        Dim tstAppIdObj As BusinessApplicantID = BusinessApplicantID.Fetch("BUY", tstPIObj, Nothing, Nothing)
+        Assert.AreEqual("BUY", tstAppIdObj.ApplicantType)
+        Assert.AreEqual("", tstAppIdObj.CompanyName)
+        Assert.AreEqual("", tstAppIdObj.DriverLicense)
+        Assert.AreEqual("", tstAppIdObj.DriverLicenseExpiry)
+        Assert.AreEqual("", tstAppIdObj.IssuingState)
+        Assert.AreEqual("", tstAppIdObj.NationalID)
+    End Sub
+    <TestMethod()> Public Sub TestConstruction_Aristo()
+        Dim d As New Dictionary(Of String, Object)
+        d.Add("BUY_COMPANY", "PBS")
+        d.Add("BUY_SIN", "999-999-999")
+        d.Add("BUY_DLIC_NO", "1320941250974")
+        d.Add("BUY_DLIC_EXP", "06/01/2014")
+        d.Add("BUY_DLIC_STATE", "MN")
+        Dim tstPIObj As ProcessInfo = ProcessInfo.Fetch(Nothing, Nothing)
+        Dim tstAppIdObj As BusinessApplicantID = BusinessApplicantID.Fetch("BUY", tstPIObj, Nothing, d)
+        Assert.AreEqual("BUY", tstAppIdObj.ApplicantType)
+        Assert.AreEqual("PBS", tstAppIdObj.CompanyName)
+        Assert.AreEqual("1320941250974", tstAppIdObj.DriverLicense)
+        Assert.AreEqual("06/01/2014", tstAppIdObj.DriverLicenseExpiry)
+        Assert.AreEqual("999-999-999", tstAppIdObj.NationalID)
+        Assert.AreEqual("MN", tstAppIdObj.IssuingState)
+    End Sub
+    <TestMethod()> Public Sub TestConstruction_Mixed()
+        Dim pd As New Dictionary(Of String, Object)
+        pd.Add("BUY_COMPANY", "SBP")
+        pd.Add("BUY_SIN", "888-888-888")
+        pd.Add("BUY_DLIC_NO", "999999999")
+        pd.Add("BUY_DLIC_EXP", "01/06/2014")
+        pd.Add("BUY_DLIC_STATE", "NM")
+        Dim d As New Dictionary(Of String, Object)
+        d.Add("BUY_COMPANY", "PBS")
+        d.Add("BUY_SIN", "999-999-999")
+        d.Add("BUY_DLIC_NO", "1320941250974")
+        d.Add("BUY_DLIC_EXP", "06/01/2014")
+        d.Add("BUY_DLIC_STATE", "MN")
+        Dim tstPIObj As ProcessInfo = ProcessInfo.Fetch(Nothing, Nothing)
+        Dim tstAppIdObj As BusinessApplicantID = BusinessApplicantID.Fetch("BUY", tstPIObj, pd, d)
+        Assert.AreEqual("BUY", tstAppIdObj.ApplicantType)
+        Assert.AreEqual("PBS", tstAppIdObj.CompanyName)
+        Assert.AreEqual("1320941250974", tstAppIdObj.DriverLicense)
+        Assert.AreEqual("06/01/2014", tstAppIdObj.DriverLicenseExpiry)
+        Assert.AreEqual("999-999-999", tstAppIdObj.NationalID)
+        Assert.AreEqual("MN", tstAppIdObj.IssuingState)
+    End Sub
+End Class

@@ -106,6 +106,7 @@
     <Compile Include="Data\Applicant\ApplicantCollection.vb" />
     <Compile Include="Data\Applicant\ApplicantManager.vb" />
     <Compile Include="Data\Applicant\BusinessApplicant.vb" />
+    <Compile Include="Data\Applicant\BusinessApplicantID.vb" />
     <Compile Include="Data\Deal\AutomatedPayment.vb" />
     <Compile Include="Data\Deal\Deal.vb" />
     <Compile Include="Data\Deal\DealerProduct.vb" />
@@ -154,6 +155,7 @@
       <DependentUpon>TestTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TestTabViewModel.vb" />
+    <Compile Include="UI\VWContractBusinessApplicantViewModel.vb" />
     <Compile Include="UI\VWContractCoApplicantView.xaml.vb">
       <DependentUpon>VWContractCoApplicantView.xaml</DependentUpon>
     </Compile>

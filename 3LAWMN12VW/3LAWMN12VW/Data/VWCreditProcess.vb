@@ -38,7 +38,8 @@ Namespace ValidationRuleData
 
 #Region "  Business Rules "
         Public Sub CheckRules()
-
+            _applicantMgr.CheckRules()
+            _vehicle.CheckRules()
         End Sub
 #End Region
     End Class

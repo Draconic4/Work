@@ -86,8 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataTests\TestAddress.vb" />
+    <Compile Include="DataTests\TestApplicantManager.vb" />
     <Compile Include="DataTests\TestProcessInfo.vb" />
     <Compile Include="DataTests\TestApplicantID.vb" />
+    <Compile Include="DataTests\TestBusinessApplicantID.vb" />
+    <Compile Include="DataTests\TestApplicant.vb" />
+    <Compile Include="DataTests\TestBusinessApplicant.vb" />
     <Compile Include="TestUtility.vb" />
     <Compile Include="ViewModelTests\TestVWContractAddressViewModel.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

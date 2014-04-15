@@ -136,18 +136,12 @@ Public Class Utility
     End Function
     Public Shared Function HasCoApplicant(pi As ValidationRuleData.ProcessInfo) As Boolean
         If pi Is Nothing Then Return False
-        If pi.ApplicationType = Utility.C_APPTYPE_BUSINESSCOAPP OrElse pi.ApplicationType = Utility.C_APPTYPE_BUSINESSGUARANTORCOAPP OrElse pi.ApplicationType = Utility.C_APPTYPE_BUSINESSTWOCOAPP OrElse _
-           pi.ApplicationType = Utility.C_APPTYPE_PRIMCOAPP OrElse pi.ApplicationType = Utility.C_APPTYPE_PRIMTWOCOAPP Then
-            Return True
-        End If
-        Return False
+        Return pi.ApplicationType = Utility.C_APPTYPE_BUSINESSCOAPP OrElse pi.ApplicationType = Utility.C_APPTYPE_BUSINESSGUARANTORCOAPP OrElse pi.ApplicationType = Utility.C_APPTYPE_BUSINESSTWOCOAPP OrElse _
+               pi.ApplicationType = Utility.C_APPTYPE_PRIMCOAPP OrElse pi.ApplicationType = Utility.C_APPTYPE_PRIMTWOCOAPP
     End Function
     Public Shared Function HasCoApplicant2(pi As ValidationRuleData.ProcessInfo) As Boolean
         If pi Is Nothing Then Return False
-        If pi.ApplicationType = Utility.C_APPTYPE_BUSINESSTWOCOAPP OrElse pi.ApplicationType = Utility.C_APPTYPE_PRIMTWOCOAPP Then
-            Return True
-        End If
-        Return False
+        Return pi.ApplicationType = Utility.C_APPTYPE_BUSINESSTWOCOAPP OrElse pi.ApplicationType = Utility.C_APPTYPE_PRIMTWOCOAPP
     End Function
 
 #Region "  CSLA Helpers "

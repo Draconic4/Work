@@ -68,7 +68,6 @@ Namespace ValidationRuleData
         End Sub
         Public Shared Function Fetch(ByVal keyParent As String, gProp As ProcessInfo, ByVal previousRun As Dictionary(Of String, Object), ByVal currentRun As Dictionary(Of String, Object)) As Applicant
             Dim a As New Applicant(keyParent, gProp)
-            If currentRun Is Nothing Then Return a
             a.ApplicantName = ApplicantID.Fetch(keyParent, gProp, previousRun, currentRun)
             a.HomeAddress = Address.Fetch(keyParent, C_HOMEADDRESS, gProp, previousRun, currentRun)
             a.BillingAddress = Address.Fetch(keyParent, C_BILLINGADDRESS, gProp, previousRun, currentRun)

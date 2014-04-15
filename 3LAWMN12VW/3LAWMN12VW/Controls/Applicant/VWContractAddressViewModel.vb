@@ -30,6 +30,10 @@ Public Class VWContractAddressViewModel
             Return Visibility.Visible
         End Get
     End Property
+    Public Sub AddressChanged()
+        NotifyOfPropertyChange("HomeAddressVisibility")
+        NotifyOfPropertyChange("AddressFieldVisibility")
+    End Sub
     Public ReadOnly Property GlobalProperty As ValidationRuleData.ProcessInfo
         Get
             Return _gInfo
