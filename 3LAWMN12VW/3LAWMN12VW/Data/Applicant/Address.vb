@@ -203,7 +203,7 @@ Namespace ValidationRuleData
                 Dim x As String = t.ReadProperty(Me.PrimaryProperty)
                 If String.IsNullOrWhiteSpace(x) Then
                     Dim safePropName As String = Address.MakeLocaleSafe(PrimaryProperty.Name, Utility.IsCanadian(t.GlobalProperty))
-                    context.AddErrorResult("Validation Error - " & PrimaryProperty.Name & "is required.")
+                    context.AddErrorResult("Validation Error - " & PrimaryProperty.Name & " is required.")
                 End If
             End Sub
         End Class

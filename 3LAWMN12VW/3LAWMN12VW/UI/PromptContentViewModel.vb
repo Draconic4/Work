@@ -17,7 +17,8 @@ Public Class PromptContentViewModel
     Public Const C_Lease As String = "Lease"
     Public Const C_TestTab As String = "TestTab"
 
-    Private _conduct As New Dictionary(Of String, Screen)
+    Private _requirement As VWContractRequiredViewModel
+    Private _primaryApplicant As VWContractPrimaryApplicantViewModel
 
     Private _dataContext As ValidationRuleData.VWCreditProcess
 
@@ -71,10 +72,10 @@ Public Class PromptContentViewModel
 
     'Events
     Public Sub RequirementClicked()
-        ChangeView(_conduct(C_Requirement))
+        ChangeView(_requirement)
     End Sub
     Public Sub PrimaryApplicantClicked()
-        ChangeView(_conduct(C_PrimaryApplicant))
+        ChangeView(_primaryApplicant)
     End Sub
     'Public Sub BusinessApplicantClicked()
     '    ChangeView(_conduct(C_BusinessApplicant))
@@ -106,7 +107,9 @@ Public Class PromptContentViewModel
     End Sub
 
     Public Sub Handle_BeginValidationMessage(message As PBS.Deals.FormsIntegration.BeginValidationMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage).Handle
-        _dataContext.CheckRules()
+        '_dataContext.CheckRules()
+        _primaryApplicant.Validate()
+        NotifyOfPropertyChange("")
     End Sub
 
     Public Sub Handle_BeginDataCollectMessage(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle
@@ -118,16 +121,13 @@ Public Class PromptContentViewModel
 
     Public Sub GenerateScreens()
         Items.Clear()
-        GenerateScreen(New VWContractRequiredViewModel(Me, _eventAggregator), C_Requirement)
-        GenerateScreen(New VWContractPrimaryApplicantViewModel(Me), C_PrimaryApplicant)
+        _requirement = New VWContractRequiredViewModel(Me, _eventAggregator)
+        _primaryApplicant = New VWContractPrimaryApplicantViewModel(Me)
         'GenerateScreen(New VWContractBusinessApplicantViewModel(Me), C_BusinessApplicant)
         'GenerateScreen(New VWContractCoApplicantViewModel(Me), C_CoApplicant)
         'GenerateScreen(New VWContractGuarantorViewModel(Me), C_Guarantor)
         'GenerateScreen(New VWContractVehicleViewModel(Me, _eventAggregator), "Vehicle")
-        ChangeView(_conduct(C_Requirement))
+        ChangeView(_requirement)
     End Sub
 
-    Public Sub GenerateScreen(ByVal screen As Screen, ByVal desc As String)
-        _conduct.Add(desc, screen)
-    End Sub
 End Class

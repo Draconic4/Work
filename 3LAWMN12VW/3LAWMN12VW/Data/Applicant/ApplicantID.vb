@@ -34,20 +34,29 @@ Namespace ValidationRuleData
                 Return GetProperty(ApplicantTypeProperty)
             End Get
         End Property
-        Public ReadOnly Property Family As String
+        Public Property Family As String
             Get
                 Return GetProperty(FamilyProperty)
             End Get
+            Set(value As String)
+                SetProperty(FamilyProperty, value)
+            End Set
         End Property
-        Public ReadOnly Property Middle As String
+        Public Property Middle As String
             Get
                 Return GetProperty(MiddleProperty)
             End Get
+            Set(value As String)
+                SetProperty(MiddleProperty, value)
+            End Set
         End Property
-        Public ReadOnly Property Given As String
+        Public Property Given As String
             Get
                 Return GetProperty(GivenProperty)
             End Get
+            Set(value As String)
+                SetProperty(GivenProperty, value)
+            End Set
         End Property
         Public Property Suffix As String
             Get
@@ -57,35 +66,53 @@ Namespace ValidationRuleData
                 SetProperty(SuffixProperty, value)
             End Set
         End Property
-        Public ReadOnly Property BirthDate As String
+        Public Property BirthDate As String
             Get
                 Return GetProperty(BirthDateProperty)
             End Get
+            Set(value As String)
+                SetProperty(BirthDateProperty, value)
+            End Set
         End Property
-        Public ReadOnly Property Age As Integer
+        Public Property Age As Integer
             Get
                 Return GetProperty(AgeProperty)
             End Get
+            Set(value As Integer)
+                SetProperty(AgeProperty, value)
+            End Set
         End Property
-        Public ReadOnly Property NationalID As String
+        Public Property NationalID As String
             Get
                 Return GetProperty(NationalIDProperty)
             End Get
+            Set(value As String)
+                SetProperty(NationalIDProperty, value)
+            End Set
         End Property
-        Public ReadOnly Property DriverLicense As String
+        Public Property DriverLicense As String
             Get
                 Return GetProperty(DriverLicenseProperty)
             End Get
+            Set(value As String)
+                SetProperty(DriverLicenseProperty, value)
+            End Set
         End Property
-        Public ReadOnly Property DriverLicenseExpiry As String
+        Public Property DriverLicenseExpiry As String
             Get
                 Return GetProperty(DriverLicenseExpiryProperty)
             End Get
+            Set(value As String)
+                SetProperty(DriverLicenseExpiryProperty, value)
+            End Set
         End Property
-        Public ReadOnly Property IssuingState As String
+        Public Property IssuingState As String
             Get
                 Return GetProperty(IssuingStateProperty)
             End Get
+            Set(value As String)
+                SetProperty(IssuingStateProperty, value)
+            End Set
         End Property
 #End Region
 

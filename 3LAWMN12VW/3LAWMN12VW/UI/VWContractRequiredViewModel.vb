@@ -24,25 +24,13 @@ Public Class VWContractRequiredViewModel
     End Property
     Public ReadOnly Property ProductTypeText As String
         Get
-            'If _dataContext Is Nothing Then Return ""
-            'If Not Utility.IsLease(_dataContext) Or _dataContext.ProductType.StartsWith("M") Then Return _dataContext.ProductType 'Won't be visible
-            'If Utility.IsCanadian(_dataContext) Then Return "Single Pay"
-            Return "Pre-Pay"
+            If _dataContext Is Nothing Then Return ""
+            Return _dataContext.ProductType 
         End Get
     End Property
     Public ReadOnly Property ApplicationTypes As List(Of String)
         Get
-            Dim appTypes As New List(Of String)
-            appTypes.Add("INDIVIDUAL")
-            appTypes.Add("INDIVIDUAL AND COAPPLICANT")
-            appTypes.Add("INDIVIDUAL AND TWO COAPPLICANTS")
-            appTypes.Add("INDIVIDUAL WITH GUARANTOR")
-            appTypes.Add("BUSINESS")
-            appTypes.Add("BUSINESS WITH COAPPLICANT")
-            appTypes.Add("BUSINESS WITH GUARANTOR")
-            appTypes.Add("BUSINESS WITH TWO COAPPLICANTS")
-            appTypes.Add("BUSINESS WITH COAPPLICANT AND GUARANTOR")
-            Return appTypes
+            Return _dataContext.ApplicationTypeList
         End Get
     End Property
 #End Region

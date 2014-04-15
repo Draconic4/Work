@@ -83,5 +83,19 @@ Public Class VWContractApplicantViewModel
         _GarageAddress = New VWContractAddressViewModel(_Person.GarageAddress, gProp)
     End Sub
     Public Sub Validate()
+        Dim x As New Csla.Rules.BrokenRulesCollection
+        _Person.ApplicantName.CheckRules()
+        x.AddRange(_Person.ApplicantName.BrokenRulesCollection.Reverse)
+        _Person.HomeAddress.CheckRules()
+        x.AddRange(_Person.HomeAddress.BrokenRulesCollection.Reverse)
+        If Not _Person.BillingAddress.SameAsHomeAddress Then
+            _Person.BillingAddress.CheckRules()
+            x.AddRange(_Person.BillingAddress.BrokenRulesCollection.Reverse)
+        End If
+        If Not _Person.GarageAddress.SameAsHomeAddress Then
+            _Person.GarageAddress.CheckRules()
+            x.AddRange(_Person.GarageAddress.BrokenRulesCollection.Reverse)
+        End If
+        NotifyOfPropertyChange("")
     End Sub
 End Class

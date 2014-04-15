@@ -57,26 +57,26 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Label Content="Given" Grid.Column="0" />
-        <TextBox Grid.Column="1" MaxLength="20" IsReadOnly="True" Text="{Binding Applicant.Given, Mode=OneWay, ValidatesOnDataErrors=True}" />
+        <TextBox Grid.Column="1" MaxLength="20" IsReadOnly="True" Text="{Binding Applicant.Given, Mode=TwoWay, ValidatesOnDataErrors=True}" />
         <Label Content="Middle" Grid.Column="2" />
-        <TextBox Grid.Column="3" MaxLength="20" Text="{Binding Applicant.Middle, Mode=OneWay, ValidatesOnDataErrors=True}" />
+        <TextBox Grid.Column="3" MaxLength="20" Text="{Binding Applicant.Middle, Mode=TwoWay, ValidatesOnDataErrors=True}" />
         <Label Content="Family" Grid.Column="4" />
-        <TextBox Grid.Column="5" MaxLength="30" Text="{Binding Applicant.Family, Mode=OneWay, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Column="5" MaxLength="30" Text="{Binding Applicant.Family, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
         <Label Content="Suffix" Grid.Column="6" />
         <ComboBox Grid.Column="7" SelectedItem="{Binding Applicant.Suffix}" ItemsSource="{Binding SuffixList}" />
 
         <Label Content="{Binding NationalIdText}" Grid.Column="0" Grid.Row="1" />
-        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Applicant.NationalID, Mode=OneWay, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Applicant.NationalID, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
         <Label Content="Birthdate" Grid.Column="2" Grid.Row="1" />
-        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Applicant.BirthDate, Mode=OneWay, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Applicant.BirthDate, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
         <Label Content="Age" Grid.Column="4" Grid.Row="1" />
-        <TextBox Grid.Column="5" Grid.Row="2" IsReadOnly="True" Text="{Binding Applicant.Age,Mode=OneWay}"/>
+        <TextBox Grid.Column="5" Grid.Row="2" IsReadOnly="True" Text="{Binding Applicant.Age,Mode=TwoWay}"/>
 
         <Label Content="Drivers License" Grid.Column="0" Grid.Row="3" />
-        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Applicant.DriverLicense, Mode=OneWay, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding Applicant.DriverLicense, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
         <Label Content="{Binding DriversIssuingProvinceText}" Grid.Column="2" Grid.Row="3" />
-        <ComboBox  Grid.Column="3" Grid.Row="3" SelectedItem="{Binding Applicant.IssuingState, Mode=OneWay}" ItemsSource="{Binding ProvinceOrStateList}"/>
+        <ComboBox  Grid.Column="3" Grid.Row="3" SelectedItem="{Binding Applicant.IssuingState, Mode=TwoWay}" ItemsSource="{Binding ProvinceOrStateList}"/>
         <Label Content="Expiry" Grid.Column="4" Grid.Row="3" />
-        <TextBox Grid.Column="5" Grid.Row="3" Text="{Binding Applicant.DriverLicenseExpiry, Mode=OneWay, ValidatesOnDataErrors=True}"/>
+        <TextBox Grid.Column="5" Grid.Row="3" Text="{Binding Applicant.DriverLicenseExpiry, Mode=TwoWay, ValidatesOnDataErrors=True}"/>
     </Grid>
 </UserControl>
