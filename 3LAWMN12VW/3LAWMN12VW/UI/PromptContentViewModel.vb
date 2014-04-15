@@ -43,6 +43,11 @@ Public Class PromptContentViewModel
             Return Me.ActiveItem.GetType() Is GetType(VWContractPrimaryApplicantViewModel)
         End Get
     End Property
+    Public ReadOnly Property PrimaryApplicantVisibility() As Visibility
+        Get
+            Return Visibility.Visible
+        End Get
+    End Property
     'Public ReadOnly Property BusinessApplicantChecked() As Boolean
     '    Get
     '        Return Me.ActiveItem.GetType() Is GetType(VWContractBusinessApplicantViewModel)
