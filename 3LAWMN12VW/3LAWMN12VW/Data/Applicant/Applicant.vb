@@ -93,11 +93,21 @@ Namespace ValidationRuleData
 #End Region
 
 #Region "  Business Rules "
-        Public Sub CheckRules()
+        Public Sub CheckRules(ByVal aristo As Boolean)
             ApplicantName.CheckRules()
             HomeAddress.CheckRules()
-            BillingAddress.CheckRules()
-            GarageAddress.CheckRules()
+            If aristo Then
+                If Not BillingAddress.SameAsHomeAddress Then BillingAddress.CheckRules()
+                If Not GarageAddress.SameAsHomeAddress Then GarageAddress.CheckRules()
+            End If
+        End Sub
+        Public Sub RequirementList(vroot As ValidationRuleUIModel)
+            'Dim vApp As New ValidSection(ApplicantType)
+            'ApplicantName.RequirementList(vApp)
+            'HomeAddress.RequirementList(vApp)
+            'BillingAddress.RequirementList(vApp)
+            'GarageAddress.RequirementList(vApp)
+            'vroot.SubSections.Add(vApp)
         End Sub
 #End Region
     End Class

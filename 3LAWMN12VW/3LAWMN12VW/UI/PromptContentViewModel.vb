@@ -112,9 +112,8 @@ Public Class PromptContentViewModel
     End Sub
 
     Public Sub Handle_BeginValidationMessage(message As PBS.Deals.FormsIntegration.BeginValidationMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage).Handle
-        '_dataContext.CheckRules()
-        _primaryApplicant.Validate()
-        NotifyOfPropertyChange("")
+        _dataContext.CheckRules(True)
+        _requirement.Validate(_dataContext.ValidationTree)
     End Sub
 
     Public Sub Handle_BeginDataCollectMessage(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle

@@ -53,11 +53,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="400"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0">Application Type</Label>
             <ComboBox x:Name="cboApplicationType" Grid.Column="1" SelectedItem="{Binding DataContext.ApplicationType}" ItemsSource="{Binding ApplicationTypes}">
@@ -85,6 +85,13 @@
                 <Label Grid.Row="0" Grid.Column="4" Visibility="{Binding LeaseTypeVisibility}">Lease Type</Label>
                 <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding ProductTypeText, Mode=OneTime}" Visibility="{Binding LeaseTypeVisibility}" IsEnabled="False"></TextBox>
             </Grid>
+            <TreeView ItemsSource="{Binding ValidationTree}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5">
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate ItemsSource="{Binding Rules}">
+                        <TextBlock Text="{Binding RuleOrSetName}"></TextBlock>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
         </Grid>
     </Grid>
 </UserControl>

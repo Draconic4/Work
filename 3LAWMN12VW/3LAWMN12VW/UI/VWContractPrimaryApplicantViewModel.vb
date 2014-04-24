@@ -20,7 +20,7 @@ Public Class VWContractPrimaryApplicantViewModel
             Return Visibility.Visible
         End Get
     End Property
-    Public ReadOnly Property PrimaryApplicant
+    Public ReadOnly Property PrimaryApplicant As VWContractApplicantViewModel
         Get
             Return _Primary
         End Get
@@ -33,6 +33,5 @@ Public Class VWContractPrimaryApplicantViewModel
     Public Sub Validate()
         If Utility.IsBusiness(GlobalProperty) Then Return
         _Primary.Validate()
-        NotifyOfPropertyChange("")
     End Sub
 End Class

@@ -1,4 +1,5 @@
 ﻿Imports Csla
+
 Namespace ValidationRuleData
     Public Class Address
         Inherits BusinessBase(Of Address)
@@ -9,8 +10,8 @@ Namespace ValidationRuleData
         Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicantType))
         Public Shared ReadOnly AddressTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.AddressType))
         Public Shared ReadOnly SameAsHomeAddressProperty As PropertyInfo(Of Boolean) = RegisterProperty(Of Boolean)(Function(c) (c.SameAsHomeAddress), "_SAMEASHOME", True)
-        Public Shared ReadOnly Line1Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line1), "_ADDRESS", String.Empty)
-        Public Shared ReadOnly Line2Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line2), "_ADDRESS2", String.Empty)
+        Public Shared ReadOnly Line1Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line1), "_ADDR", String.Empty)
+        Public Shared ReadOnly Line2Property As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Line2), "_ADDR2", String.Empty)
         Public Shared ReadOnly CityProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.City), "_CITY", String.Empty)
         Public Shared ReadOnly StateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.State), "_PROV", String.Empty)
         Public Shared ReadOnly ZipProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Zip), "_PCODE", String.Empty)
@@ -170,6 +171,12 @@ Namespace ValidationRuleData
         End Sub
         Public Sub CheckRules()
             Me.BusinessRules.CheckRules()
+        End Sub
+        Public Sub RequirementList(vroot As ValidationRuleOrSet)
+            'vroot.
+            'For Each vr As Csla.Rules.BrokenRule In Me.BrokenRulesCollection
+            'vroot.Rules.Add(New ValidationRule(vr.Description))
+            'Next
         End Sub
         Public Class HasRequiredValueString
             Inherits Csla.Rules.BusinessRule

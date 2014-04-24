@@ -39,6 +39,8 @@ Namespace ValidationRuleData
         Public Shared ReadOnly AutomaticPaymentProperty As PropertyInfo(Of AutomatedPayment) = RegisterProperty(Of AutomatedPayment)(Function(c) c.AutomaticPayment)
         Public Shared ReadOnly FinancePlanProcessingDateProperty As PropertyInfo(Of Csla.SmartDate) = RegisterProperty(Of Csla.SmartDate)(Function(c) c.FinancePlanProcessingDate)
         Public Shared ReadOnly TaxExemptProperty As PropertyInfo(Of Boolean) = RegisterProperty(Of Boolean)(Function(c) c.TaxExempt)
+
+#Region "  Data Access "
         Public Property TaxExempt() As Boolean
             Get
                 Return GetProperty(TaxExemptProperty)
@@ -327,7 +329,26 @@ Namespace ValidationRuleData
                 LoadProperty(ContractDateProperty, value)
             End Set
         End Property
+#End Region
 
+#Region "  Data Access "
+        Public Sub New()
 
+        End Sub
+        Public Shared Function Fetch(gProp As ProcessInfo, previousRun As Dictionary(Of String, Object), currentRun As Dictionary(Of String, Object)) As Deal
+            Dim d As New Deal
+            Return d
+        End Function
+#End Region
+
+#Region "  Business Rules "
+        Public Sub CheckRules(ByVal aristo As Boolean)
+
+        End Sub
+        Public Function RequirementList() As List(Of String)
+            Dim rl As New List(Of String)
+            Return rl
+        End Function
+#End Region
     End Class
 End Namespace

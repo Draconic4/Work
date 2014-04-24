@@ -1,4 +1,6 @@
-﻿Namespace ValidationRuleData
+﻿Imports System.Collections.ObjectModel
+
+Namespace ValidationRuleData
     Public Class ApplicantManager
 
         Private _globalProperty As ProcessInfo
@@ -69,12 +71,52 @@
 #End Region
 
 #Region "  Business Rules "
-        Public Sub CheckRules()
-            If _primaryApplicant IsNot Nothing Then _primaryApplicant.CheckRules()
+        Public Sub CheckRules(ByVal aristo As Boolean)
+            If _primaryApplicant IsNot Nothing Then _primaryApplicant.CheckRules(aristo)
             'If _businessApplicant IsNot Nothing Then _businessApplicant.CheckRules()
             For Each app As Applicant In _applicantList
-                app.CheckRules()
+                app.CheckRules(aristo)
             Next
+        End Sub
+        Public Sub RequirementList(vroot As ValidationRuleOrSet)
+            Dim vrs As New ValidationRuleOrSet()
+            vrs.RuleOrSetName = "Primary Applicant"
+            For i As Integer = 0 To 32
+                Dim temp As New ValidationRuleOrSet()
+                temp.RuleOrSetName = "Broken Rule 000" & i
+                vrs.Rules.Add(temp)
+            Next
+            vroot.Rules.Add(vrs)
+            'Dim vs As New ValidSection("Applicants")
+            'If Not Utility.IsBusiness(GlobalProperty) Then
+            '    Dim primary As New ValidSection("Primary Applicant")
+            '    _primaryApplicant.RequirementList(primary)
+            '    vs.SubSections.Add(primary)
+            'Else
+            '    Dim business As New ValidSection("Business")
+            '    _businessApplicant.RequirementList(business)
+            '    vs.SubSections.Add(business)
+            'End If
+            'If Utility.HasGuarantor(GlobalProperty) Then
+            '    Dim guarantor As New ValidSection("Guarantor")
+            '    _applicantList(0).RequirementList(guarantor)
+            '    vs.SubSections.Add(guarantor)
+            '    If Utility.HasCoApplicant(GlobalProperty) Then
+            '        Dim coApplicant As New ValidSection("CoApplicant")
+            '        _applicantList(1).RequirementList(coApplicant)
+            '        vs.SubSections.Add(coApplicant)
+            '    End If
+            'ElseIf Utility.HasCoApplicant(GlobalProperty) Then
+            '    Dim coApplicant As New ValidSection("CoApplicant")
+            '    _applicantList(0).RequirementList(coApplicant)
+            '    vs.SubSections.Add(coApplicant)
+            '    If Utility.HasCoApplicant2(GlobalProperty) Then
+            '        Dim coApplicant2 As New ValidSection("CoApplicant 2")
+            '        _applicantList(0).RequirementList(coApplicant2)
+            '        vs.SubSections.Add(coApplicant2)
+            '    End If
+            'End If
+            'vroot.SubSections.Add(vs)
         End Sub
 #End Region
     End Class

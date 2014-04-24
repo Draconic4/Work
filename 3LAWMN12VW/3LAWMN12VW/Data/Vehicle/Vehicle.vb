@@ -186,8 +186,8 @@ Namespace ValidationRuleData
         Public Sub New(ByVal gProp As ProcessInfo)
             _globalProperties = gProp
         End Sub
-        Public Shared Function FetchExisting(formDC As Dictionary(Of String, Object), aristoDC As Dictionary(Of String, Object), globalProperty As ProcessInfo) As Vehicle
-            Dim veh As Vehicle = New Vehicle(globalProperty)
+        Public Shared Function Fetch(gProp As ProcessInfo, formDC As Dictionary(Of String, Object), aristoDC As Dictionary(Of String, Object)) As Vehicle
+            Dim veh As Vehicle = New Vehicle(gProp)
             veh.Populate(formDC, aristoDC)
             Return veh
         End Function
@@ -197,9 +197,14 @@ Namespace ValidationRuleData
 #End Region
 
 #Region "  Business Rules "
-        Public Sub CheckRules()
+        Public Sub CheckRules(ByVal aristo As Boolean)
 
         End Sub
+        Public Function RequirementList() As List(Of String)
+            Dim rl As New List(Of String)
+
+            Return rl
+        End Function
 #End Region
     End Class
 End Namespace

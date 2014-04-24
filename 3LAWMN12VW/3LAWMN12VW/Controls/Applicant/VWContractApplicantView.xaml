@@ -6,27 +6,31 @@
              xmlns:pbsForms="clr-namespace:_3LAWMN12VW"
              xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             mc:Ignorable="d" Height="Auto" Width="Auto">
+             mc:Ignorable="d" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
     <Grid Height="Auto" Width="Auto">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0">
-            <Label Content="{Binding MyCaption}" FontWeight="Bold" FontSize="14"/>
+        <Border Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Label Content="{Binding MyCaption, FallbackValue=UserName}" FontWeight="Bold" FontSize="14"></Label>
         </Border>
         <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ContentControl x:Name="ApplicantName" Grid.Row="0" Grid.Column="0"></ContentControl>
+                <pbsForms:VWContractApplicantIDView Grid.Row="0"></pbsForms:VWContractApplicantIDView>
+                <pbsForms:VWContractAddressView Grid.Row="1"></pbsForms:VWContractAddressView>
+                <pbsForms:VWContractAddressView Grid.Row="2"></pbsForms:VWContractAddressView>
+                <pbsForms:VWContractAddressView Grid.Row="3"></pbsForms:VWContractAddressView>
+                <!--<ContentControl x:Name="ApplicantName" Grid.Row="0" Grid.Column="0"></ContentControl>
                 <ContentControl x:Name="HomeAddress" Grid.Row="1" Grid.Column="0"></ContentControl>
                 <ContentControl x:Name="BillingAddress" Grid.Row="2" Grid.Column="0"></ContentControl>
-                <ContentControl x:Name="GarageAddress" Grid.Row="3" Grid.Column="0"></ContentControl>
+                <ContentControl x:Name="GarageAddress" Grid.Row="3" Grid.Column="0"></ContentControl>-->
             </Grid>
         </ScrollViewer>
     </Grid>

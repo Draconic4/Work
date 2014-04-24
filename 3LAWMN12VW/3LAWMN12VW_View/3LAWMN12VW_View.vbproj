@@ -52,9 +52,6 @@
     <StartupObject>_3LAWMN12VW_View.Launcher</StartupObject>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="3LAWMN12VW">
-      <HintPath>..\3LAWMN12VW\bin\Debug\3LAWMN12VW.dll</HintPath>
-    </Reference>
     <Reference Include="Caliburn.Micro">
       <HintPath>..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\Caliburn.Micro.dll</HintPath>
     </Reference>
@@ -174,6 +171,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\3LAWMN12VW\3LAWMN12VW.vbproj">
+      <Project>{5f490c22-b5ef-452e-b69c-5c974372d9aa}</Project>
+      <Name>3LAWMN12VW</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

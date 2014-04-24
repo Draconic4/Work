@@ -7,16 +7,16 @@ Namespace ValidationRuleData
         Private _globalProperties As ProcessInfo
 
         Public Shared ReadOnly ApplicantTypeProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.ApplicantType))
-        Public Shared ReadOnly FamilyProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Family), "_LASTNAME", String.Empty)
-        Public Shared ReadOnly MiddleProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Middle), "_INITNAME", String.Empty)
-        Public Shared ReadOnly GivenProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Given), "_FIRSTNAME", String.Empty)
+        Public Shared ReadOnly FamilyProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Family), "_LAST", String.Empty)
+        Public Shared ReadOnly MiddleProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Middle), "_INIT", String.Empty)
+        Public Shared ReadOnly GivenProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Given), "_FIRST", String.Empty)
         Public Shared ReadOnly SuffixProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.Suffix), "_SUFFIX", String.Empty)
-        Public Shared ReadOnly BirthDateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.BirthDate), "_BIRTHDATE", String.Empty)
+        Public Shared ReadOnly BirthDateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.BirthDate), "_BDTE", String.Empty)
         Public Shared ReadOnly AgeProperty As PropertyInfo(Of Integer) = RegisterProperty(Of Integer)(Function(c) (c.Age), "_AGE", -1)
         Public Shared ReadOnly NationalIDProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.NationalID), "_SIN", String.Empty)
-        Public Shared ReadOnly IssuingStateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.IssuingState), "_DLIC_STATE", String.Empty)
-        Public Shared ReadOnly DriverLicenseProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DriverLicense), "_DLIC_NO", String.Empty)
-        Public Shared ReadOnly DriverLicenseExpiryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DriverLicenseExpiry), "_DLIC_EXP", String.Empty)
+        Public Shared ReadOnly IssuingStateProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.IssuingState), "_DLICENSESTATE", String.Empty)
+        Public Shared ReadOnly DriverLicenseProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DriverLicense), "_DLICENSE", String.Empty)
+        Public Shared ReadOnly DriverLicenseExpiryProperty As PropertyInfo(Of String) = RegisterProperty(Of String)(Function(c) (c.DriverLicenseExpiry), "_DLICENSEEXP", String.Empty)
 
 #Region "  Properties "
         Public ReadOnly Property GlobalProperty As ProcessInfo
@@ -190,6 +190,16 @@ Namespace ValidationRuleData
         End Sub
         Public Sub CheckRules()
             Me.BusinessRules.CheckRules()
+        End Sub
+        Public Sub RequirementList(vroot As ValidationRuleOrSet)
+            Dim vrs As New ValidationRuleOrSet()
+            vrs.RuleOrSetName = "Name"
+            For Each vr As Csla.Rules.BrokenRule In Me.BrokenRulesCollection
+                Dim temp As New ValidationRuleOrSet()
+                temp.RuleOrSetName = vr.Description
+                vrs.Rules.Add(temp)
+            Next
+            vroot.Rules.Add(vrs)
         End Sub
 
         Public Class IsUSHasValidSSN

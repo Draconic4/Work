@@ -9,5 +9,6 @@
              xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
              mc:Ignorable="d"
              Width="Auto" Height="Auto">
-    <ContentControl x:Name="PrimaryApplicant" Width="Auto" Height="Auto"></ContentControl>
+    <!--<ContentControl x:Name="PrimaryApplicant" Width="Auto" Height="Auto"></ContentControl>-->
+    <pbsForms:VWContractApplicantView></pbsForms:VWContractApplicantView>
 </UserControl>

@@ -90,6 +90,14 @@ Namespace ValidationRuleData
 #End Region
 
 #Region "  Business Rules "
+        Public Sub RequirementList(vroot As ValidationRuleOrSet)
+            'Dim vApp As New ValidSection(ApplicantType)
+            'CompanyName.RequirementList(vApp)
+            'HomeAddress.RequirementList(vApp)
+            'BillingAddress.RequirementList(vApp)
+            'GarageAddress.RequirementList(vApp)
+            'vroot.SubSections.Add(vApp)
+        End Sub
         Public Sub CheckRules()
             CompanyName.CheckRules()
             HomeAddress.CheckRules()

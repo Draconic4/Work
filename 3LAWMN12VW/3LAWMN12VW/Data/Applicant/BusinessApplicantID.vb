@@ -114,7 +114,11 @@ Namespace ValidationRuleData
         Public Sub CheckRules()
             Me.BusinessRules.CheckRules()
         End Sub
-
+        Public Sub RequirementList(vroot As ValidationRuleOrSet)
+            'For Each vr As Csla.Rules.BrokenRule In Me.BrokenRulesCollection
+            '    vroot.Rules.Add(New ValidationRule(vr.Description))
+            'Next
+        End Sub
         Public Class IsUSHasValidSSN
             Inherits Csla.Rules.BusinessRule
 
