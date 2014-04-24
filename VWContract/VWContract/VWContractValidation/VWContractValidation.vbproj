@@ -10,7 +10,8 @@
     <AssemblyName>VWContractValidation</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,6 +44,9 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Csla">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\Csla.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -62,6 +66,20 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Library\Framework\BaseConstructionArgs.vb" />
+    <Compile Include="Library\Framework\BaseFormField.vb" />
+    <Compile Include="Library\Framework\FormFieldManager.vb" />
+    <Compile Include="Library\Framework\GetProvinceAbbreviation.vb" />
+    <Compile Include="Library\Framework\IReadFormField.vb" />
+    <Compile Include="Library\Framework\IReplicableFormField.vb" />
+    <Compile Include="Library\Framework\IValidationTarget.vb" />
+    <Compile Include="Library\Framework\Rule.vb" />
+    <Compile Include="Library\Framework\RuleControlModel.vb" />
+    <Compile Include="Library\Framework\RuleSet.vb" />
+    <Compile Include="Library\Framework\Utility.vb" />
+    <Compile Include="Library\Process\ApplicationTypeArgs.vb" />
+    <Compile Include="Library\Process\ProcessInfo.vb" />
+    <Compile Include="Library\Process\ProcessUtility.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -97,6 +115,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
