@@ -9,8 +9,9 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>FunctionalityUI</RootNamespace>
     <AssemblyName>FunctionalityUI</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MyType>Custom</MyType>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,7 +49,39 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.ControlLibrary">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.ControlLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.Core.Library">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.Core.Library.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.Core.Serialization">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.Core.Serialization.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.Globalization">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.Globalization.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.Schema">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.Schema.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.SOA">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.SOA.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.SystemManager">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.SystemManager.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.TitaniumDataAccess">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.TitaniumDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.UnitTests">
+      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.UnitTests.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System" />
@@ -60,24 +93,6 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="Application.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Application.xaml.vb">
-      <DependentUpon>Application.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MainWindow.xaml.vb">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Import Include="System.Threading.Tasks" />
@@ -99,6 +114,11 @@
     <Import Include="System.Windows.Navigation" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormPromptView.xaml.vb">
+      <DependentUpon>FormPromptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FormPromptViewModel.vb" />
+    <Compile Include="Launcher.vb" />
     <Compile Include="My Project\AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -128,7 +148,20 @@
     <AppDesigner Include="My Project\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <Page Include="FormPromptView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VWContractValidation\VWContractValidation.vbproj">
+      <Project>{067fa576-5783-4ab7-86c6-135aaaf37f36}</Project>
+      <Name>VWContractValidation</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\check.png" />
+    <Resource Include="Resources\forbidden.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="FormPromptView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="4"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="1" Margin="2,2,2,0" cal:Message.Attach="[Event Click] = [Action CancelClicked]">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Resources/forbidden.png" Width="24" Height="24"/>
+                    <TextBlock Margin="4,3,0,3"><Run Text="Cancel"/></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="2" Margin="2,2,2,0" cal:Message.Attach="[Event Click] = [Action ValidateClicked]">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="Resources/check.png" Width="24" Height="24"/>
+                    <TextBlock Margin="4,3,0,3"><Run Text="Validate"/></TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Grid.Column="3" Margin="2,2,2,0" Content="Preview" cal:Message.Attach="[Event Click] = [Action ContinueClicked]"/>
+        </Grid>
+        <ContentControl Grid.Row="0" x:Name="TheHammer"/>
+    </Grid>
+</UserControl>
