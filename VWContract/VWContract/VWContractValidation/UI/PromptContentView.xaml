@@ -3,16 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  
-             xmlns:Aristo="clr-namespace:PBS.Framework.ControlLibrary.Wpf;assembly=PBS.Framework.ControlLibrary"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:pbsForms="clr-namespace:_3LAWMN12VW"
-             xmlns:vData="clr-namespace:_3LAWMN12VW.ValidationRuleData"
+             xmlns:form="clr-namespace:VWContractValidation"
              mc:Ignorable="d">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
+            <!--<ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/PBS.Framework.ControlLibrary;component/Wpf/AristoThemeDefault.xaml"></ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>-->
             <Color x:Key="ControlNormalColor">#FFFFFFD5</Color>
             <Color x:Key="ControlMouseOverColor">#FFFFFF99</Color>
             <!--#FFF9F9AE-->

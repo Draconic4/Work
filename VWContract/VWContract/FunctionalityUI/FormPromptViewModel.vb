@@ -25,7 +25,7 @@ Public Class FormPromptViewModel
         'For Each line In IO.File.ReadLines("../../ELW1121212B.txt") 'DANDICT.dat
         '    dat.Add(line.Split("|")(0), line.Split("|")(2))
         'Next
-        AssemblySource.Instance.Add(Assembly.LoadFile("C:\Projects\GitHubProjects\Work\VWContract\VWContract\VWContractValidation\bin\Debug\VWContractValidation.dll"))  ' "C:\Projects\GitHubProjects\Work\3LAWMN12VW\3LAWMN12VW\3LAWMN12VW\bin\Debug\3LAWMN12VW.dll"))
+        AssemblySource.Instance.Add(Assembly.LoadFile("C:\Project\Work\Work\VWContract\VWContract\VWContractValidation\bin\Debug\VWContractValidation.dll"))
         TheHammer = New VWContractValidation.PromptContentViewModel(lastData, dat, _eventAggregator) 'New _3LAWMN12VW.VWContractRequiredViewModel(x)
     End Sub
 

@@ -12,9 +12,9 @@
              Width="Auto" Height="Auto">
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
+            <!--<ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/PBS.Framework.ControlLibrary;component/Wpf/AristoThemeDefault.xaml"></ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary.MergedDictionaries>-->
             <Style TargetType="{x:Type ComboBox}">
                 <Setter Property="Margin" Value="2"/>
             </Style>
@@ -60,15 +60,15 @@
                 <ColumnDefinition Width="400"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0">Application Type</Label>
-            <ComboBox x:Name="cboApplicationType" Grid.Column="1" SelectedItem="{Binding DataContext.ApplicationType}" ItemsSource="{Binding ApplicationTypes}">
+            <ComboBox x:Name="cboApplicationType" Grid.Column="1"/><!-- SelectedItem="{Binding DataContext.ApplicationType}" ItemsSource="{Binding ApplicationTypes}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <cal:ActionMessage MethodName="ApplicationTypeChange">
-                            <!--<cal:Parameter Value="{Binding ElementName=cboApplicationType,Path=SelectedItem}"></cal:Parameter>-->
+                            <cal:Parameter Value="{Binding ElementName=cboApplicationType,Path=SelectedItem}"></cal:Parameter>
                         </cal:ActionMessage>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </ComboBox>
+            </ComboBox>-->
             <Grid Grid.Row="1" Grid.ColumnSpan="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -79,19 +79,23 @@
                     <ColumnDefinition Width="100"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0">Country</Label>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding DataContext.Country, Mode=OneTime}" IsEnabled="False"></TextBox>
+                <TextBox Grid.Row="0" Grid.Column="1" IsEnabled="False"></TextBox>
+                <!-- Text="{Binding DataContext.Country, Mode=OneTime}"-->
                 <Label Grid.Row="0" Grid.Column="2">Finance Type</Label>
-                <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding DataContext.FinanceType, Mode=OneTime}" IsEnabled="False"></TextBox>
-                <Label Grid.Row="0" Grid.Column="4" Visibility="{Binding LeaseTypeVisibility}">Lease Type</Label>
-                <TextBox Grid.Row="0" Grid.Column="5" Text="{Binding ProductTypeText, Mode=OneTime}" Visibility="{Binding LeaseTypeVisibility}" IsEnabled="False"></TextBox>
+                <TextBox Grid.Row="0" Grid.Column="3" IsEnabled="False"></TextBox>
+                <!--Text="{Binding DataContext.FinanceType, Mode=OneTime}"-->
+                <Label Grid.Row="0" Grid.Column="4">Lease Type</Label>
+                <!--Visibility="{Binding LeaseTypeVisibility}"-->
+                <TextBox Grid.Row="0" Grid.Column="5" IsEnabled="False"></TextBox>
+                <!-- Text="{Binding ProductTypeText, Mode=OneTime}" Visibility="{Binding LeaseTypeVisibility}"-->
             </Grid>
-            <TreeView ItemsSource="{Binding ValidationTree}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5">
+            <!--<TreeView ItemsSource="{Binding ValidationTree}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="5">
                 <TreeView.ItemTemplate>
                     <HierarchicalDataTemplate ItemsSource="{Binding Rules}">
                         <TextBlock Text="{Binding RuleOrSetName}"></TextBlock>
                     </HierarchicalDataTemplate>
                 </TreeView.ItemTemplate>
-            </TreeView>
+            </TreeView>-->
         </Grid>
     </Grid>
 </UserControl>

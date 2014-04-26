@@ -45,10 +45,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\Caliburn.Micro.dll</HintPath>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\Caliburn.Micro.dll</HintPath>
     </Reference>
     <Reference Include="Csla">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\Csla.dll</HintPath>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\Csla.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -89,6 +89,7 @@
     <Compile Include="Library\Process\ProcessInfo.vb" />
     <Compile Include="Library\Process\ProcessUtility.vb" />
     <Compile Include="Library\Process\VWCreditProcess.vb" />
+    <Compile Include="Library\Vehicle\VehicleArgs.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -104,10 +105,26 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UI\ContractPromptView.xaml.vb">
+      <DependentUpon>ContractPromptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ContractPromptViewModel.vb" />
+    <Compile Include="Library\Insurance.vb" />
     <Compile Include="UI\PromptContentView.xaml.vb">
       <DependentUpon>PromptContentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PromptContentViewModel.vb" />
+    <Compile Include="Library\Protection.vb" />
+    <Compile Include="UI\TestPanelView.xaml.vb">
+      <DependentUpon>TestPanelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TestPanelViewModel.vb" />
+    <Compile Include="Library\Vehicle\VehicleUtility.vb" />
+    <Compile Include="Library\Vehicle\Vehicle.vb" />
+    <Compile Include="UI\VehicleUseView.xaml.vb">
+      <DependentUpon>VehicleUseView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\VehicleUseViewModel.vb" />
     <Compile Include="UI\VWContractRequirementView.xaml.vb">
       <DependentUpon>VWContractRequirementView.xaml</DependentUpon>
     </Compile>
@@ -133,9 +150,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\ContractPromptView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\PromptContentView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\TestPanelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\VehicleUseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\VWContractRequirementView.xaml">
       <Generator>MSBuild:Compile</Generator>

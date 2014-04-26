@@ -1,6 +1,8 @@
-﻿Module Module1
+﻿Imports VWContractValidation
+Module Module1
 
     Sub Main()
+        Dim pi As ProcessInfo = ProcessInfo.Fetch(Nothing, Nothing)
 
     End Sub
 

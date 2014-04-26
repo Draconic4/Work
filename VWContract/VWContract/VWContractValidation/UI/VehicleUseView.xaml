@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="VehicleUseView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:pbsForms="clr-namespace:VWContractValidation"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             mc:Ignorable="d" 
+             d:DesignHeight="140" d:DesignWidth="300">
+    <StackPanel>
+        <Border Background="AliceBlue">
+            <Grid Margin="0,2,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" FontSize="14">Primary Use:</Label>
+                <ComboBox x:Name="cboVehicleUse" Grid.Column="1" Margin="4,2" SelectedItem="{Binding VehicleData.VehicleUse}" ItemsSource="{Binding UseTypes}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                            <cal:ActionMessage MethodName="VehicleUseChanged">
+                                <cal:Parameter Value="{Binding ElementName=cboVehicleUse, Path=SelectedItem}"></cal:Parameter>
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ComboBox>
+            </Grid>
+        </Border>
+        <Grid Visibility="{Binding UseGridVisibility}">
+            <Grid.Resources>
+                <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="Control.Margin" Value="4,2"/>
+                </Style>
+            </Grid.Resources>
+            <!--Primary Use is Personal Collapse-->
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Visibility="{Binding OtherUseVisibility}">Other Use Description:</Label>
+            <TextBox Grid.Row="0" Grid.Column="1" Visibility="{Binding OtherUseVisibility}" Text="{Binding VehicleData.OtherUseDescription}"/>
+            <Label Grid.Row="1" Grid.Column="0" Visibility="{Binding BusinessAgricultureUseVisibility}">Number of Days Grace:</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Visibility="{Binding BusinessAgricultureUseVisibility}" Text="{Binding VehicleData.NumberDaysGrace}"></TextBox>
+            <Label Grid.Row="2" Grid.Column="0" Visibility="{Binding BusinessAgricultureUseVisibility}">Flat Late Charge:</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Visibility="{Binding BusinessAgricultureUseVisibility}" Text="{Binding VehicleData.LateChargeFlat}"></TextBox>
+            <Label Grid.Row="3" Grid.Column="0" Visibility="{Binding BusinessAgricultureUseVisibility}">Late Charge Rate:</Label>
+            <TextBox Grid.Row="3" Grid.Column="1" Visibility="{Binding BusinessAgricultureUseVisibility}" Text="{Binding VehicleData.LateChargeRate}"></TextBox>
+        </Grid>
+    </StackPanel>
+</UserControl>

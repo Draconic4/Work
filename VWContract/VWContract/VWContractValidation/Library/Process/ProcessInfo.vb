@@ -80,16 +80,16 @@ Public Class ProcessInfo
         Return pi
     End Function
     Public Overrides Sub Populate(ByVal pRun As Dictionary(Of String, Object))
-        PopulateField(CountryProperty, pRun)
-        PopulateField(StateOrProvinceExecutionProperty, pRun)
-        PopulateField(ApplicationTypeProperty, pRun) 'Created on subsequent runs
-        PopulateField(FinanceTypeProperty, pRun)
-        PopulateField(ProductTypeProperty, pRun)
+        PopulateField(pRun, CountryProperty)
+        PopulateField(pRun, StateOrProvinceExecutionProperty)
+        PopulateField(pRun, ApplicationTypeProperty) 'Created on subsequent runs
+        PopulateField(pRun, FinanceTypeProperty)
+        PopulateField(pRun, ProductTypeProperty)
     End Sub
     Public Overrides Sub PopulateOverride(ByVal cRun As Dictionary(Of String, Object))
-        PopulateField(CountryProperty, cRun)
+        PopulateField(cRun, CountryProperty)
         FormatCountry()
-        PopulateField(DealTypeProperty, cRun)
+        PopulateField(cRun, DealTypeProperty)
     End Sub
     Public Overrides Sub Calculate(ByVal pRun As Dictionary(Of String, Object), ByVal cRun As Dictionary(Of String, Object))
         CalculateApplicationType(pRun, cRun)
@@ -97,15 +97,18 @@ Public Class ProcessInfo
         CalculateProductType(pRun, cRun)
         CalculateStateOrProvinceExecution(cRun)
     End Sub
-    Public Overrides Function OnGenerateKey(friendlyName As String) As String
-        Return friendlyName
-    End Function
     Private Sub CalculateApplicationType(ByVal pRun As Dictionary(Of String, Object), ByVal cRun As Dictionary(Of String, Object))
         If cRun Is Nothing Then Exit Sub
-        Dim businessFlg As Boolean = cRun.ContainsKey("BUY_ISBUSINESS") AndAlso cRun("BUY_ISBUSINESS")
-        Dim hasCoAppFlg As Boolean = cRun.ContainsKey("COBUYER1_CODE") AndAlso Not String.IsNullOrWhiteSpace(cRun("COBUYER1_CODE"))
-        Dim hasCoApp2Flg As Boolean = cRun.ContainsKey("COBUYER2_CODE") AndAlso Not String.IsNullOrWhiteSpace(cRun("COBUYER2_CODE"))
-        _ApplicationArgs = New ApplicationTypeArgs(businessFlg, hasCoAppFlg, hasCoApp2Flg)
+        Dim businessFlg As Boolean = False
+        cRun.TryGetValue("BUY_ISBUSINESS", businessFlg)
+        Dim cobuyerCode As String = String.Empty
+        Dim hasCoAppFlg As Boolean = cRun.TryGetValue("COBUYER1_CODE", cobuyerCode) AndAlso Not String.IsNullOrWhiteSpace(cobuyerCode)
+        Dim hasCoApp2Flg As Boolean = False
+        If hasCoAppFlg Then
+            Dim cobuyer2Code As String = String.Empty
+            hasCoApp2Flg = cRun.TryGetValue("COBUYER2_CODE", cobuyer2Code) AndAlso Not String.IsNullOrWhiteSpace(cobuyer2Code)
+        End If
+        _ApplicationArgs = New ApplicationTypeArgs(businessFlg, hasCoAppFlg, HasCoApp2Flg)
         _ApplicationTypeList = GenerateApplicationTypeList(_ApplicationArgs)
         ApplicationType = ValidateApplicationType(ApplicationType, _ApplicationTypeList, _ApplicationArgs)
     End Sub
@@ -177,12 +180,12 @@ Public Class ProcessInfo
         Return ProcessUtility.C_APPTYPE_PRIM
     End Function
     Public Overrides Sub ReplicateCurrentState(d As Dictionary(Of String, Object))
-        d.Add(CountryProperty.FriendlyName, Country)
-        d.Add(StateOrProvinceExecutionProperty.FriendlyName, StateOrProvinceExecution)
-        d.Add(ApplicationTypeProperty.FriendlyName, ApplicationType)
-        d.Add(FinanceTypeProperty.FriendlyName, FinanceType)
-        d.Add(ProductTypeProperty.FriendlyName, ProductType)
-        d.Add(DealTypeProperty.FriendlyName, DealType)
+        StoreField(CountryProperty, d)
+        StoreField(StateOrProvinceExecutionProperty, d)
+        StoreField(ApplicationTypeProperty, d)
+        StoreField(FinanceTypeProperty, d)
+        StoreField(ProductTypeProperty, d)
+        StoreField(DealTypeProperty, d)
     End Sub
 #End Region
 #Region "  Business Rules "

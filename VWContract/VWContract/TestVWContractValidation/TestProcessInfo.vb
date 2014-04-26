@@ -74,4 +74,12 @@ Imports VWContractValidation
         Dim tst3 As ProcessInfo = ProcessInfo.Fetch(pRun, cRun)
         Assert.AreEqual("Monthly", tst3.ProductType, True)
     End Sub
+    <TestMethod()> Public Sub TestJedi()
+        Dim pRun As New Dictionary(Of String, Object)
+        Dim cRun As New Dictionary(Of String, Object) From {{"DEAL_TERM", 60}, {"DEAL_AMORTTERM", 120}}
+        Dim tst As ProcessInfo = ProcessInfo.Fetch(pRun, cRun)
+        Dim outRun As New Dictionary(Of String, Object)
+        tst.ReplicateCurrentState(outRun)
+        Assert.AreNotEqual(outRun.Count, 0)
+    End Sub
 End Class

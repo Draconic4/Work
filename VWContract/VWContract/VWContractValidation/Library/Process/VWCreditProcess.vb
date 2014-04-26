@@ -2,6 +2,12 @@
     Implements IReplicableFormField, IValidationTarget
 
     Private _gProp As ProcessInfo
+
+    Property Vehicle As Vehicle
+
+    Property InsuranceProducts As Insurance
+
+    Property Protection As Object
     'Private _applicantMgr As ApplicantManager
     'Private _veh As Vehicle
     'Private _finance As Finance
@@ -10,6 +16,8 @@
     Public Shared Function Fetch(ByVal previousRun As Dictionary(Of String, Object), ByVal currentRun As Dictionary(Of String, Object)) As VWCreditProcess
         Dim vwCP As New VWCreditProcess()
         vwCP._gProp = ProcessInfo.Fetch(previousRun, currentRun)
+        Dim vArgs As New VehicleArgs With {.GlobalProperty = vwCP._gProp, .PreviousRun = previousRun, .CurrentRun = currentRun}
+        vwCP.Vehicle = Vehicle.Fetch(vArgs)
         Return vwCP
     End Function
 

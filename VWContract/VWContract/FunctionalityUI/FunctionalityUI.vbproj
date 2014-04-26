@@ -14,7 +14,7 @@
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <DefineDebug>true</DefineDebug>
@@ -50,34 +50,47 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\Caliburn.Micro.dll</HintPath>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\Caliburn.Micro.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.ControlLibrary">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.ControlLibrary.dll</HintPath>
+    <Reference Include="Csla, Version=4.2.2.0, Culture=neutral, PublicKeyToken=93be5fdc093e4c30, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.Core.Library">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.Core.Library.dll</HintPath>
+    <Reference Include="PBS.Framework.ControlLibrary, Version=0.0.425.1138, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.ControlLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.Core.Serialization">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.Core.Serialization.dll</HintPath>
+    <Reference Include="PBS.Framework.Core.Library, Version=0.0.425.1138, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.Core.Library.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.Globalization">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.Globalization.dll</HintPath>
+    <Reference Include="PBS.Framework.Core.Serialization, Version=0.0.425.1138, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.Core.Serialization.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.Schema">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.Schema.dll</HintPath>
+    <Reference Include="PBS.Framework.Globalization, Version=0.0.425.1138, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.Globalization.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.SOA">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.SOA.dll</HintPath>
+    <Reference Include="PBS.Framework.Schema, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.Schema.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.SystemManager">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.SystemManager.dll</HintPath>
+    <Reference Include="PBS.Framework.SOA, Version=0.0.425.1138, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.SOA.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.TitaniumDataAccess">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.TitaniumDataAccess.dll</HintPath>
+    <Reference Include="PBS.Framework.SystemManager, Version=0.0.425.1138, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.SystemManager.dll</HintPath>
     </Reference>
-    <Reference Include="PBS.Framework.UnitTests">
-      <HintPath>..\..\..\..\..\DvtAristo2\proj_VWCreditValidation\_Environment\PBS.Framework.UnitTests.dll</HintPath>
+    <Reference Include="PBS.Framework.TitaniumDataAccess, Version=0.0.425.1138, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.TitaniumDataAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Framework.UnitTests, Version=1.0.5228.19178, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.UnitTests.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Forms" />
