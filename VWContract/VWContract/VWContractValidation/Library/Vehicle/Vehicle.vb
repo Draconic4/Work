@@ -5,7 +5,7 @@ Public Class Vehicle
 
     Private C_VEHICLE As String = "VEH"
     Public Shared ReadOnly VehicleIndexProperty As PropertyInfo(Of String) = RegisterPropertyLocal(Of String)(Function(c) (c.VehicleIndex), "", "0")
-    Public Shared ReadOnly VehicleUseProperty As PropertyInfo(Of String) = RegisterPropertyLocal(Of String)(Function(c) (c.VehicleUse), "_USAGE", VehicleUtility.C_VEHICLEUSE_PERSONAL)
+    Public Shared ReadOnly UseProperty As PropertyInfo(Of String) = RegisterPropertyLocal(Of String)(Function(c) (c.Use), "_USAGE", VehicleUtility.C_VEHICLEUSE_PERSONAL)
     Public Shared ReadOnly OtherUseDescriptionProperty As PropertyInfo(Of String) = RegisterPropertyLocal(Of String)(Function(c) (c.OtherUseDescription), "_USAGE_OTHERDESCRIPTION", String.Empty)
     Public Shared ReadOnly NumberDaysGraceProperty As PropertyInfo(Of Integer) = RegisterPropertyLocal(Of Integer)(Function(c) (c.NumberDaysGrace), "_USAGE_BUSINESSGRACEPERIOD", 0)
     Public Shared ReadOnly LateChargeFlatProperty As PropertyInfo(Of Decimal) = RegisterPropertyLocal(Of Decimal)(Function(c) (c.LateChargeFlat), "_USAGE_BUSINESS_LATECHARGE_FLAT", 0D)
@@ -20,12 +20,12 @@ Public Class Vehicle
             SetProperty(VehicleIndexProperty, value)
         End Set
     End Property
-    Public Property VehicleUse As String
+    Public Property Use As String
         Get
-            Return GetProperty(VehicleUseProperty)
+            Return GetProperty(UseProperty)
         End Get
         Set(value As String)
-            SetProperty(VehicleUseProperty, value)
+            SetProperty(UseProperty, value)
         End Set
     End Property
     Property OtherUseDescription As String
@@ -72,7 +72,7 @@ Public Class Vehicle
         Return v
     End Function
     Public Overrides Sub Populate(pRun As Dictionary(Of String, Object))
-        PopulateField(pRun, VehicleUseProperty)
+        PopulateField(pRun, UseProperty)
         PopulateField(pRun, OtherUseDescriptionProperty)
         PopulateField(pRun, NumberDaysGraceProperty)
         PopulateField(pRun, LateChargeFlatProperty)
@@ -80,11 +80,11 @@ Public Class Vehicle
     End Sub
     Public Overrides Sub Calculate(previousRun As Dictionary(Of String, Object), currentRun As Dictionary(Of String, Object))
         If ProcessUtility.IsBusiness(GlobalProperty) Then
-            LoadProperty(VehicleUseProperty, VehicleUtility.C_VEHICLEUSE_BUSINESS)
+            LoadProperty(UseProperty, VehicleUtility.C_VEHICLEUSE_BUSINESS)
         End If
     End Sub
     Public Overrides Sub ReplicateCurrentState(d As Dictionary(Of String, Object))
-        StoreField(VehicleUseProperty, d)
+        StoreField(UseProperty, d)
         StoreField(OtherUseDescriptionProperty, d)
         StoreField(NumberDaysGraceProperty, d)
         StoreField(LateChargeFlatProperty, d)

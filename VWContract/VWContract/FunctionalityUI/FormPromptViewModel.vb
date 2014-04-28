@@ -26,7 +26,8 @@ Public Class FormPromptViewModel
         '    dat.Add(line.Split("|")(0), line.Split("|")(2))
         'Next
         AssemblySource.Instance.Add(Assembly.LoadFile("C:\Project\Work\Work\VWContract\VWContract\VWContractValidation\bin\Debug\VWContractValidation.dll"))
-        TheHammer = New VWContractValidation.PromptContentViewModel(lastData, dat, _eventAggregator) 'New _3LAWMN12VW.VWContractRequiredViewModel(x)
+        Dim vwPI As VWContractValidation.VWCreditProcess = VWContractValidation.VWCreditProcess.Fetch(lastData, dat)
+        TheHammer = New VWContractValidation.PromptContentViewModel(vwPI, _eventAggregator) 'New _3LAWMN12VW.VWContractRequiredViewModel(x)
     End Sub
 
     'Public Sub Handle(message As PBS.Deals.FormsIntegration.DataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.DataCollectMessage).Handle

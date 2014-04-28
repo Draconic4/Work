@@ -53,9 +53,9 @@ Public Class PromptContentViewModel
         Me.NotifyOfPropertyChange(C_ContractPrompt & "Checked")
     End Sub
 
-    Public Sub New(ByVal pDC As Dictionary(Of String, Object), ByVal cDC As Dictionary(Of String, Object), eAggr As IEventAggregator)
+    Public Sub New(dc As VWCreditProcess, eAggr As IEventAggregator)
         _eventAggregator = eAggr
-        _dataContext = VWCreditProcess.Fetch(pDC, cDC)
+        _dataContext = dc
         _eventAggregator.Subscribe(Me)
         GenerateScreens()
     End Sub

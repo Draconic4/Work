@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{067FA576-5783-4AB7-86C6-135AAAF37F36}</ProjectGuid>
+    <ProjectGuid>{DA097789-899D-4E0D-8933-E78DA99A4FE2}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>VWContractValidation</RootNamespace>
-    <AssemblyName>VWContractValidation</AssemblyName>
+    <RootNamespace>_3LAWMN12VW</RootNamespace>
+    <AssemblyName>3LAWMN12VW</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -19,7 +19,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>VWContractValidation.xml</DocumentationFile>
+    <DocumentationFile>3LAWMN12VW.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -28,7 +28,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>VWContractValidation.xml</DocumentationFile>
+    <DocumentationFile>3LAWMN12VW.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -45,22 +45,33 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro">
-      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\Caliburn.Micro.dll</HintPath>
+      <HintPath>Resources\Caliburn.Micro.dll</HintPath>
     </Reference>
     <Reference Include="Csla">
-      <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\Csla.dll</HintPath>
+      <HintPath>Resources\Csla.dll</HintPath>
     </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
+    <Reference Include="GrapeCity.ActiveReports.Chart.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Diagnostics.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Document.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.Extensibility.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="GrapeCity.ActiveReports.v7, Version=7.1.7470.0, Culture=neutral, PublicKeyToken=cc4967777c49a3ff" />
+    <Reference Include="Include7">
+      <HintPath>.\Include7.dll</HintPath>
+    </Reference>
+    <Reference Include="PBS.Deals.FormsIntegration">
+      <HintPath>..\..\..\..\..\DvtAristo\proj_VWCreditValidation\Aristo.Deal\PBS.Deals.FormsIntegration\bin\Debug\PBS.Deals.FormsIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Xaml" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Import Include="Microsoft.VisualBasic" />
@@ -74,25 +85,13 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library\Deal\PaymentSchedule.vb" />
-    <Compile Include="Library\Deal\PaymentScheduleLine.vb" />
-    <Compile Include="Library\Deal\ScheduleArguments.vb" />
-    <Compile Include="Library\Framework\BaseConstructionArgs.vb" />
-    <Compile Include="Library\Framework\BaseFormField.vb" />
-    <Compile Include="Library\Framework\FormFieldManager.vb" />
-    <Compile Include="Library\Framework\GetProvinceAbbreviation.vb" />
-    <Compile Include="Library\Framework\IReadFormField.vb" />
-    <Compile Include="Library\Framework\IReplicableFormField.vb" />
-    <Compile Include="Library\Framework\IValidationTarget.vb" />
-    <Compile Include="Library\Framework\Rule.vb" />
-    <Compile Include="Library\Framework\RuleControlModel.vb" />
-    <Compile Include="Library\Framework\RuleSet.vb" />
-    <Compile Include="Library\Framework\Utility.vb" />
-    <Compile Include="Library\Process\ApplicationTypeArgs.vb" />
-    <Compile Include="Library\Process\ProcessInfo.vb" />
-    <Compile Include="Library\Process\ProcessUtility.vb" />
-    <Compile Include="Library\Process\VWCreditProcess.vb" />
-    <Compile Include="Library\Vehicle\VehicleArgs.vb" />
+    <Compile Include="3LAWMN12VW.vb" />
+    <Compile Include="3LAWMN12VW_Front_Layout.Designer.vb">
+      <DependentUpon>3LAWMN12VW_Front_Layout.vb</DependentUpon>
+    </Compile>
+    <Compile Include="3LAWMN12VW_Front_Layout.vb">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -108,32 +107,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UI\ContractPromptView.xaml.vb">
-      <DependentUpon>ContractPromptView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\ContractPromptViewModel.vb" />
-    <Compile Include="Library\Insurance.vb" />
-    <Compile Include="UI\PromptContentView.xaml.vb">
-      <DependentUpon>PromptContentView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\PromptContentViewModel.vb" />
-    <Compile Include="Library\Protection.vb" />
-    <Compile Include="UI\TestPanelView.xaml.vb">
-      <DependentUpon>TestPanelView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TestPanelViewModel.vb" />
-    <Compile Include="Library\Vehicle\VehicleUtility.vb" />
-    <Compile Include="Library\Vehicle\Vehicle.vb" />
-    <Compile Include="UI\VehicleUseView.xaml.vb">
-      <DependentUpon>VehicleUseView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\VehicleUseViewModel.vb" />
-    <Compile Include="UI\VWContractRequirementView.xaml.vb">
-      <DependentUpon>VWContractRequirementView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\VWContractRequirementViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="3LAWMN12VW_Front_Layout.resx">
+      <DependentUpon>3LAWMN12VW_Front_Layout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="My Project\licenses.licx" />
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
@@ -153,34 +132,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UI\ContractPromptView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\PromptContentView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UI\TestPanelView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\VehicleUseView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\VWContractRequirementView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <EmbeddedResource Include="Resources\Caliburn.Micro.dll" />
+    <EmbeddedResource Include="Resources\Csla.dll" />
+    <EmbeddedResource Include="Resources\System.Windows.Interactivity.dll" />
+    <EmbeddedResource Include="Resources\VWContractValidation.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\check.png" />
-    <Resource Include="Resources\forbidden.png" />
-    <Resource Include="Resources\VWLogo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Library\Applicant\" />
+    <ProjectReference Include="..\VWContractValidation\VWContractValidation.vbproj">
+      <Project>{067fa576-5783-4ab7-86c6-135aaaf37f36}</Project>
+      <Name>VWContractValidation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
