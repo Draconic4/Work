@@ -1,5 +1,6 @@
 ﻿Imports PBS.Deals.FormsIntegration
 Imports Include7.I7
+Imports VWContractValidation.ValidationLib
 
 Public Class _3LAWMN12VW
     Inherits FormBase
@@ -37,7 +38,7 @@ Public Class _3LAWMN12VW
     'FED BOX
     Public APR As Decimal = 0D
     Public FINCHG As Decimal = 0D
-    Public BALFIN As Decimal = 0D
+    Public AMTFIN As Decimal = 0D
     Public TOTPMT As Decimal = 0D
     Public DOWNPMT As Decimal = 0D
     Public TOTALSALEPRICE As Decimal = 0D
@@ -117,7 +118,7 @@ Public Class _3LAWMN12VW
     Public OtherIns2_AddrL2 As String = NA
 #End Region
 
-    Protected _dataContext As VWContractValidation.VWCreditProcess
+    Protected _dataContext As VWCreditProcess
     Dim Adjusted_Final_Payment_Date As Include7.Forms.Critical.DateInc7
 
     Public Sub New()
@@ -133,7 +134,8 @@ Public Class _3LAWMN12VW
 
     Protected Overrides Sub OnAddPrompts()
         Include7.I7.Initialize(Me.Data)
-        _dataContext = VWContractValidation.VWCreditProcess.Fetch(Me.Prompts.PreviousRun, Me.Data)
+        _dataContext = VWCreditProcess.Fetch(Me.Prompts.PreviousRun, Me.Data)
+        _dataContext.GlobalProperty.ContractFormID = "553 MN"
         Dim eAggr As Caliburn.Micro.EventAggregator = New Caliburn.Micro.EventAggregator
         Me.Prompts.AddWPFPrompt(New VWContractValidation.PromptContentViewModel(_dataContext, eAggr), eAggr)
     End Sub
@@ -226,20 +228,20 @@ Public Class _3LAWMN12VW
         L4 = L4A + L4B + L4C + L4D + L4E + L4F + L4G
         L4 = L4 + L4H1 + L4H2 + L4H3 + L4H4 + L4H5 + L4H6 + L4H7 + L4H8 + L4H9 + L4H10
         L5 = L3 + L4
-        Dim AMTFIN As Decimal = L5
+        AMTFIN = L5
         DOWNPMT = L2
 
         APR = IIf(D.APR < 0.01, 0D, D.APR)
         FINCHG = IIf(D.APR < 0.01, 0D, D.FinanceCharge)
         TOTPMT = 0D
-        If _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.FIRSTLINE).IsValid Then
-            TOTPMT += (D.Payment * _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.FIRSTLINE).PaymentPeriod)
+        If _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.FIRSTLINE).IsValid Then
+            TOTPMT += (D.Payment * _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.FIRSTLINE).PaymentPeriod)
         End If
-        If _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.SECONDLINE).IsValid Then
-            TOTPMT += (_dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.SECONDLINE).Payment * _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.SECONDLINE).PaymentPeriod)
+        If _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.SECONDLINE).IsValid Then
+            TOTPMT += (_dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.SECONDLINE).Payment * _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.SECONDLINE).PaymentPeriod)
         End If
-        If _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.THIRDLINE).IsValid Then
-            TOTPMT += (_dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.THIRDLINE).Payment * _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.SECONDLINE).PaymentPeriod)
+        If _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.THIRDLINE).IsValid Then
+            TOTPMT += (_dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.THIRDLINE).Payment * _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.SECONDLINE).PaymentPeriod)
         End If
         TOTALSALEPRICE = TOTPMT + DOWNPMT
     End Sub
@@ -283,24 +285,24 @@ Public Class _3LAWMN12VW
             'FED BOX
             form.PrintNumber(ar.FED_L1, APR, 2, "-0-")
             form.PrintNumber(ar.FED_L2, FINCHG, 2)
-            form.PrintNumber(ar.FED_L3, BALFIN, 2)
+            form.PrintNumber(ar.FED_L3, AMTFIN, 2)
             form.PrintNumber(ar.FED_L4, TOTPMT, 2)
             form.PrintNumber(ar.FED_L5A, DOWNPMT, 2, "-0-")
             form.PrintNumber(ar.FED_L5B, TOTALSALEPRICE, 2)
 
-            form.PrintNumber(ar.FED_L6A, _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.FIRSTLINE).PaymentPeriod)
-            form.PrintNumber(ar.FED_L6B, _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.FIRSTLINE).Payment, 2)
-            form.PrintText(ar.FED_L6C, _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.FIRSTLINE).PaymentStartDate)
+            form.PrintNumber(ar.FED_L6A, _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.FIRSTLINE).PaymentPeriod)
+            form.PrintNumber(ar.FED_L6B, _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.FIRSTLINE).Payment, 2)
+            form.PrintText(ar.FED_L6C, _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.FIRSTLINE).PaymentStartDate)
 
-            If _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.SECONDLINE).IsValid Then
-                If _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.THIRDLINE).IsValid Then
-                    _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.SECONDLINE).PaymentLineFunc = AddressOf SinglePayment
-                    _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.THIRDLINE).PaymentLineFunc = AddressOf FinalPayment
+            If _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.SECONDLINE).IsValid Then
+                If _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.THIRDLINE).IsValid Then
+                    _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.SECONDLINE).PaymentLineFunc = AddressOf SinglePayment
+                    _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.THIRDLINE).PaymentLineFunc = AddressOf FinalPayment
                 Else
-                    _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.SECONDLINE).PaymentLineFunc = AddressOf FinalPayment
+                    _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.SECONDLINE).PaymentLineFunc = AddressOf FinalPayment
                 End If
-                form.PrintText(ar.FED_L7, _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.SECONDLINE).PaymentLine())
-                form.PrintText(ar.FED_L8, _dataContext.PaymentSchedule.PaymentDictionary(VWContractValidation.PaymentSchedule.THIRDLINE).PaymentLine())
+                form.PrintText(ar.FED_L7, _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.SECONDLINE).PaymentLine())
+                form.PrintText(ar.FED_L8, _dataContext.PaymentSchedule.PaymentDictionary(PaymentSchedule.THIRDLINE).PaymentLine())
             End If
             form.PrintText(ar.FED_L9, "")
 
@@ -450,7 +452,7 @@ Public Class _3LAWMN12VW
 
             _process.RegisterLayout(ar)
         End Using
-        Return MyBase.OnExecuteAR7()
+        Return _process.EndFormExecution
     End Function
 
     Public Function SinglePayment(ByVal payment As String, ByVal period As String, ByVal startDate As String, ByVal endDate As String) As String

@@ -1,4 +1,4 @@
 ﻿Public Interface IValidationTarget
     Sub CheckRules()
-    Sub Requirement(validationRoot As Rule)
+    Sub Requirement(previousData As Object, validationRoot As Rule)
 End Interface

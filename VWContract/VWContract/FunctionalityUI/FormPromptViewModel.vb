@@ -4,6 +4,7 @@ Imports System.Reflection
 Public Class FormPromptViewModel
     Inherits Screen
 
+
     Private ReadOnly _eventAggregator As IEventAggregator
 
     Public Property TheHammer As PropertyChangedBase
@@ -12,10 +13,10 @@ Public Class FormPromptViewModel
         TryClose()
     End Sub
     Public Sub ValidateClicked()
-        '_eventAggregator.Publish(New PBS.Deals.FormsIntegration.BeginValidationMessage With {.BeginValidation = True})
+        _eventAggregator.Publish(New PBS.Deals.FormsIntegration.BeginValidationMessage With {.BeginValidation = True})
     End Sub
     Public Sub ContinueClicked()
-        '_eventAggregator.Publish(New PBS.Deals.FormsIntegration.BeginDataCollectMessage With {.ActionInitiateCollect = True})
+        _eventAggregator.Publish(New PBS.Deals.FormsIntegration.BeginDataCollectMessage With {.ActionInitiateCollect = True})
     End Sub
 
     Public Sub New(eventAggregator As IEventAggregator)
@@ -26,16 +27,12 @@ Public Class FormPromptViewModel
         '    dat.Add(line.Split("|")(0), line.Split("|")(2))
         'Next
         AssemblySource.Instance.Add(Assembly.LoadFile("C:\Project\Work\Work\VWContract\VWContract\VWContractValidation\bin\Debug\VWContractValidation.dll"))
-        Dim vwPI As VWContractValidation.VWCreditProcess = VWContractValidation.VWCreditProcess.Fetch(lastData, dat)
-        TheHammer = New VWContractValidation.PromptContentViewModel(vwPI, _eventAggregator) 'New _3LAWMN12VW.VWContractRequiredViewModel(x)
+        Dim dc As VWContractValidation.ValidationLib.VWCreditProcess = VWContractValidation.ValidationLib.VWCreditProcess.Fetch(Nothing, Nothing)
+        TheHammer = New VWContractValidation.PromptContentViewModel(dc, _eventAggregator)
+        'Dim vwPI As New VWContractValidation.AddressViewModel(Nothing, Nothing) 'VWContractValidation.VWCreditProcess = VWContractValidation.VWCreditProcess.Fetch(lastData, dat)
+        'TheHammer = AddressUIFunctionality.LoadSingleAddress("CANDefault")
+        'TheHammer = ApplicantUIFunctionality.LoadApplicant("EmptyDefault") 'Nothing, "EmptyDefault
     End Sub
-
-    'Public Sub Handle(message As PBS.Deals.FormsIntegration.DataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.DataCollectMessage).Handle
-
-    'End Sub
-
-    'Public Sub Handle1(message As PBS.Deals.FormsIntegration.ValidationCompleteMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.ValidationCompleteMessage).Handle
-
-    'End Sub
+    
 End Class
 

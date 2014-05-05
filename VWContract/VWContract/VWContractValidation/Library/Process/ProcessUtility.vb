@@ -1,4 +1,6 @@
-﻿Public Class ProcessUtility
+﻿Imports VWContractValidation.ValidationLib
+
+Public Class ProcessUtility
 #Region "  VW Application Type "
     Public Const C_APPTYPE_BUSINESS As String = "BUSINESS"
     Public Const C_APPTYPE_BUSINESSCOAPP As String = "BUSINESS WITH COAPPLICANT"
@@ -26,7 +28,12 @@
     Public Const C_CA_COUNTRY As String = "CA"
     Public Shared Function IsCanadian(pi As ProcessInfo) As Boolean
         If pi Is Nothing Then Return False
-        Return pi.Country.StartsWith(C_CA_COUNTRY)
+        Return pi.Country.StartsWith(C_CA_COUNTRY, StringComparison.InvariantCultureIgnoreCase)
+    End Function
+    Public Shared Function GetCountry(str As String) As String
+        If str Is Nothing Then Return C_US_COUNTRY
+        If str.StartsWith(C_CA_COUNTRY, StringComparison.InvariantCultureIgnoreCase) Then Return C_CA_COUNTRY
+        Return C_US_COUNTRY
     End Function
     Public Shared Function GetCountryLocationList() As List(Of String)
         Dim result As New List(Of String)
@@ -37,6 +44,14 @@
     End Function
 #End Region
 #Region "  Province Or State "
+    Public Shared Function GetProvinceOrStateText(ByVal pi As ProcessInfo) As String
+        If IsCanadian(pi) Then Return "Province"
+        Return "State"
+    End Function
+    Public Shared Function GetPostalCodeOrZipCodeText(ByVal pi As ProcessInfo) As String
+        If IsCanadian(pi) Then Return "Postal Code"
+        Return "Zip"
+    End Function
     Public Shared Function GetLocaleList(ByVal pi As ProcessInfo) As List(Of String)
         If pi Is Nothing Then Return New List(Of String)
         If IsCanadian(pi) Then Return GetProvinceList()
@@ -117,7 +132,14 @@
         Return result
     End Function
 #End Region
-
+    Public Shared Function NegotiationLanguage(ByVal pi As ProcessInfo) As String
+        If IsCanadian(pi) Then Return "en-CA"
+        Return "en-US"
+    End Function
+    Public Shared Function FinanceCompany(ByVal pi As ProcessInfo) As String
+        If IsCanadian(pi) Then Return "VCICAN"
+        Return "VCI"
+    End Function
     Public Shared Function IsBusiness(ByVal pi As ProcessInfo) As Boolean
         If pi Is Nothing Then Return False
         Return pi.ApplicationType.StartsWith("BUS", StringComparison.InvariantCultureIgnoreCase)

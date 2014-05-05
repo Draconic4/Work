@@ -1,27 +1,34 @@
 ﻿Public Class Rule 'DataSet or Rule
-    Private _Name As String
+    Private _ValidationFormat As ValidationFormat
     Private _BrokenRule As Boolean
 
     Public Property Name As String
         Get
-            Return _Name
+            Return _ValidationFormat.Message
         End Get
         Set(value As String)
-            _Name = value
+            _ValidationFormat.Message = value
         End Set
+    End Property
+    Public ReadOnly Property Category As Integer
+        Get
+            Return _ValidationFormat.DisplayCategory
+        End Get
     End Property
     Public Property BrokenRule As Boolean
         Get
-            Return _BrokenRule
+            Return _ValidationFormat.BottomLayer
         End Get
         Set(value As Boolean)
-            _BrokenRule = value
+            _ValidationFormat.BottomLayer = value
         End Set
     End Property
     Public Property Rules As New List(Of Rule)
 
-    Public Sub New(ByVal ruleOrSetName As String, ByVal ruleLayer As Boolean)
-        _Name = ruleOrSetName
-        _BrokenRule = ruleLayer
+    Public Sub New(ByVal ruleOrSetName As ValidationFormat)
+        _ValidationFormat = ruleOrSetName
+    End Sub
+    Public Sub Clear()
+        Rules.Clear()
     End Sub
 End Class

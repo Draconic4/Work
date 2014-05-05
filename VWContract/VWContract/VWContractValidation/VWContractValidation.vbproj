@@ -50,6 +50,9 @@
     <Reference Include="Csla">
       <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\Csla.dll</HintPath>
     </Reference>
+    <Reference Include="PBS.Deals.FormsIntegration">
+      <HintPath>..\..\..\..\..\DvtAristo\proj_VWCreditValidation\Aristo.Deal\PBS.Deals.FormsIntegration\bin\Debug\PBS.Deals.FormsIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -74,9 +77,31 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Library\Applicant\Address.vb" />
+    <Compile Include="Library\Applicant\AltContact.vb" />
+    <Compile Include="Library\Applicant\Applicant.vb" />
+    <Compile Include="Library\Applicant\ApplicantArgs.vb" />
+    <Compile Include="Library\Applicant\ApplicantID.vb" />
+    <Compile Include="Library\Applicant\ApplicantManager.vb" />
+    <Compile Include="Library\Applicant\BusinessApplicantID.vb" />
+    <Compile Include="Library\Applicant\ValidationTargetData.vb" />
+    <Compile Include="Library\Deal\CanadaOnly.vb" />
+    <Compile Include="Library\Deal\DealDetails.vb" />
+    <Compile Include="Library\Deal\FederalDisclosure.vb" />
+    <Compile Include="Library\Deal\Fee.vb" />
+    <Compile Include="Library\Deal\FeeManager.vb" />
+    <Compile Include="Library\Deal\LeaseBalloonOnly.vb" />
+    <Compile Include="Library\Deal\LeaseOnly.vb" />
+    <Compile Include="Library\Deal\LeaseProgramRates.vb" />
+    <Compile Include="Library\Deal\OtherChargesPaid.vb" />
     <Compile Include="Library\Deal\PaymentSchedule.vb" />
     <Compile Include="Library\Deal\PaymentScheduleLine.vb" />
+    <Compile Include="Library\Deal\Protection.vb" />
+    <Compile Include="Library\Deal\ProtectionManager.vb" />
     <Compile Include="Library\Deal\ScheduleArguments.vb" />
+    <Compile Include="Library\Deal\Tax.vb" />
+    <Compile Include="Library\Deal\TaxManager.vb" />
+    <Compile Include="Library\Deal\VehicleInsurance.vb" />
     <Compile Include="Library\Framework\BaseConstructionArgs.vb" />
     <Compile Include="Library\Framework\BaseFormField.vb" />
     <Compile Include="Library\Framework\FormFieldManager.vb" />
@@ -87,11 +112,19 @@
     <Compile Include="Library\Framework\Rule.vb" />
     <Compile Include="Library\Framework\RuleControlModel.vb" />
     <Compile Include="Library\Framework\RuleSet.vb" />
+    <Compile Include="Library\Framework\SendAristoErrorsToNotepadInterOp.vb" />
     <Compile Include="Library\Framework\Utility.vb" />
+    <Compile Include="Library\Framework\ValidationBaseFormField.vb" />
+    <Compile Include="Library\Framework\ValidationFormat.vb" />
     <Compile Include="Library\Process\ApplicationTypeArgs.vb" />
+    <Compile Include="Library\Process\AutomaticPayment.vb" />
     <Compile Include="Library\Process\ProcessInfo.vb" />
     <Compile Include="Library\Process\ProcessUtility.vb" />
     <Compile Include="Library\Process\VWCreditProcess.vb" />
+    <Compile Include="Library\Vehicle\BaseVehicle.vb" />
+    <Compile Include="Library\Framework\Pricing.vb" />
+    <Compile Include="Library\Vehicle\DealerProduct.vb" />
+    <Compile Include="Library\Vehicle\TradeVehicle.vb" />
     <Compile Include="Library\Vehicle\VehicleArgs.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -113,25 +146,40 @@
     </Compile>
     <Compile Include="UI\ContractPromptViewModel.vb" />
     <Compile Include="Library\Insurance.vb" />
+    <Compile Include="UI\Controls\AddressView.xaml.vb">
+      <DependentUpon>AddressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\AddressViewModel.vb" />
+    <Compile Include="UI\Controls\ApplicantManagerView.xaml.vb">
+      <DependentUpon>ApplicantManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\ApplicantManagerViewModel.vb" />
+    <Compile Include="UI\Controls\ApplicantView.xaml.vb">
+      <DependentUpon>ApplicantView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\ApplicantViewModel.vb" />
+    <Compile Include="UI\Controls\ProcessInfoView.xaml.vb">
+      <DependentUpon>ProcessInfoView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\ProcessInfoViewModel.vb" />
+    <Compile Include="UI\Controls\VWProcessView.xaml.vb">
+      <DependentUpon>VWProcessView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Controls\VWProcessViewModel.vb" />
     <Compile Include="UI\PromptContentView.xaml.vb">
       <DependentUpon>PromptContentView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\PromptContentViewModel.vb" />
-    <Compile Include="Library\Protection.vb" />
-    <Compile Include="UI\TestPanelView.xaml.vb">
-      <DependentUpon>TestPanelView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TestPanelViewModel.vb" />
     <Compile Include="Library\Vehicle\VehicleUtility.vb" />
     <Compile Include="Library\Vehicle\Vehicle.vb" />
+    <Compile Include="UI\ValidationPromptView.xaml.vb">
+      <DependentUpon>ValidationPromptView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ValidationPromptViewModel.vb" />
     <Compile Include="UI\VehicleUseView.xaml.vb">
       <DependentUpon>VehicleUseView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\VehicleUseViewModel.vb" />
-    <Compile Include="UI\VWContractRequirementView.xaml.vb">
-      <DependentUpon>VWContractRequirementView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UI\VWContractRequirementViewModel.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
@@ -153,7 +201,35 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UI\VehicleUseView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Resource Include="Resources\VWContractResource.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Resource>
     <Page Include="UI\ContractPromptView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\AddressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\ApplicantManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\ApplicantView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\ProcessInfoView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\Controls\VWProcessView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -161,17 +237,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\TestPanelView.xaml">
+    <Page Include="UI\ValidationPromptView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\VehicleUseView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UI\VWContractRequirementView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -179,9 +247,7 @@
     <Resource Include="Resources\forbidden.png" />
     <Resource Include="Resources\VWLogo.jpg" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Library\Applicant\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

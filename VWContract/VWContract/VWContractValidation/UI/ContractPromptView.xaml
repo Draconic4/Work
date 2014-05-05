@@ -3,20 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             mc:Ignorable="d" 
-             d:DesignHeight="320" d:DesignWidth="300">
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Background="White">
+             mc:Ignorable="d" MinWidth="412">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/VWContractValidation;component/Resources/VWContractResource.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Background="{DynamicResource bckBrush}">
             <ContentControl x:Name="VehicleUseVM"></ContentControl>
-            <Grid Visibility="Visible">
-                <!--CL/AH Insurance Carrier-->
-                <Grid.Resources>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="Control.Margin" Value="4,2"/>
-                    </Style>
-                </Grid.Resources>
+            <!--<Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -24,22 +25,18 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Border Grid.Row="0" Background="AliceBlue" Grid.ColumnSpan="2">
-                    <Label FontSize="14">Credit Life / Accident Health</Label>
+                <Border Grid.Row="0" Grid.ColumnSpan="2" Style="{DynamicResource bdrVWContract}">
+                    <TextBlock Style="{DynamicResource tbkMinorVWContract}">Credit Life / Accident Health</TextBlock>
                 </Border>
-                <Label Grid.Row="1" Grid.Column="0">Carrier Name:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
-                <Label Grid.Row="2" Grid.Column="0">Address:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+                <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource lblVWContract}">Carrier Name</Label>
+                <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource txtVWContract}"></TextBox>
+                <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource lblVWContract}">Address</Label>
+                <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource txtVWContract}"></TextBox>
             </Grid>
             <Grid>
-                <Grid.Resources>
-                    <Style TargetType="{x:Type TextBox}">
-                        <Setter Property="Control.Margin" Value="4,2"/>
-                    </Style>
-                </Grid.Resources>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition Height="2"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
@@ -49,17 +46,16 @@
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Border Background="AliceBlue" Grid.Row="0" Grid.ColumnSpan="4" Visibility="Visible">
-                    <Label FontSize="14">VSI Insurance</Label>
+                <Border Grid.Row="0" Grid.ColumnSpan="4" Style="{DynamicResource bdrVWContract}">
+                    <TextBlock Style="{DynamicResource tbkMinorVWContract}">VSI Insurance</TextBlock>
                 </Border>
-                <Label Grid.Row="1">Provider:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
-                <Label Grid.Row="1" Grid.Column="2">Term:</Label>
-                <TextBox Grid.Row="1" Grid.Column="3"></TextBox>
-                <Label Grid.Row="2" Grid.Column="0">Address:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3"></TextBox>
-            </Grid>
-
+                <Label Grid.Row="2" Style="{DynamicResource lblVWContract}">Provider</Label>
+                <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource txtVWContract}"></TextBox>
+                <Label Grid.Row="2" Grid.Column="2" Style="{DynamicResource lblVWContract}">Term</Label>
+                <TextBox Grid.Row="2" Grid.Column="3" Style="{DynamicResource txtVWContract}"></TextBox>
+                <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource lblVWContract}">Address</Label>
+                <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Style="{DynamicResource txtVWContract}"></TextBox>
+            </Grid>-->
         </StackPanel>
     </ScrollViewer>
 </UserControl>

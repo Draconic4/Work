@@ -8,15 +8,22 @@
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="140" d:DesignWidth="300">
-    <StackPanel>
-        <Border Background="AliceBlue">
-            <Grid Margin="0,2,0,0">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/VWContractValidation;component/Resources/VWContractResource.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+        <StackPanel>
+        <Border Style="{DynamicResource bdrVWContract}">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" FontSize="14">Primary Use:</Label>
-                <ComboBox x:Name="cboVehicleUse" Grid.Column="1" Margin="4,2" SelectedItem="{Binding VehicleData.VehicleUse}" ItemsSource="{Binding UseTypes}">
+                <Label Grid.Column="0" Style="{DynamicResource lblVWContract}">Primary Use</Label>
+                <ComboBox x:Name="cboVehicleUse" Grid.Column="1" Style="{DynamicResource cboVWContract}" SelectedItem="{Binding VehicleData.Use}" ItemsSource="{Binding UseTypes}">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="SelectionChanged">
                             <cal:ActionMessage MethodName="VehicleUseChanged">
@@ -27,31 +34,26 @@
                 </ComboBox>
             </Grid>
         </Border>
-        <Grid Visibility="{Binding UseGridVisibility}">
-            <Grid.Resources>
-                <Style TargetType="{x:Type TextBox}">
-                    <Setter Property="Control.Margin" Value="4,2"/>
-                </Style>
-            </Grid.Resources>
+        <Grid Height="{Binding UseGrid}">
             <!--Primary Use is Personal Collapse-->
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="{Binding OtherUse}"></RowDefinition>
+                <RowDefinition Height="{Binding BusinessUse}"></RowDefinition>
+                <RowDefinition Height="{Binding BusinessUse}"></RowDefinition>
+                <RowDefinition Height="{Binding BusinessUse}"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Visibility="{Binding OtherUseVisibility}">Other Use Description:</Label>
-            <TextBox Grid.Row="0" Grid.Column="1" Visibility="{Binding OtherUseVisibility}" Text="{Binding VehicleData.OtherUseDescription}"/>
-            <Label Grid.Row="1" Grid.Column="0" Visibility="{Binding BusinessAgricultureUseVisibility}">Number of Days Grace:</Label>
-            <TextBox Grid.Row="1" Grid.Column="1" Visibility="{Binding BusinessAgricultureUseVisibility}" Text="{Binding VehicleData.NumberDaysGrace}"></TextBox>
-            <Label Grid.Row="2" Grid.Column="0" Visibility="{Binding BusinessAgricultureUseVisibility}">Flat Late Charge:</Label>
-            <TextBox Grid.Row="2" Grid.Column="1" Visibility="{Binding BusinessAgricultureUseVisibility}" Text="{Binding VehicleData.LateChargeFlat}"></TextBox>
-            <Label Grid.Row="3" Grid.Column="0" Visibility="{Binding BusinessAgricultureUseVisibility}">Late Charge Rate:</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" Visibility="{Binding BusinessAgricultureUseVisibility}" Text="{Binding VehicleData.LateChargeRate}"></TextBox>
+            <Label Grid.Row="0" Grid.Column="0" Style="{DynamicResource lblVWContract}">Other Use Description</Label>
+            <TextBox Grid.Row="0" Grid.Column="1" Style="{DynamicResource txtVWContract}" Text="{Binding VehicleData.OtherUseDescription}"/>
+            <Label Grid.Row="1" Grid.Column="0" Style="{DynamicResource lblVWContract}">Number of Days Grace</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Style="{DynamicResource txtVWContract}" Text="{Binding VehicleData.NumberDaysGrace}"></TextBox>
+            <Label Grid.Row="2" Grid.Column="0" Style="{DynamicResource lblVWContract}">Flat Late Charge</Label>
+            <TextBox Grid.Row="2" Grid.Column="1" Style="{DynamicResource txtVWContract}" Text="{Binding VehicleData.LateChargeFlat}"></TextBox>
+            <Label Grid.Row="3" Grid.Column="0" Style="{DynamicResource lblVWContract}">Late Charge Rate</Label>
+            <TextBox Grid.Row="3" Grid.Column="1" Style="{DynamicResource txtVWContract}" Text="{Binding VehicleData.LateChargeRate}"></TextBox>
         </Grid>
     </StackPanel>
 </UserControl>

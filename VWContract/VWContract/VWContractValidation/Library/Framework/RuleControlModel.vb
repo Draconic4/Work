@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.ComponentModel
+Imports System.Windows
 
 Public Class RuleControlModel
     Implements INotifyPropertyChanged
@@ -10,18 +11,18 @@ Public Class RuleControlModel
     Private _parent As RuleControlModel
     Private _children As ObservableCollection(Of RuleControlModel)
 
-    'Public ReadOnly Property BrokenRule As Visibility
-    '    Get
-    '        If _invalidBranch Then Return Visibility.Visible
-    '        Return Visibility.Collapsed
-    '    End Get
-    'End Property
-    'Public ReadOnly Property ValidSection As Visibility
-    '    Get
-    '        If Not _invalidBranch Then Return Visibility.Visible
-    '        Return Visibility.Collapsed
-    '    End Get
-    'End Property
+    Public ReadOnly Property BrokenRule As Visibility
+        Get
+            If _invalidBranch Then Return Visibility.Visible
+            Return Visibility.Collapsed
+        End Get
+    End Property
+    Public ReadOnly Property ValidSection As Visibility
+        Get
+            If Not _invalidBranch Then Return Visibility.Visible
+            Return Visibility.Collapsed
+        End Get
+    End Property
 
     Public Property IsSelected As Boolean
         Get

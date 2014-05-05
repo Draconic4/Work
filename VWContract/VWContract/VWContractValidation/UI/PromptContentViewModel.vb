@@ -1,69 +1,76 @@
 ﻿Imports Caliburn.Micro
+Imports System.Windows
+Imports VWContractValidation.ValidationLib
 
 Public Class PromptContentViewModel
     Inherits Conductor(Of Screen).Collection.OneActive
+    Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage), IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage)
 
     Private _dataContext As VWCreditProcess
     Private _eventAggregator As IEventAggregator
 
-    Public Const C_Requirement As String = "Requirement"
-    Private _requirement As VWContractRequirementViewModel
-    Public Const C_TestPanel As String = "TestPanel"
-    Private _testPanel As TestPanelViewModel
-    Public Const C_ContractPrompt As String = "ContractPrompt"
-    Private _contractPrompt As ContractPromptViewModel
+    Private _validationBegun As Boolean = False
+    Private _validated As Boolean = False
+
+    Private _promptContent As ContractPromptViewModel
+    Private _validationContent As ValidationPromptViewModel
 
 #Region "  Properties "
-    Public Property DataContext As VWCreditProcess
+    Public ReadOnly Property ContractStage As String
         Get
-            Return _dataContext
+            If _validated Then Return "Contract Validated"
+            If _validationBegun Then Return "Contract Validation"
+            Return "Contract"
         End Get
-        Set(value As VWCreditProcess)
-            _dataContext = value
+    End Property
+    Public Property PromptContent As ContractPromptViewModel
+        Get
+            Return _promptContent
+        End Get
+        Set(value As ContractPromptViewModel)
+            _promptContent = value
         End Set
     End Property
-    Public ReadOnly Property RequirementChecked() As Boolean
+    Public Property ValidationContent As ValidationPromptViewModel
         Get
-            Return Me.ActiveItem.GetType() Is GetType(VWContractRequirementViewModel)
+            Return _validationContent
         End Get
-    End Property
-    Public ReadOnly Property TestPanelChecked() As Boolean
-        Get
-            Return Me.ActiveItem.GetType() Is GetType(TestPanelViewModel)
-        End Get
-    End Property
-    Public ReadOnly Property ContractPromptChecked() As Boolean
-        Get
-            Return Me.ActiveItem.GetType() Is GetType(ContractPromptViewModel)
-        End Get
+        Set(value As ValidationPromptViewModel)
+            _validationContent = value
+        End Set
     End Property
 #End Region
 
-    Public Sub RequirementClicked()
-        'ChangeView(_requirement)
-    End Sub
-    Public Sub TestPanelClicked()
-        'ChangeView(_testPanel)
-    End Sub
-
-    Public Sub ChangeView(ByVal newView As Screen)
+    Private Sub ChangeView(ByVal newView As Screen)
         Me.ActiveItem = newView
-        Me.NotifyOfPropertyChange(C_Requirement & "Checked")
-        Me.NotifyOfPropertyChange(C_TestPanel & "Checked")
-        Me.NotifyOfPropertyChange(C_ContractPrompt & "Checked")
     End Sub
 
     Public Sub New(dc As VWCreditProcess, eAggr As IEventAggregator)
         _eventAggregator = eAggr
         _dataContext = dc
+        _validated = dc.IsValidated
         _eventAggregator.Subscribe(Me)
         GenerateScreens()
     End Sub
     Public Sub GenerateScreens()
-        Items.Clear()
-        _requirement = New VWContractRequirementViewModel(Me, _eventAggregator)
-        _testPanel = New TestPanelViewModel(Me, _eventAggregator)
-        _contractPrompt = New ContractPromptViewModel(Me.DataContext)
-        ChangeView(_contractPrompt)
+        _promptContent = New ContractPromptViewModel(Me._dataContext)
+        _validationContent = New ValidationPromptViewModel(Me._dataContext)
+        ChangeView(_promptContent)
     End Sub
+    Public Sub Handle_BeginDataCollectionMessage(message As PBS.Deals.FormsIntegration.BeginDataCollectMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginDataCollectMessage).Handle
+        If message.ActionInitiateCollect Then
+            Dim d As New Dictionary(Of String, Object)
+            _dataContext.ReplicateCurrentState(d)
+            _eventAggregator.Publish(New PBS.Deals.FormsIntegration.DataCollectionCompleteMessage() With {.ActionComplete = True, .CollectedResults = d})
+        End If
+    End Sub
+    Public Sub Handle_BeginValidationMessage(message As PBS.Deals.FormsIntegration.BeginValidationMessage) Implements IHandle(Of PBS.Deals.FormsIntegration.BeginValidationMessage).Handle
+        If message.BeginValidation Then
+            _dataContext.CheckRules()
+            _dataContext.GenerateRequirement()
+            _validationBegun = True
+            ChangeView(_validationContent)
+        End If
+    End Sub
+
 End Class

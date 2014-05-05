@@ -1,4 +1,6 @@
-﻿Public Class VehicleUtility
+﻿Imports VWContractValidation.ValidationLib
+
+Public Class VehicleUtility
 
 #Region " LAW Vehicle Usage Types "
     Public Const C_VEHICLEUSE_PERSONAL As String = "PERSONAL/FAMILY/HOUSEHOLD"

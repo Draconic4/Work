@@ -98,6 +98,9 @@
     </Compile>
     <Compile Include="TestProcessInfo.vb" />
     <Compile Include="TestPaymentSchedule.vb" />
+    <Compile Include="TestAddress.vb" />
+    <Compile Include="TestApplicant.vb" />
+    <Compile Include="TestCanadaOnly.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">

@@ -1,8 +1,9 @@
-﻿Imports VWContractValidation
+﻿Imports VWContractValidation.ValidationLib
 Module Module1
 
     Sub Main()
-        Dim pi As ProcessInfo = ProcessInfo.Fetch(Nothing, Nothing)
+        Dim bArgs As New BaseConstructionArgs With {.CurrentRun = Nothing, .PreviousRun = Nothing}
+        Dim pi As ProcessInfo = ProcessInfo.Fetch(bArgs)
 
     End Sub
 

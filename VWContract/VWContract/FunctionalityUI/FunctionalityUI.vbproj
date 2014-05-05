@@ -56,6 +56,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\Csla.dll</HintPath>
     </Reference>
+    <Reference Include="PBS.Deals.FormsIntegration, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\DvtAristo\proj_VWCreditValidation\Aristo.Deal\PBS.Deals.FormsIntegration\bin\Debug\PBS.Deals.FormsIntegration.dll</HintPath>
+    </Reference>
     <Reference Include="PBS.Framework.ControlLibrary, Version=0.0.425.1138, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\DvtAristo\Coding\_Environment\PBS.Framework.ControlLibrary.dll</HintPath>
@@ -127,6 +131,8 @@
     <Import Include="System.Windows.Navigation" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressUIFunctionality.vb" />
+    <Compile Include="ApplicantUIFunctionality.vb" />
     <Compile Include="FormPromptView.xaml.vb">
       <DependentUpon>FormPromptView.xaml</DependentUpon>
     </Compile>
